@@ -108,8 +108,8 @@ public class DmShoppingCartController extends GenericController {
         return true;
     }
 
-//    @PUT
-//    @Path("/mycart/add/{goodsId}")
+    @PUT
+    @Path("/mycart/add/{goodsId}")
 //    @RequestMapping(value = "/mycart/add/{goodsId}",method = RequestMethod.PUT)
     public boolean putGoodsIntoCart(@PathParam("goodsId") Integer goodsId){
         ShoppingCart cart = getShoppingCart();
