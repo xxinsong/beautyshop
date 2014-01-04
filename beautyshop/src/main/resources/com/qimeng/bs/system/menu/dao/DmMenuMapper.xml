@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.system.menu.dao.DmMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.system.menu.bean.DmMenu" >
+    <id column="MENU_ID" property="menuId" jdbcType="INTEGER" />
+    <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR" />
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+    <result column="PARENT_MENU" property="parentMenu" jdbcType="INTEGER" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="isLeaf" jdbcType="CHAR" />
+    <result column="MENU_PATH" property="menuPath" jdbcType="VARCHAR" />
+    <result column="MENU_DESC" property="menuDesc" jdbcType="VARCHAR" />
+    <result column="MENU_ORDER" property="menuOrder" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MENU_ID, MENU_CODE, MENU_NAME, PARENT_MENU, URL, ICON, IS_LEAF, MENU_PATH, MENU_DESC, 
+    MENU_ORDER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dm_menu
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_menu
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qimeng.bs.system.menu.bean.DmMenu" >
+    insert into dm_menu (MENU_ID, MENU_CODE, MENU_NAME, 
+      PARENT_MENU, URL, ICON, 
+      IS_LEAF, MENU_PATH, MENU_DESC, 
+      MENU_ORDER)
+    values (#{menuId,jdbcType=INTEGER}, #{menuCode,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{parentMenu,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{isLeaf,jdbcType=CHAR}, #{menuPath,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR}, 
+      #{menuOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertMenu" parameterType="java.util.Map" >
+    insert into dm_menu 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuCode != null and menuCode != ''" >
+        MENU_CODE,
+      </if>
+      <if test="menuName != null and menuName != ''" >
+        MENU_NAME,
+      </if>
+      <if test="parentMenu != null and parentMenu != ''" >
+        PARENT_MENU,
+      </if>
+      <if test="url != null and url != ''" >
+        URL,
+      </if>
+      <if test="icon != null and icon != ''" >
+        ICON,
+      </if>
+      <if test="isLeaf != null and isLeaf != ''" >
+        IS_LEAF,
+      </if>
+      <if test="menuPath != null and menuPath != ''" >
+        MENU_PATH,
+      </if>
+      <if test="menuDesc != null and menuDesc != ''" >
+        MENU_DESC,
+      </if>
+      <if test="menuOrder != null and menuOrder != ''" >
+        MENU_ORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuCode != null and menuCode != ''" >
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null and menuName != ''" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentMenu != null and parentMenu != ''" >
+        #{parentMenu,jdbcType=INTEGER},
+      </if>
+      <if test="url != null and url != ''" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null and icon != ''" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null and isLeaf != ''" >
+        #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="menuPath != null and menuPath != ''" >
+        #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null and menuDesc != ''" >
+        #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null and menuOrder != ''" >
+        #{menuOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.system.menu.bean.DmMenu" >
+    insert into dm_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="menuCode != null" >
+        MENU_CODE,
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME,
+      </if>
+      <if test="parentMenu != null" >
+        PARENT_MENU,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF,
+      </if>
+      <if test="menuPath != null" >
+        MENU_PATH,
+      </if>
+      <if test="menuDesc != null" >
+        MENU_DESC,
+      </if>
+      <if test="menuOrder != null" >
+        MENU_ORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuCode != null" >
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentMenu != null" >
+        #{parentMenu,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null" >
+        #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="menuPath != null" >
+        #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null" >
+        #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null" >
+        #{menuOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.system.menu.bean.DmMenu" >
+    update dm_menu
+    <set >
+      <if test="menuCode != null" >
+        MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentMenu != null" >
+        PARENT_MENU = #{parentMenu,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF = #{isLeaf,jdbcType=CHAR},
+      </if>
+      <if test="menuPath != null" >
+        MENU_PATH = #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null" >
+        MENU_DESC = #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null" >
+        MENU_ORDER = #{menuOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.system.menu.bean.DmMenu" >
+    update dm_menu
+    set MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      PARENT_MENU = #{parentMenu,jdbcType=INTEGER},
+      URL = #{url,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR},
+      IS_LEAF = #{isLeaf,jdbcType=CHAR},
+      MENU_PATH = #{menuPath,jdbcType=VARCHAR},
+      MENU_DESC = #{menuDesc,jdbcType=VARCHAR},
+      MENU_ORDER = #{menuOrder,jdbcType=INTEGER}
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </update>
+  <select id="searchAllMenus" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from dm_menu
+  </select>
+  
+  <select id="searchMenus" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from dm_menu where 1 = 1
+      <if test="parentMenu != null" >
+        and PARENT_MENU = #{parentMenu}
+      </if>
+  </select>
+  <select id="searchMenusByPriv" resultMap="BaseResultMap" parameterType="java.util.Map">
+      select b.*
+        from dm_privilege a, dm_menu b, dm_staff_privilege c
+       where a.menu_id = b.menu_id
+         and a.privilege_id = c.privilege_id
+         and a.type = 'MENU'
+         and b.parent_menu = #{parentMenu}
+      <if test="privIds != null and privIds.size() > 0">
+			and a.privilege_id in
+			<foreach item="item" index="index" collection="privIds" open="(" separator="," close=")">
+			    #{item}
+			</foreach>
+      </if>   
+         and c.staff_id = #{staffId}
+      union
+      select c.*
+        from dm_privilege a, dm_role_privilege b, dm_menu c, dm_staff_role d
+       where a.privilege_id = b.privilege_id
+         and a.menu_id = c.menu_id
+         and b.role_id = d.role_id
+         and a.type = 'MENU'
+         and c.parent_menu = #{parentMenu}
+      <if test="privIds != null and privIds.size() > 0">
+			and a.privilege_id in
+			<foreach item="item" index="index" collection="privIds" open="(" separator="," close=")">
+			    #{item}
+			</foreach>
+      </if>   
+         and d.staff_id = #{staffId}
+  </select>
+</mapper>

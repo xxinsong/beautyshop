@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qimeng.bs.admin.goods.dao.DmTagsMapper">
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.goods.bean.DmTags">
+    <id column="TAG_ID" jdbcType="INTEGER" property="tagId" />
+    <result column="TAG_NAME" jdbcType="VARCHAR" property="tagName" />
+    <result column="TAG_TYPE" jdbcType="VARCHAR" property="tagType" />
+    <result column="PARENT_TAG_ID" jdbcType="INTEGER" property="parentTagId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPER_ID" jdbcType="INTEGER" property="createOperId" />
+    <result column="IS_LEAF" jdbcType="VARCHAR" property="isLeaf" />
+  </resultMap>
+  
+  <resultMap id="TagRelationMap" type="com.qimeng.bs.admin.goods.bean.DmTags">
+    <id column="TAG_ID" jdbcType="INTEGER" property="tagId" />
+    <result column="TAG_NAME" jdbcType="VARCHAR" property="tagName" />
+    <result column="TAG_TYPE" jdbcType="VARCHAR" property="tagType" />
+    <result column="PARENT_TAG_ID" jdbcType="INTEGER" property="parentTagId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPER_ID" jdbcType="INTEGER" property="createOperId" />
+    <result column="IS_LEAF" jdbcType="VARCHAR" property="isLeaf" />
+    <result column="TAG_GROUP_ID" property="tagGroupId"/>
+    <result column="GOODS_ID" property="goodsId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    tag.TAG_ID, tag.TAG_NAME, tag.TAG_TYPE,tag.PARENT_TAG_ID, 
+    tag.CREATE_DATE, tag.CREATE_OPER_ID, tag.IS_LEAF
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dm_tags tag
+    where tag.TAG_ID = #{tagId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dm_tags
+    where TAG_ID = #{tagId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qimeng.bs.admin.goods.bean.DmTags" keyProperty="tagId" useGeneratedKeys="true">
+    insert into dm_tags (TAG_ID, TAG_NAME, TAG_TYPE, 
+      PARENT_TAG_ID, CREATE_DATE, CREATE_OPER_ID, 
+      IS_LEAF)
+    values (#{tagId,jdbcType=INTEGER}, #{tagName,jdbcType=VARCHAR}, #{tagType,jdbcType=VARCHAR}, 
+      #{parentTagId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{createOperId,jdbcType=INTEGER}, 
+      #{isLeaf,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.goods.bean.DmTags">
+    insert into dm_tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tagId != null">
+        TAG_ID,
+      </if>
+      <if test="tagName != null">
+        TAG_NAME,
+      </if>
+      <if test="tagType != null">
+        TAG_TYPE,
+      </if>
+      <if test="parentTagId != null">
+        PARENT_TAG_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createOperId != null">
+        CREATE_OPER_ID,
+      </if>
+      <if test="isLeaf != null">
+        IS_LEAF,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagType != null">
+        #{tagType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentTagId != null">
+        #{parentTagId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        #{createOperId,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.goods.bean.DmTags">
+    update dm_tags
+    <set>
+      <if test="tagName != null">
+        TAG_NAME = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagType != null">
+        TAG_TYPE = #{tagType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentTagId != null">
+        PARENT_TAG_ID = #{parentTagId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createOperId != null">
+        CREATE_OPER_ID = #{createOperId,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null">
+        IS_LEAF = #{isLeaf,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TAG_ID = #{tagId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.goods.bean.DmTags">
+    update dm_tags
+    set TAG_NAME = #{tagName,jdbcType=VARCHAR},
+      TAG_TYPE = #{tagType,jdbcType=VARCHAR},
+      PARENT_TAG_ID = #{parentTagId,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_OPER_ID = #{createOperId,jdbcType=INTEGER},
+      IS_LEAF = #{isLeaf,jdbcType=VARCHAR}
+    where TAG_ID = #{tagId,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="tagName != null and tagName != ''">AND tag.TAG_NAME like CONCAT('%', #{tagName}, '%')</if>
+      <if test="tagType != null and tagType != ''">AND tag.TAG_CODE =#{tagType} </if>
+      <if test="tagId != null and tagId != ''">AND tag.TAG_ID =#{tagId} </if>
+      <choose>
+           <when test="parentTagId!=null">And tag.PARENT_TAG_ID=#{parentTagId}</when>
+           <when test="parentTag!=null and parentTag.tagId !=null "> And tag.PARENT_TAG_ID=#{parentTag.tagId} </when>
+      </choose>
+    </trim>
+  </sql>
+  
+  <select id="findTags" parameterType="java.lang.Object" resultMap="TagRelationMap">
+       select 
+    <include refid="Base_Column_List"/>,
+    goodstag.TAG_GROUP_ID,goodstag.GOODS_ID 
+    from dm_tags tag
+   <!--  <if test=""></if> -->
+    left join (select * from dm_goods_tag  where GOODS_ID=#{goodsId}) goodstag
+         on tag.TAG_ID = goodstag.TAG_ID
+    <include refid="Where_Clause" />
+  </select>
+  
+</mapper>

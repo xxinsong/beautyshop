@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN"
+    "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+
+  <init>
+    <converter id="map" class="com.qimeng.common.dwr.MapConverter"/>
+    <converter id="array" class="com.qimeng.common.dwr.ArrayConverter"/>
+    <converter id="collection" class="com.qimeng.common.dwr.CollectionConverter"/>
+  </init>
+
+  <allow>
+    <convert converter="map" match="java.util.Map"/>
+    <convert converter="map" match="java.util.HashMap"/>
+    <convert converter="collection" match="java.util.Collection"/>
+    <convert converter="array" match="[Z"/>
+    <convert converter="array" match="[S"/>
+    <convert converter="array" match="[I"/>
+    <convert converter="array" match="[J"/>
+    <convert converter="array" match="[F"/>
+    <convert converter="array" match="[D"/>
+    <convert converter="array" match="[C"/>
+    <convert converter="array" match="[L*"/>
+  </allow>
+
+</dwr>

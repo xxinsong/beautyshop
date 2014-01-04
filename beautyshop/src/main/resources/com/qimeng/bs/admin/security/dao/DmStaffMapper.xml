@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.admin.security.dao.DmStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.security.bean.DmStaff" >
+    <id column="STAFF_ID" property="staffId" jdbcType="INTEGER" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="STAFF_CODE" property="staffCode" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+    <result column="STAFF_DESC" property="staffDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP" />
+    <result column="PARTY_ID" property="partyId" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ <resultMap id="DmStaffResultMap" type="com.qimeng.bs.admin.security.bean.DmStaff" >
+    <id column="STAFF_ID" property="staffId" jdbcType="INTEGER" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="STAFF_CODE" property="staffCode" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="VARCHAR" />
+    <result column="STAFF_DESC" property="staffDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP" />
+    <result column="PARTY_ID" property="partyId" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <association property="organization"  resultMap="com.qimeng.bs.admin.security.dao.DmOrganizationMapper.BaseResultMap"></association>
+    <collection property="privileges"   ofType="com.qimeng.bs.admin.security.bean.DmPrivilege" resultMap="com.qimeng.bs.admin.security.dao.DmPrivilegeMapper.BaseResultMap"/>
+    <collection property="roles"  ofType="com.qimeng.bs.admin.security.bean.DmRole" resultMap="com.qimeng.bs.admin.security.dao.DmRoleMapper.BaseResultMap"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    dmstaff.STAFF_ID, 
+    dmstaff.ORG_ID, 
+    dmstaff.STAFF_CODE,
+    dmstaff.PASSWORD,
+    dmstaff.STAFF_NAME, 
+    dmstaff.GENDER, 
+    dmstaff.STAFF_DESC, 
+    dmstaff.CREATE_DATE, 
+    dmstaff.EFF_DATE, 
+    dmstaff.PARTY_ID, 
+    dmstaff.STATE
+  </sql>
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="staffName != null">AND dmstaff.STAFF_NAME like CONCAT('%', #{staffName}, '%')</if>
+      <if test="staffCode != null">AND dmstaff.STAFF_CODE = #{staffCode}</if>
+      <if test="orgId != null">AND dmstaff.ORG_ID = #{orgId}</if>
+    </trim>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dm_staff dmstaff
+    where dmstaff.STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectEagerByPrimaryKey" resultMap="DmStaffResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List"/>,
+    <include refid="com.qimeng.bs.admin.security.dao.DmRoleMapper.Base_Column_List"/>,
+    <include refid="com.qimeng.bs.admin.security.dao.DmPrivilegeMapper.Base_Column_List"/>
+	from dm_staff dmstaff
+	LEFT JOIN  dm_staff_privilege staff_pri on dmstaff.STAFF_ID = staff_pri.STAFF_ID
+	LEFT JOIN dm_privilege dmpri on staff_pri.PRIVILEGE_ID = dmpri.PRIVILEGE_ID
+	LEFT JOIN dm_staff_role staff_role on staff_role.STAFF_ID = dmstaff.STAFF_ID
+	LEFT JOIN dm_role dmrole on dmrole.ROLE_ID = staff_role.ROLE_ID
+	where dmstaff.STAFF_ID=#{staffId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_staff
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.qimeng.bs.admin.security.bean.DmStaff" keyProperty="staffId" useGeneratedKeys="true">
+    insert into dm_staff (STAFF_ID, ORG_ID, STAFF_CODE, 
+      PASSWORD, STAFF_NAME, GENDER, 
+      STAFF_DESC, CREATE_DATE, EFF_DATE, 
+      PARTY_ID, STATE)
+    values (#{staffId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{staffCode,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{staffDesc,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{effDate,jdbcType=TIMESTAMP}, 
+      #{partyId,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.security.bean.DmStaff" >
+    insert into dm_staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >STAFF_ID,</if>
+      <if test="orgId != null" > ORG_ID,</if>
+      <if test="staffCode != null" >STAFF_CODE,</if>
+      <if test="password != null" >PASSWORD,</if>
+      <if test="staffName != null" >STAFF_NAME,      </if>
+      <if test="gender != null" >        GENDER,      </if>
+      <if test="staffDesc != null" >        STAFF_DESC,      </if>
+      <if test="createDate != null" >        CREATE_DATE,</if>
+      <if test="effDate != null" >        EFF_DATE,      </if>
+      <if test="partyId != null" >        PARTY_ID,      </if>
+      <if test="state != null" >        STATE,      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >        #{staffId,jdbcType=INTEGER},      </if>
+      <if test="orgId != null" >        #{orgId,jdbcType=INTEGER},      </if>
+      <if test="staffCode != null" >        #{staffCode,jdbcType=VARCHAR},      </if>
+      <if test="password != null" >        #{password,jdbcType=VARCHAR},      </if>
+      <if test="staffName != null" >        #{staffName,jdbcType=VARCHAR},      </if>
+      <if test="gender != null" >        #{gender,jdbcType=VARCHAR},      </if>
+      <if test="staffDesc != null" >        #{staffDesc,jdbcType=VARCHAR},      </if>
+      <if test="createDate != null" >        #{createDate,jdbcType=TIMESTAMP},      </if>
+      <if test="effDate != null" >        #{effDate,jdbcType=TIMESTAMP},      </if>
+      <if test="partyId != null" >        #{partyId,jdbcType=INTEGER},      </if>
+      <if test="state != null" >        #{state,jdbcType=VARCHAR},      </if>
+    </trim>
+  </insert>
+  
+  <!-- 绑定权限 -->
+  <insert id="attachPrivileges" >
+	insert into dm_staff_privilege(STAFF_ID,PRIVILEGE_ID) values 
+	<foreach item="pri" collection="privileges" open="" separator="," close="">
+		(#{staffId},#{pri.privilegeId})
+	</foreach>	
+  </insert>
+  
+  <!-- 绑定角色 -->
+  <insert id="attachRoles" >
+	insert into dm_staff_role(ROLE_ID,STAFF_ID) values 
+	<foreach item="role" collection="roles" open="" separator="," close="">
+		(#{role.roleId},#{staffId})
+	</foreach>	
+  </insert>
+  
+  <!-- 解除绑定权限 -->
+  <delete id="unattachPrivileges" parameterType="java.lang.Integer" >
+	delete  from dm_staff_privilege 
+	where STAFF_ID=#{staffId}
+  </delete>
+  
+  <!-- 解除绑定角色 -->
+  <delete id="unattachRoles" parameterType="java.lang.Integer" >
+	delete from dm_staff_role
+	where STAFF_ID=#{staffId}
+  </delete>
+  
+  <update id="unattachOrg" >
+  update dm_staff set ORG_ID=-1
+   where ORG_ID=#{orgId}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.security.bean.DmStaff" >
+    update dm_staff
+    <set >
+      <if test="orgId != null" >        ORG_ID = #{orgId,jdbcType=INTEGER},      </if>
+      <if test="staffCode != null" >        STAFF_CODE = #{staffCode,jdbcType=VARCHAR},      </if>
+      <if test="password != null" >        PASSWORD = #{password,jdbcType=VARCHAR},      </if>
+      <if test="staffName != null" >        STAFF_NAME = #{staffName,jdbcType=VARCHAR},      </if>
+      <if test="gender != null" >        GENDER = #{gender,jdbcType=VARCHAR},      </if>
+      <if test="staffDesc != null" >        STAFF_DESC = #{staffDesc,jdbcType=VARCHAR},      </if>
+      <if test="createDate != null" >        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},      </if>
+      <if test="effDate != null" >        EFF_DATE = #{effDate,jdbcType=TIMESTAMP},      </if>
+      <if test="partyId != null" >        PARTY_ID = #{partyId,jdbcType=INTEGER},      </if>
+      <if test="state != null" >        STATE = #{state,jdbcType=VARCHAR},      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.security.bean.DmStaff" >
+    update dm_staff
+    set ORG_ID = #{orgId,jdbcType=INTEGER},
+      STAFF_CODE = #{staffCode,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=VARCHAR},
+      STAFF_DESC = #{staffDesc,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      PARTY_ID = #{partyId,jdbcType=INTEGER},
+      STATE = #{state,jdbcType=VARCHAR}
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findStaffs" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_staff dmstaff
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="findAllStaffs" parameterType="com.qimeng.common.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_staff dmstaff
+    <trim prefix="where" prefixOverrides="AND |OR">
+            <if test="params.staffName != null and params.staffName!=''">AND dmstaff.STAFF_NAME like CONCAT('%', #{staffName}, '%')</if>
+            <if test="params.staffCode != null and params.staffCode!=''">AND dmstaff.STAFF_CODE like CONCAT('%', #{staffCode}, '%')</if>
+            <if test="params.orgId!=null and params.orgId!=''">AND dmstaff.ORG_ID = #{orgId}</if>
+    </trim>
+  </select>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qimeng.bs.admin.goods.dao.DmTagsItemMapper">
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.goods.bean.DmTagsItem">
+    <id column="ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TAG_ID" jdbcType="INTEGER" property="tagId" />
+    <result column="ITEM_VALUE" jdbcType="VARCHAR" property="itemValue" />
+    <result column="ITEM_DESC" jdbcType="VARCHAR" property="itemDesc" />
+    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+  </resultMap>
+  
+  <resultMap id="TagItemsRelationMap" type="com.qimeng.bs.admin.goods.bean.DmTagsItem">
+    <id column="ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="TAG_ID" jdbcType="INTEGER" property="tagId" />
+    <result column="ITEM_VALUE" jdbcType="VARCHAR" property="itemValue" />
+    <result column="ITEM_DESC" jdbcType="VARCHAR" property="itemDesc" />
+    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="TAG_GROUP_ID" property="tagGroupId"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    tagsitem.ITEM_ID, tagsitem.TAG_ID, tagsitem.ITEM_VALUE, tagsitem.ITEM_DESC, tagsitem.ORDER_ID
+  </sql>
+  
+  <select id="selectTagsItems" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+     from dm_tags_item tagsitem
+     where tagsitem.TAG_ID = #{tagId}
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dm_tags_item tagsitem
+    where tagsitem.ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dm_tags_item
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qimeng.bs.admin.goods.bean.DmTagsItem" keyProperty="itemId"  useGeneratedKeys="true" >
+    insert into dm_tags_item (ITEM_ID, TAG_ID, ITEM_VALUE, 
+      ITEM_DESC, ORDER_ID)
+    values (#{itemId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, #{itemValue,jdbcType=VARCHAR}, 
+      #{itemDesc,jdbcType=VARCHAR}, #{orderId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.goods.bean.DmTagsItem">
+    insert into dm_tags_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="tagId != null">
+        TAG_ID,
+      </if>
+      <if test="itemValue != null">
+        ITEM_VALUE,
+      </if>
+      <if test="itemDesc != null">
+        ITEM_DESC,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="itemValue != null">
+        #{itemValue,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDesc != null">
+        #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+   <update id="unattachTag" >
+  update dm_tags_item set TAG_ID=-1
+   where TAG_ID=#{tagId}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.goods.bean.DmTagsItem">
+    update dm_tags_item
+    <set>
+      <if test="tagId != null">
+        TAG_ID = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="itemValue != null">
+        ITEM_VALUE = #{itemValue,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDesc != null">
+        ITEM_DESC = #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.goods.bean.DmTagsItem">
+    update dm_tags_item
+    set TAG_ID = #{tagId,jdbcType=INTEGER},
+      ITEM_VALUE = #{itemValue,jdbcType=VARCHAR},
+      ITEM_DESC = #{itemDesc,jdbcType=VARCHAR},
+      ORDER_ID = #{orderId,jdbcType=INTEGER}
+    where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="itemValue != null">AND tagsitem.ITEM_VALUE like CONCAT('%', #{itemValue}, '%')</if>
+      <if test="tagId != null">AND tagsitem.TAG_ID = #{tagId}</if>
+    </trim>
+  </sql>
+  
+  <select id="findTagsItems" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+     from dm_tags_item tagsitem
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="findAllTagsItems" parameterType="com.qimeng.common.Page" resultMap="TagItemsRelationMap">
+    select 
+    <include refid="Base_Column_List"/>
+    <if test="params.tagGroupId !=null and params.tagGroupId !=''">
+       ,goodstagvalue.TAG_GROUP_ID
+    </if>
+    from dm_tags_item tagsitem
+    <!-- tagGroupId:商品与标签关联主键id，
+                         查找特定商品特定标签的条目列表
+          -->
+    <if test="params.tagGroupId !=null and params.tagGroupId !=''">
+    left join (select * from dm_goods_tag_value where TAG_GROUP_ID=#{tagGroupId}) goodstagvalue 
+    on tagsitem.ITEM_ID =  goodstagvalue.ITEM_ID
+    </if>
+    <trim prefix="where" prefixOverrides="AND |OR">
+            <if test="params.itemValue != null and params.itemValue!=''">AND tagsitem.ITEM_VALUE like CONCAT('%', #{itemValue}, '%')</if>
+            <if test="params.tagId!=null and params.tagId!=''">AND tagsitem.TAG_ID = #{tagId}</if>
+    </trim>
+  </select>
+  
+    <select id="findGoodsTag" resultType="java.util.Map" parameterType="java.lang.Integer" >
+ select c.ITEM_VALUE,c.ITEM_ID,c.ITEM_DESC,a.GOODS_ID,d.TAG_ID,d.TAG_NAME  from DM_GOODS_TAG a ,
+ DM_GOODS_TAG_VALUE b ,DM_TAGS_ITEM c ,DM_TAGS d where 
+ a.TAG_GROUP_ID =b.TAG_GROUP_ID and b.ITEM_ID = c.ITEM_ID   and a.TAG_ID =d.TAG_ID
+    and a.goods_id = #{goodsId}
+    
+  </select>
+  
+ 
+  
+</mapper>

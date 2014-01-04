@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.market.goods.dao.GoodsMapper">
+	<resultMap type="java.util.Map" id="GoodsTagsMap">
+	    <id column="goods_id" property="goods_id" jdbcType="INTEGER" />
+	    <result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+		<collection property="tags" javaType="java.util.List" ofType="java.util.Map" resultMap="TagsMap"></collection>
+	</resultMap>
+	<resultMap type="java.util.Map" id="TagsMap">
+		<id column="tag_id" property="tag_id" jdbcType="INTEGER" />
+		<result column="tag_name" property="tag_name" jdbcType="VARCHAR" />
+		<collection property="tags_item" javaType="java.util.List" ofType="java.util.Map" resultMap="TagsItemMap"></collection>
+	</resultMap>
+	<resultMap type="java.util.Map" id="TagsItemMap">
+		<id column="item_id" property="item_id" jdbcType="INTEGER" />
+		<result column="item_value" property="item_value" jdbcType="VARCHAR" />
+		<result column="item_desc" property="item_desc" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="searchGoodsTags" resultMap="TagsMap" parameterType="java.util.Map">
+		select c.tag_id,
+               c.tag_name,
+               d.item_id,
+               d.item_value,
+               d.item_desc
+          from dm_goods a, dm_goods_tag b, dm_tags c
+          left join dm_tags_item d on c.tag_id = d.tag_id
+         where a.goods_id = b.goods_id
+           and b.tag_id = c.tag_id
+        <if test="goods != null">
+			and a.goods_id in
+			<foreach item="item" index="index" collection="goods" open="(" separator="," close=")">
+			    #{item}
+			</foreach>
+        </if>  
+	</select>
+	<sql id="dm_goods_column_list">
+		goods_id, catalog_id, goods_no, goods_name, alias, type, image_uri, sale_way, base_price, state, create_staff, create_date, eff_date, exp_date, date_format(putaway_time, '%Y-%m-%d %T') putaway_time, goods_desc, goods_props, view_count, hints
+    </sql>
+    <sql id="dm_goods_catalog_column_list">
+		catalog_id, catalog_name, alias, catalog_desc, up_catalog_id, state, create_staff_no, create_date, order_id, is_leaf
+    </sql>
+	<select id="searchGoods" resultType="java.util.Map" parameterType="java.util.Map">
+		select 
+        <include refid="dm_goods_column_list" />
+          from dm_goods
+         where 1 = 1
+		<if test="catalog_id != null">
+			and catalog_id = #{catalog_id}
+        </if>
+	</select>
+	<resultMap type="java.util.Map" id="GoodsPageMap">
+		<id column="goods_id" property="goods_id" jdbcType="INTEGER" />
+		<result column="catalog_id" property="catalog_id" jdbcType="INTEGER" />
+		<result column="goods_no" property="goods_no" jdbcType="VARCHAR" />
+		<result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+		<result column="alias" property="alias" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="image_uri" property="image_uri" jdbcType="VARCHAR" />
+		<result column="sale_way" property="sale_way" jdbcType="VARCHAR" />
+		<result column="base_price" property="base_price" jdbcType="DECIMAL" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="create_staff" property="create_staff" jdbcType="VARCHAR" />
+		<result column="create_date" property="create_date" jdbcType="TIMESTAMP" />
+		<result column="eff_date" property="eff_date" jdbcType="TIMESTAMP" />
+		<result column="exp_date" property="exp_date" jdbcType="TIMESTAMP" />
+		<result column="putaway_time" property="putaway_time" jdbcType="TIMESTAMP" />
+		<result column="goods_desc" property="goods_desc" jdbcType="VARCHAR" />
+		<result column="goods_props" property="goods_props" jdbcType="VARCHAR" />
+		<result column="view_count" property="view_count" jdbcType="INTEGER" />
+		<result column="hints" property="hints" jdbcType="VARCHAR" />
+		<collection property="props" javaType="java.util.List" ofType="java.util.Map" resultMap="PropMap"></collection>
+	</resultMap>
+	<resultMap type="java.util.Map" id="PropMap">
+		<id column="prop" property="prop" />
+	</resultMap>
+	<select id="searchGoodsPage" resultType="java.util.Map" parameterType="com.qimeng.common.Page">
+	    select distinct
+        <include refid="dm_goods_column_list" />
+               , plan_price, inst_num, comment_num
+               from (select t1.*
+          from (select a.*, concat(b.tag_id, ':', c.item_id) prop
+                        , round(dgp.plan_price, 2) plan_price
+			            ,(select count(*) from dm_goods_inst e where e.goods_id = a.goods_id) inst_num
+			            ,(select count(*) from dm_cust_comment f where f.goods_id = a.goods_id) comment_num
+                  from dm_goods a
+                  left join dm_goods_tag b on a.goods_id = b.goods_id
+                  left join dm_goods_tag_value c on b.tag_group_id = c.tag_group_id
+                  left join dm_goods_plan dgp on a.goods_id = dgp.goods_id
+                 where 1 = 1
+        <if test="params.catas != null and params.catas.size() > 0">
+			       and a.catalog_id in
+			<foreach item="item" index="index" collection="params.catas" open="(" separator="," close=")">
+			    #{item}
+			</foreach>
+        </if>         
+               ) t1 where 1 = 1
+        <if test="params.prop != null and params.prop.size() > 0">
+			and t1.prop in
+			<foreach item="item" index="index" collection="params.prop" open="(" separator="," close=")">
+			    #{item}
+			</foreach>
+        </if> 
+        ) t2      
+        <if test="params.query_type != null and params.query_type == '001'">
+         order by inst_num desc
+        </if>     
+        <if test="params.query_type != null and params.query_type == '002'">
+         order by base_price desc
+        </if>
+        <if test="params.query_type != null and params.query_type == '003'">
+         order by comment_num desc
+        </if>
+        <if test="params.query_type != null and params.query_type == '004'">
+         order by putaway_time desc
+        </if>    
+	</select>
+	<select id="searchHotGoods" resultType="java.util.Map" parameterType="java.util.Map">
+		select <include refid="dm_goods_column_list" />
+		       , plan_price, inst_num, comment_num
+          from (select a.*, round(dgp.plan_price, 2) plan_price,
+                       (select count(*) from dm_goods_inst b where b.goods_id = a.goods_id) inst_num,
+                       (select count(*) from dm_cust_comment c where c.goods_id = a.goods_id) comment_num
+                  from dm_goods a left join dm_goods_plan dgp on a.goods_id = dgp.goods_id) tt
+         order by tt.inst_num desc limit 0, #{num}
+	</select>
+	<select id="searchGoodsCatalogs" resultType="java.util.Map" parameterType="java.util.Map">
+		select 
+        <include refid="dm_goods_catalog_column_list" />
+          from dm_goods_catalog
+         where 1 = 1
+		<if test="catalog_id != null">
+			and catalog_id = #{catalog_id}
+        </if>
+        <if test="up_catalog_id != null">
+			and up_catalog_id = #{up_catalog_id}
+        </if>
+	</select>
+</mapper>

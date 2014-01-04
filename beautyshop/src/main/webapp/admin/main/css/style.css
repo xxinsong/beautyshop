@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* CSS Document */
+body{font-size:12px;}
+
+
+/*头部样式*/
+.topbar{ background:url(../images/topbar.jpg) repeat-x; height:54px; z-index:1000; position:static; left:0px; top:0px; right:0px;}
+.top_content{ background:url(../images/toplogo.jpg) left top no-repeat; height:54px; font-size:12px;}
+.top_right_content{ width:600px; float:right; height:54px;}
+.top_right{ position:absolute; right:0px; top:0px; height:63px;}
+.top_right_menu{ width:360px; float:right; height:54px;text-align:right;}
+.top_right_msg{ padding-right:10px; color:#fff; line-height:25px;_padding-top:5px;}
+.top_right_msg span.user{ color:#fffb86; margin-left:8px; margin-right:8px;}
+.top_user_msg{ line-height:22px; color:#fff; text-align:right; padding-right:10px;}
+.top_user_msg span{ margin-left:8px;}
+
+.jobs_div{ width:200px; float:left; height:39px; padding-top:15px; text-align:right; padding-right:40px;}
+.jobs_select{ display:inline-block; width:110px; height:28px; line-height:28px; color:#c7eaf4; background:url(../images/allbtn.gif) 0px 0px no-repeat; padding:0 0 0 3px; margin-top:8px; cursor:pointer;}
+.jobs_select span{ display:block; background:url(../images/allbtn.gif) right -28px no-repeat; height:28px; line-height:28px; padding:0 10px 0 3px; position:relative;}
+.jobs_select_arrow{ background:url(../images/arrow.gif) center center no-repeat; width:28px; height:28px; display:inline-block; position:absolute; right:0px; top:0px;}
+.email{ background:url(../images/mail.gif) no-repeat; width:22px; height:19px; display:inline-block; position:relative; vertical-align:middle; margin-left:10px;}
+.emailnum{ background:url(../images/allbtn.gif) 0px -56px no-repeat; display:inline-block;  padding:0 0 0 3px; height:17px; line-height:17px; color:#fff; font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:12px; text-align:center; position:absolute; top:10px; right:-10px;}
+.emailnum b{ background:url(../images/allbtn.gif) right -73px no-repeat; display:inline-block; padding:0 6px 0 3px;height:17px; line-height:17px;}
+
+/*头部退出按钮*/
+.exitBtn{ background:url(../images/allbtn.gif) 0px -270px no-repeat; display:inline-block; height:20px; line-height:20px; color:#fff; font-size:12px; padding:0 0 0 3px;}
+.exitBtn span{ background:url(../images/allbtn.gif) right -290px no-repeat; padding:0 6px 0 3px; display:inline-block;}
+
+
+/*主体部分布局*/
+.wapper{}
+.leftDiv{ position:fixed; left:0px; top:54px;width:75px; bottom:0px; z-index:9000; background:#3f3f3f;}
+.rightDiv{}
+
+/*左侧菜单样式*/
+.leftMenu_content{ position:relative;}
+.leftMenu{ display:block; padding:0px; margin:0px;}
+.leftMenu li{ width:75px; height:75px; border-top:1px solid #5b5b5b; border-bottom:1px solid #2f2f2f; font-size:12px;}
+.leftMenu li a{ display:block; background:url(../images/leftmenu.gif) repeat-x; text-align:center; height:75px; color:#a3a3a3;}
+.leftMenu li a:hover, .leftMenu li.curr a{ background:url(../images/leftmenucurr.gif) repeat-y; color:#ccc;}
+.leftMenu li a .menuico01{ background:url(../images/leftmenuico01.png) center center no-repeat;_background:url(../images/leftmenuico01.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico02{ background:url(../images/leftmenuico02.png) center center no-repeat;_background:url(../images/leftmenuico02.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico03{ background:url(../images/leftmenuico03.png) center center no-repeat;_background:url(../images/leftmenuico03.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico04{ background:url(../images/leftmenuico04.png) center center no-repeat;_background:url(../images/leftmenuico04.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico05{ background:url(../images/leftmenuico05.png) center center no-repeat;_background:url(../images/leftmenuico05.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico06{ background:url(../images/leftmenuico06.png) center center no-repeat;_background:url(../images/leftmenuico06.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico07{ background:url(../images/leftmenuico07.png) center center no-repeat;_background:url(../images/leftmenuico07.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico08{ background:url(../images/leftmenuico08.png) center center no-repeat;_background:url(../images/leftmenuico08.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico09{ background:url(../images/leftmenuico09.png) center center no-repeat;_background:url(../images/leftmenuico09.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a .menuico10{ background:url(../images/leftmenuico10.png) center center no-repeat;_background:url(../images/leftmenuico10.gif) center center no-repeat; width:48px; height:48px; display:inline-block;}
+.leftMenu li a:hover .menuico01, .leftMenu li.curr a .menuico01{ background:url(../images/leftmenuico01_curr.png) center center no-repeat;_background:url(../images/leftmenuico01_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico02, .leftMenu li.curr a .menuico02{ background:url(../images/leftmenuico02_curr.png) center center no-repeat;_background:url(../images/leftmenuico02_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico03, .leftMenu li.curr a .menuico03{ background:url(../images/leftmenuico03_curr.png) center center no-repeat;_background:url(../images/leftmenuico03_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico04, .leftMenu li.curr a .menuico04{ background:url(../images/leftmenuico04_curr.png) center center no-repeat;_background:url(../images/leftmenuico04_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico05, .leftMenu li.curr a .menuico05{ background:url(../images/leftmenuico05_curr.png) center center no-repeat;_background:url(../images/leftmenuico05_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico06, .leftMenu li.curr a .menuico06{ background:url(../images/leftmenuico06_curr.png) center center no-repeat;_background:url(../images/leftmenuico06_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico07, .leftMenu li.curr a .menuico07{ background:url(../images/leftmenuico07_curr.png) center center no-repeat;_background:url(../images/leftmenuico07_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico08, .leftMenu li.curr a .menuico08{ background:url(../images/leftmenuico08_curr.png) center center no-repeat;_background:url(../images/leftmenuico08_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico09, .leftMenu li.curr a .menuico09{ background:url(../images/leftmenuico09_curr.png) center center no-repeat;_background:url(../images/leftmenuico09_curr.gif) center center no-repeat;}
+.leftMenu li a:hover .menuico10, .leftMenu li.curr a .menuico10{ background:url(../images/leftmenuico10_curr.png) center center no-repeat;_background:url(../images/leftmenuico10_curr.gif) center center no-repeat;}
+
+/*二级菜单样式*/
+.leftMenu_second_div{position:absolute; left:74px; top:0px; width:140px;z-index:8000;}
+.leftMenu_second{ display:block; padding:0px; margin:0px; background:#2f2f2f; width:140px;}
+.leftMenu_second li{ background:#525252; height:32px; width:140px; border-top:1px solid #626262; border-bottom:1px solid #2c2c2c;}
+.leftMenu_second li a{ display:block; height:32px; line-height:32px; color:#fff; padding-left:20px;text-align:left;}
+.leftMenu_second li a:hover, .leftMenu_second li.curr a{ background:#2c2c2c; color:#fff;}
+
+/*三级菜单样式*/
+.leftMenu_third_div{position:absolute; left:214px; top:0px; width:140px; border:1px solid #161616; z-index:10000;}
+.leftMenu_third{ display:block; padding:0px; margin:0px; background:#fbfafa; }
+.leftMenu_third li{ background:#2c2c2c;height:27px; line-height:27px;}
+.leftMenu_third li a{ display:block; height:27px; line-height:27px; color:#fff; padding-left:20px;}
+.leftMenu_third li a:hover, .leftMenu_third li.curr a{ background:#218eb9;}
+
+
+/*页面当前位置样式*/
+.positionDiv{ background:url(../images/positionbg.gif) repeat-x; height:28px; line-height:28px;font-size:12px; padding-left:10px; position:relative;}
+.homeico{ background:url(../images/homeico.gif) center 3px no-repeat; width:16px; height:28px; display:inline-block; vertical-align:middle;}
+.position_arrow{ background:url(../images/position_arrow.gif) center center no-repeat; width:16px; height:28px; display:inline-block; vertical-align:middle;}
+
+/*当前位置区域搜索DIV*/
+.positionSearch{ width:338px; position:absolute; top:0px; right:10px;padding-top:5px; padding-bottom:6px; height:30px;}
+
+/*搜索条样式*/
+.searchBox{ position:relative; padding-right:65px;}
+.searchBoxIpt{ background:url(../images/searchipt.gif) repeat-x; height:28px; line-height:28px; border:1px solid #b6b6b6; position:relative; padding-left:30px;}
+.searchico{ background:url(../images/searchico.gif) no-repeat; width:28px; height:28px; position:absolute; left:0px; top:0px; display:inline-block;}
+.searchBoxIpt input{ background:none; border:none; height:28px; line-height:28px; color:#999; font-size:14px; width:100%;}
+.searchBtn{ position:absolute; right:0px; top:0px; background:url(../images/allbtn.gif) no-repeat; display:inline-block; height:30px; line-height:30px; font-size:14px; color:#fff; font-weight:bold;}
+.searchBtn{ background-position:0px -90px; padding:0 0 0 4px; width:56px; text-align:center;}
+.searchBtn span{ background:url(../images/allbtn.gif) no-repeat; background-position:right -120px; display:block;color:#fff;}
+
+/*右侧主体部分内容*/
+.right_content{ padding:10px;}
+
+/*首页应用区样式*/
+.mainWapper{background:#cde9f4 url(../images/mainbg.gif) left top repeat-x;}
+.mainContent{ background:url(../images/mainbg.jpg) center top no-repeat; height:530px; position:relative;}
+.quickMenuDiv1{ position:absolute; top:99px; left:308px; height:130px;}
+.quickMenuDiv2{ position:absolute; top:230px; left:210px; height:130px;}
+.quickMenu{ display:block; padding:0px; margin:0px;}
+.quickMenu li{ float:left; width:200px; text-align:center;}
+.quickMenu li a{ width:90px; margin:0 auto; font-size:16px; color:#fff; font-family:"微软雅黑";}
+.quickMenu li a .quickMenu01{ background:url(../images/quickmenuico01.png) no-repeat;_background:url(../images/quickmenuico01.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a .quickMenu02{ background:url(../images/quickmenuico02.png) no-repeat;_background:url(../images/quickmenuico02.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a .quickMenu03{ background:url(../images/quickmenuico03.png) no-repeat;_background:url(../images/quickmenuico03.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a .quickMenu04{ background:url(../images/quickmenuico04.png) no-repeat;_background:url(../images/quickmenuico04.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a .quickMenu05{ background:url(../images/quickmenuico05.png) no-repeat;_background:url(../images/quickmenuico05.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a .quickMenu06{ background:url(../images/quickmenuico06.png) no-repeat;_background:url(../images/quickmenuico06.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+
+.quickMenu li a:hover .quickMenu01, .quickMenu li.curr a .quickMenu01{ background:url(../images/quickmenuico01_curr.png) no-repeat;_background:url(../images/quickmenuico01_curr.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a:hover .quickMenu02, .quickMenu li.curr a .quickMenu02{ background:url(../images/quickmenuico02_curr.png) no-repeat;_background:url(../images/quickmenuico02_curr.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a:hover .quickMenu03, .quickMenu li.curr a .quickMenu03{ background:url(../images/quickmenuico03_curr.png) no-repeat;_background:url(../images/quickmenuico03_curr.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a:hover .quickMenu04, .quickMenu li.curr a .quickMenu04{ background:url(../images/quickmenuico04_curr.png) no-repeat;_background:url(../images/quickmenuico04_curr.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a:hover .quickMenu05, .quickMenu li.curr a .quickMenu05{ background:url(../images/quickmenuico05_curr.png) no-repeat;_background:url(../images/quickmenuico05_curr.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+.quickMenu li a:hover .quickMenu06, .quickMenu li.curr a .quickMenu06{ background:url(../images/quickmenuico06_curr.png) no-repeat;_background:url(../images/quickmenuico06_curr.gif) no-repeat; width:90px; height:90px; display:inline-block;}
+
+
+/*首页新闻样式*/
+.main_news_div{ position:absolute; top:420px; left:77px; right:10px;}
+.main_news_div .newsName{ position:absolute; left:0px; top:0px; width:110px;}
+.news_ico{ background:url(../images/news_ico.png) no-repeat; width:20px; height:20px; display:inline-block; vertical-align:middle;}
+.main_news_div .newsName span{ display:inline-block; background:#3197b5; width:80px; text-align:center; height:20px; line-height:20px; color:#fff; font-size:12px; font-weight:bold; margin-left:10px;}
+.main_news_div .newsListDiv{ margin-left:120px;}
+.newsList{ display:block; padding:0px;  margin:0px; line-height:22px;}
+.newsList li{ float:left; width:40%;}
+.newsList li a{ color:#333;}
+.newsList li a:hover, .newsList li.curr a{ color:#336699;}
+
+/*左侧菜单向上向下点击样式*/
+.menu_up{ width:75px; height:19px; position:absolute; bottom:19px; left:0px; right:0px; z-index:2; }
+.menuup{ background:url(../images/menuup.gif) no-repeat; width:75px; height:19px; display:inline-block;}
+.menuup:hover{ background:url(../images/menuuphover.gif) no-repeat;}
+.menu_down{ width:70px; height:19px; position:absolute; bottom:0px; left:0px; right:0px; z-index:2; }
+.menudown{ background:url(../images/menudown.gif) no-repeat; width:75px; height:19px; display:inline-block;}
+.menudown:hover{ background:url(../images/menudownhover.gif) no-repeat;}
+
+
+.quickMenuCon{ width:120px; position:absolute; left:5px; top:1px; height:26px;}
+.quickMenuLink{ background:url(../images/menubg.gif) repeat-x; border:1px solid #6e96b1; width:118px; height:24px; line-height:24px; display:inline-block; color:#444; text-align:center;}
+.quickMenuLink:hover, .quickMenuLink.curr{ background:url(../images/menubg_curr.gif) repeat-x; border:1px solid #368399; color:#fff;}
+.quickMenuLink .menu_arrow{ background:url(../images/menu_arrow.gif) center center no-repeat; width:24px; height:24px; display:inline-block; vertical-align:middle;}
+.quickMenuLink:hover .menu_arrow, .quickMenuLink.curr .menu_arrow{ background:url(../images/menu_arrow_hover.gif) center center no-repeat;}
+.quickMenuCon_div{ position:absolute; left:0px; top:26px; background:#fff; border:2px solid #389fd6; width:345px; z-index:9999; padding:15px;}
+.quickMenuCon_div dl{}
+.quickMenuCon_div dt{ color:#1975a3; font-size:14px; font-weight:bold; background:url(../images/menu_point.gif) left center no-repeat; padding-left:10px; margin-top:5px;}
+.quickMenuCon_div dd{ float:left; width:100px; border-right:1px solid #666; height:16px; line-height:16px; padding-left:10px; margin-bottom:5px;}
+.quickMenuCon_div dd a{ color:#666;}
+.quickMenuCon_div dd a:hover{ color:#0b70a3;}
+
+.menu_tab{ margin-left:120px;}
+.menu_tab li{ float:left; height:26px; margin-right:3px; position:relative; margin-top:1px;}
+.menu_tab li a.menuCon, .menu_tab li a.menuCon span, .menu_tab li a.menuCon:hover, .menu_tab li a.menuCon:hover span, .menu_tab li.curr a.menuCon, .menu_tab li.curr a.menuCon span{ display:inline-block; height:26px; line-height:26px; background:url(../images/tab.gif) no-repeat; padding:0 0 0 4px; color:#333;}
+.menu_tab li a.menuCon span{ background-position:right -26px; padding:0 30px 0 16px;}
+.menu_tab li a.menuCon:hover, .menu_tab li.curr a.menuCon{ background-position:0 -52px;}
+.menu_tab li a.menuCon:hover span, .menu_tab li.curr a.menuCon span{ background-position:right -78px; padding:0 30px 0 16px;}
+.menu_tab li a.tab_close{ position:absolute; right:5px; top:5px; background:url(../images/tab_close.gif) 0px 0px no-repeat; width:16px; height:16px; text-indent:-999px;}
+.menu_tab li a.tab_close:hover{ background-position:0 -16px;}
+
+.tabrightbtn{position:absolute;right:0px; top:0px; width:70px;}
+.reflash{ background:url(../images/reflash.gif) no-repeat; width:35px; height:25px; display:inline-block;}
+.reflash:hover{ background:url(../images/reflashhover.gif) no-repeat;width:35px; height:25px;}
+.sclose{ background:url(../images/sclose.gif) no-repeat; width:35px; height:25px; display:inline-block;}
+.sclose:hover{ background:url(../images/sclosehover.gif) no-repeat;width:35px; height:25px;}
+
+.menu_loading {text-align: center;color: #666;font-weight: bold;}
+.menu_loading span {padding: 0px 0px 0px 50px;line-height: 38px;display: inline-block;height: 38px;background: url(../images/loading.gif) no-repeat 0px 1px}
+
+.welcome { display: inline-block;*display: inline;*zoom: 1;vertical-align: top; }
+.logout { display: inline-block;*display: inline;*zoom: 1;width: 30px;height: 34px;margin-left: 15px;margin-top: 9px;overflow: hidden;position: relative; }
+.logout i { display: inline-block;*display: inline;*zoom: 1;width: 50px;height: 50px;background: url(../images/logout.png) no-repeat;position: absolute;top: -10px;left: -10px; }
+a.logout:hover i { background-image: url(../images/logout_hover.png); }

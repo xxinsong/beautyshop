@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.market.goods.dao.DmGoodsInstTagItemMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.market.goods.bean.DmGoodsInstTagItem" >
+ 
+    <id column="INST_TAG_ITEM_ID" property="instTagItemId" jdbcType="INTEGER" />
+    <result column="INST_ID" property="instId" jdbcType="INTEGER" />
+    <result column="ITEM_ID" property="itemId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+     
+    INST_TAG_ITEM_ID, INST_ID, ITEM_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   
+    select 
+    <include refid="Base_Column_List" />
+    from dm_goods_inst_tag_item
+    where INST_TAG_ITEM_ID = #{instTagItemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+ 
+    delete from dm_goods_inst_tag_item
+    where INST_TAG_ITEM_ID = #{instTagItemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qimeng.bs.market.goods.bean.DmGoodsInstTagItem" >
+ 
+    insert into dm_goods_inst_tag_item (INST_TAG_ITEM_ID, INST_ID, ITEM_ID
+      )
+    values (#{instTagItemId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.market.goods.bean.DmGoodsInstTagItem" >
+ 
+    insert into dm_goods_inst_tag_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instTagItemId != null" >
+        INST_TAG_ITEM_ID,
+      </if>
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instTagItemId != null" >
+        #{instTagItemId,jdbcType=INTEGER},
+      </if>
+      <if test="instId != null" >
+        #{instId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.market.goods.bean.DmGoodsInstTagItem" >
+  
+    update dm_goods_inst_tag_item
+    <set >
+      <if test="instId != null" >
+        INST_ID = #{instId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where INST_TAG_ITEM_ID = #{instTagItemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.market.goods.bean.DmGoodsInstTagItem" >
+    
+    update dm_goods_inst_tag_item
+    set INST_ID = #{instId,jdbcType=INTEGER},
+      ITEM_ID = #{itemId,jdbcType=INTEGER}
+    where INST_TAG_ITEM_ID = #{instTagItemId,jdbcType=INTEGER}
+  </update>
+</mapper>

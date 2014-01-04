@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.admin.goods.dao.DmGoodsPackageMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.goods.bean.DmGoodsPackage" >
+    <id column="PACKAGE_ID" property="packageId" jdbcType="INTEGER" />
+    <result column="PACKAGE_CODE" property="packageCode" jdbcType="VARCHAR" />
+    <result column="PLAN_ID" property="planId" jdbcType="INTEGER" />
+    <result column="PACKAGE_NAME" property="packageName" jdbcType="VARCHAR" />
+    <result column="PACKAGE_DESC" property="packageDesc" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    package.PACKAGE_ID, package.PACKAGE_CODE, package.PLAN_ID, package.PACKAGE_NAME, package.PACKAGE_DESC, package.STATE, package.EFF_DATE, package.EXP_DATE, 
+    package.CREATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dm_goods_package package
+    where package.PACKAGE_ID = #{packageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_goods_package
+    where PACKAGE_ID = #{packageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qimeng.bs.admin.goods.bean.DmGoodsPackage" >
+    insert into dm_goods_package (PACKAGE_ID, PACKAGE_CODE, PLAN_ID, 
+      PACKAGE_NAME, PACKAGE_DESC, STATE, 
+      EFF_DATE, EXP_DATE, CREATE_DATE
+      )
+    values (#{packageId,jdbcType=INTEGER}, #{packageCode,jdbcType=VARCHAR}, #{planId,jdbcType=INTEGER}, 
+      #{packageName,jdbcType=VARCHAR}, #{packageDesc,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.goods.bean.DmGoodsPackage" >
+    insert into dm_goods_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="packageId != null" >
+        PACKAGE_ID,
+      </if>
+      <if test="packageCode != null" >
+        PACKAGE_CODE,
+      </if>
+      <if test="planId != null" >
+        PLAN_ID,
+      </if>
+      <if test="packageName != null" >
+        PACKAGE_NAME,
+      </if>
+      <if test="packageDesc != null" >
+        PACKAGE_DESC,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="effDate != null" >
+        EFF_DATE,
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="packageId != null" >
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="packageCode != null" >
+        #{packageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageDesc != null" >
+        #{packageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="effDate != null" >
+        #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null" >
+        #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <!-- 打包商品 -->
+  <insert id="attachGoods">
+    insert into DM_PACKAGE_DETAIL(PACKAGE_ID,GOODS_ID) values 
+	<foreach item="good" collection="dmGoods" open="" separator="," close="">
+		(#{packageId},#{good.goodsId})
+	</foreach>	
+  </insert>
+  
+  <!-- 解除商品打包 -->
+  <delete id="unattachGoodsByPackageId">
+    delete from DM_PACKAGE_DETAIL
+    where PACKAGE_ID = #{packageId}	
+  </delete>
+  
+  <delete id="unattachGood">
+    delete from DM_PACKAGE_DETAIL
+    where PACKAGE_ID = #{packageId}	AND GOODS_ID = #{goodsId}
+  </delete>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.goods.bean.DmGoodsPackage" >
+    update dm_goods_package
+    <set >
+      <if test="packageCode != null" >
+        PACKAGE_CODE = #{packageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null" >
+        PLAN_ID = #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        PACKAGE_NAME = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageDesc != null" >
+        PACKAGE_DESC = #{packageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="effDate != null" >
+        EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PACKAGE_ID = #{packageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.goods.bean.DmGoodsPackage" >
+    update dm_goods_package
+    set PACKAGE_CODE = #{packageCode,jdbcType=VARCHAR},
+      PLAN_ID = #{planId,jdbcType=INTEGER},
+      PACKAGE_NAME = #{packageName,jdbcType=VARCHAR},
+      PACKAGE_DESC = #{packageDesc,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where PACKAGE_ID = #{packageId,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="packageName != null">AND package.PACKAGE_NAME = #{packageName}</if>
+      <if test="packageCode != null">AND package.PACKAGE_CODE = #{packageCode}</if>
+      <if test="packageId != null">AND package.PACKAGE_ID = #{packageId}</if>
+    </trim>
+  </sql>
+  
+  <select id="findGoodPackages" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_goods_package  package
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="findAllGoodPackages" parameterType="com.qimeng.common.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_goods_package  package
+    <trim prefix="where" prefixOverrides="AND |OR">
+            <if test="params.packageCode != null and params.packageCode!=''">AND package.PACKAGE_CODE like CONCAT('%', #{packageCode}, '%')</if>
+            <if test="params.packageName != null and params.packageName!=''">AND package.PACKAGE_NAME like CONCAT('%', #{packageName}, '%')</if>
+    </trim>
+  </select>
+</mapper>

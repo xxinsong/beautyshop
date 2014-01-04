@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.admin.security.dao.DmOrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.security.bean.DmOrganization" >
+    <id column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="PARENT_ORG_ID" property="parentOrgId" jdbcType="INTEGER" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="ORG_LEVEL" property="orgLevel" jdbcType="INTEGER" />
+    <result column="ORG_CONTENT" property="orgContent" jdbcType="VARCHAR" />
+    <result column="STATUS_CD" property="statusCd" jdbcType="VARCHAR" />
+    <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP" />
+    <result column="PATH_NAME" property="pathName" jdbcType="VARCHAR" />
+    <result column="PATH_CODE" property="pathCode" jdbcType="VARCHAR" />
+    <result column="ORG_TYPE" property="orgType" jdbcType="VARCHAR" />
+    <result column="LAN_ID" property="lanId" jdbcType="INTEGER" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="IS_LEAF" property="isLeaf"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    org.ORG_ID, 
+    org.PARENT_ORG_ID, 
+    org.ORG_CODE, org.ORG_NAME, 
+    org.ORG_LEVEL, org.ORG_CONTENT, org.STATUS_CD, org.STATUS_DATE, 
+    org.PATH_NAME, org.PATH_CODE, org.ORG_TYPE, org.LAN_ID, org.BUSINESS_ID, 
+    org.CREATE_DATE,org.IS_LEAF
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dm_organization org
+    where org.ORG_ID = #{orgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_organization
+    where ORG_ID = #{orgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qimeng.bs.admin.security.bean.DmOrganization" keyProperty="orgId" useGeneratedKeys="true" >
+    insert into dm_organization (ORG_ID, PARENT_ORG_ID, ORG_CODE, 
+      ORG_NAME, ORG_LEVEL, ORG_CONTENT, 
+      STATUS_CD, STATUS_DATE, PATH_NAME, 
+      PATH_CODE, ORG_TYPE, LAN_ID, 
+      BUSINESS_ID, CREATE_DATE,IS_LEAF)
+    values (#{orgId,jdbcType=INTEGER}, #{parentOrgId,jdbcType=INTEGER}, #{orgCode,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR}, #{orgLevel,jdbcType=INTEGER}, #{orgContent,jdbcType=VARCHAR}, 
+      #{statusCd,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP}, #{pathName,jdbcType=VARCHAR}, 
+      #{pathCode,jdbcType=VARCHAR}, #{orgType,jdbcType=VARCHAR}, #{lanId,jdbcType=INTEGER}, 
+      #{businessId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},#{isLeaf})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.security.bean.DmOrganization" >
+    insert into dm_organization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="parentOrgId != null" >
+        PARENT_ORG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME,
+      </if>
+      <if test="orgLevel != null" >
+        ORG_LEVEL,
+      </if>
+      <if test="orgContent != null" >
+        ORG_CONTENT,
+      </if>
+      <if test="statusCd != null" >
+        STATUS_CD,
+      </if>
+      <if test="statusDate != null" >
+        STATUS_DATE,
+      </if>
+      <if test="pathName != null" >
+        PATH_NAME,
+      </if>
+      <if test="pathCode != null" >
+        PATH_CODE,
+      </if>
+      <if test="orgType != null" >
+        ORG_TYPE,
+      </if>
+      <if test="lanId != null" >
+        LAN_ID,
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+       <if test="isLeaf != null" >
+        IS_LEAF,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="parentOrgId != null" >
+        #{parentOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLevel != null" >
+        #{orgLevel,jdbcType=INTEGER},
+      </if>
+      <if test="orgContent != null" >
+        #{orgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCd != null" >
+        #{statusCd,jdbcType=VARCHAR},
+      </if>
+      <if test="statusDate != null" >
+        #{statusDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pathName != null" >
+        #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="pathCode != null" >
+        #{pathCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null" >
+        #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="lanId != null" >
+        #{lanId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLeaf != null" >
+        #{isLeaf},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.security.bean.DmOrganization" >
+    update dm_organization
+    <set >
+      <if test="parentOrgId != null" >
+        PARENT_ORG_ID = #{parentOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLevel != null" >
+        ORG_LEVEL = #{orgLevel,jdbcType=INTEGER},
+      </if>
+      <if test="orgContent != null" >
+        ORG_CONTENT = #{orgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCd != null" >
+        STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      </if>
+      <if test="statusDate != null" >
+        STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pathName != null" >
+        PATH_NAME = #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="pathCode != null" >
+        PATH_CODE = #{pathCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null" >
+        ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="lanId != null" >
+        LAN_ID = #{lanId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLeaf != null" >
+        IS_LEAF = #{isLeaf},
+      </if>
+    </set>
+    where ORG_ID = #{orgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.security.bean.DmOrganization" >
+    update dm_organization
+    set PARENT_ORG_ID = #{parentOrgId,jdbcType=INTEGER},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      ORG_LEVEL = #{orgLevel,jdbcType=INTEGER},
+      ORG_CONTENT = #{orgContent,jdbcType=VARCHAR},
+      STATUS_CD = #{statusCd,jdbcType=VARCHAR},
+      STATUS_DATE = #{statusDate,jdbcType=TIMESTAMP},
+      PATH_NAME = #{pathName,jdbcType=VARCHAR},
+      PATH_CODE = #{pathCode,jdbcType=VARCHAR},
+      ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      LAN_ID = #{lanId,jdbcType=INTEGER},
+      BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+       IS_LEAF = #{isLeaf}
+    where ORG_ID = #{orgId,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="orgName != null and orgName != ''">AND org.ORG_NAME like CONCAT('%', #{orgName}, '%')</if>
+      <if test="orgCode != null and orgCode != ''">AND org.ORG_CODE =#{orgCode} </if>
+      <if test="orgId != null and orgId != ''">AND org.ORG_ID =#{orgId} </if>
+      <choose>
+           <when test="parentOrgId!=null">And org.PARENT_ORG_ID=#{parentOrgId}</when>
+           <when test="parentOrg!=null and parentOrg.orgId !=null "> And org.PARENT_ORG_ID=#{parentOrg.orgId} </when>
+      </choose>
+    </trim>
+  </sql>
+  
+  <select id="findOrgs" parameterType="java.lang.Object" resultMap="BaseResultMap">
+       select 
+    <include refid="Base_Column_List"/>
+    from dm_organization org
+    <include refid="Where_Clause" />
+  </select>
+  
+</mapper>

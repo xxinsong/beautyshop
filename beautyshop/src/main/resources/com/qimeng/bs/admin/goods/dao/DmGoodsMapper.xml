@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.admin.goods.dao.DmGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.goods.bean.DmGoods" >
+    <id column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="CATALOG_ID" property="catalogId" jdbcType="INTEGER" />
+    <result column="GOODS_NO" property="goodsNo" jdbcType="VARCHAR" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="ALIAS" property="alias" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="IMAGE_URI" property="imageUri" jdbcType="VARCHAR" />
+    <result column="SALE_WAY" property="saleWay" jdbcType="VARCHAR" />
+    <result column="BASE_PRICE" property="basePrice" jdbcType="FLOAT" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="CREATE_STAFF" property="createStaff" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="PUTAWAY_TIME" property="putawayTime" jdbcType="TIMESTAMP" />
+    <result column="GOODS_DESC" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="GOODS_PROPS" property="goodsProps" jdbcType="VARCHAR" />
+    <result column="VIEW_COUNT" property="viewCount" jdbcType="INTEGER" />
+    <result column="HINTS" property="hints" jdbcType="VARCHAR" />
+    <result column="inst_num" property="inst_num" jdbcType="INTEGER" />
+    <result column="comment_num" property="comment_num" jdbcType="INTEGER" />
+    <result column="plan_price" property="planPrice" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    good.GOODS_ID, good.CATALOG_ID, good.GOODS_NO, good.GOODS_NAME, good.ALIAS, good.TYPE, good.IMAGE_URI, good.SALE_WAY, good.BASE_PRICE, 
+    good.STATE, good.CREATE_STAFF, good.CREATE_DATE, good.EFF_DATE, good.EXP_DATE, good.PUTAWAY_TIME, good.GOODS_DESC, good.GOODS_PROPS, 
+    good.VIEW_COUNT, good.HINTS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    , round(dgp.plan_price, 2) plan_price
+    ,(select count(*) from dm_goods_inst a where a.goods_id = good.goods_id) inst_num
+    ,(select count(*) from dm_cust_comment b where b.goods_id = good.goods_id) comment_num
+    from dm_goods good
+    left join dm_goods_plan dgp on good.goods_id = dgp.goods_id
+    where good.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_goods
+    where GOODS_ID = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.qimeng.bs.admin.goods.bean.DmGoods" >
+    insert into dm_goods (GOODS_ID, CATALOG_ID, GOODS_NO, 
+      GOODS_NAME, ALIAS, TYPE, 
+      IMAGE_URI, SALE_WAY, BASE_PRICE, 
+      STATE, CREATE_STAFF, CREATE_DATE, 
+      EFF_DATE, EXP_DATE, PUTAWAY_TIME, 
+      GOODS_DESC, GOODS_PROPS, VIEW_COUNT, 
+      HINTS)
+    values (#{goodsId,jdbcType=INTEGER}, #{catalogId,jdbcType=INTEGER}, #{goodsNo,jdbcType=VARCHAR}, 
+      #{goodsName,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{imageUri,jdbcType=VARCHAR}, #{saleWay,jdbcType=VARCHAR}, #{basePrice,jdbcType=FLOAT},
+      #{state,jdbcType=VARCHAR}, #{createStaff,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{putawayTime,jdbcType=TIMESTAMP}, 
+      #{goodsDesc,jdbcType=VARCHAR}, #{goodsProps,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
+      #{hints,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.goods.bean.DmGoods" >
+    insert into dm_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="catalogId != null" >
+        CATALOG_ID,
+      </if>
+      <if test="goodsNo != null" >
+        GOODS_NO,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="alias != null" >
+        ALIAS,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="imageUri != null" >
+        IMAGE_URI,
+      </if>
+      <if test="saleWay != null" >
+        SALE_WAY,
+      </if>
+      <if test="basePrice != null" >
+        BASE_PRICE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="createStaff != null" >
+        CREATE_STAFF,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="effDate != null" >
+        EFF_DATE,
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE,
+      </if>
+      <if test="putawayTime != null" >
+        PUTAWAY_TIME,
+      </if>
+      <if test="goodsDesc != null" >
+        GOODS_DESC,
+      </if>
+      <if test="goodsProps != null" >
+        GOODS_PROPS,
+      </if>
+      <if test="viewCount != null" >
+        VIEW_COUNT,
+      </if>
+      <if test="hints != null" >
+        HINTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNo != null" >
+        #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUri != null" >
+        #{imageUri,jdbcType=VARCHAR},
+      </if>
+      <if test="saleWay != null" >
+        #{saleWay,jdbcType=VARCHAR},
+      </if>
+      <if test="basePrice != null" >
+        #{basePrice,jdbcType=FLOAT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaff != null" >
+        #{createStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effDate != null" >
+        #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null" >
+        #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putawayTime != null" >
+        #{putawayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsProps != null" >
+        #{goodsProps,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="hints != null" >
+        #{hints,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="unattachCatalog" >
+  update dm_goods set CATALOG_ID=-1
+   where CATALOG_ID=#{catalogId}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.goods.bean.DmGoods" >
+    update dm_goods
+    <set >
+      <if test="catalogId != null" >
+        CATALOG_ID = #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNo != null" >
+        GOODS_NO = #{goodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        ALIAS = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUri != null" >
+        IMAGE_URI = #{imageUri,jdbcType=VARCHAR},
+      </if>
+      <if test="saleWay != null" >
+        SALE_WAY = #{saleWay,jdbcType=VARCHAR},
+      </if>
+      <if test="basePrice != null" >
+        BASE_PRICE = #{basePrice,jdbcType=FLOAT},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaff != null" >
+        CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effDate != null" >
+        EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putawayTime != null" >
+        PUTAWAY_TIME = #{putawayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsDesc != null" >
+        GOODS_DESC = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsProps != null" >
+        GOODS_PROPS = #{goodsProps,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        VIEW_COUNT = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="hints != null" >
+        HINTS = #{hints,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GOODS_ID = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.goods.bean.DmGoods" >
+    update dm_goods
+    set CATALOG_ID = #{catalogId,jdbcType=INTEGER},
+      GOODS_NO = #{goodsNo,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      ALIAS = #{alias,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      IMAGE_URI = #{imageUri,jdbcType=VARCHAR},
+      SALE_WAY = #{saleWay,jdbcType=VARCHAR},
+      BASE_PRICE = #{basePrice,jdbcType=FLOAT},
+      STATE = #{state,jdbcType=VARCHAR},
+      CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      PUTAWAY_TIME = #{putawayTime,jdbcType=TIMESTAMP},
+      GOODS_DESC = #{goodsDesc,jdbcType=VARCHAR},
+      GOODS_PROPS = #{goodsProps,jdbcType=VARCHAR},
+      VIEW_COUNT = #{viewCount,jdbcType=INTEGER},
+      HINTS = #{hints,jdbcType=VARCHAR}
+    where GOODS_ID = #{goodsId,jdbcType=INTEGER}
+  </update>
+  
+   <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="goodsName != null">AND good.GOODS_NAME like CONCAT('%', #{goodsName}, '%')</if>
+      <if test="type != null">AND good.TYPE = #{type}</if>
+      <if test="goodsId != null">AND good.GOODS_ID = #{goodsId}</if>
+    </trim>
+  </sql>
+  
+  <select id="findGoods" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_goods good
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="findAllGoods" parameterType="com.qimeng.common.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_goods good
+    <if test="params.packageId != null and params.packageId != ''">
+    inner join (select * from DM_PACKAGE_DETAIL where PACKAGE_ID=#{packageId}) pac_detail
+    on good.GOODS_ID = pac_detail.GOODS_ID
+    </if>
+    <trim prefix="where" prefixOverrides="AND |OR">
+      <if test="params.goodsName != null and params.goodsName != ''">AND good.GOODS_NAME like CONCAT('%', #{goodsName}, '%')</if>
+      <if test="params.type != null and params.type != ''">AND good.TYPE = #{type}</if>
+      <if test="params.goodsId != null and params.goodsId != ''">AND good.GOODS_ID = #{goodsId}</if>
+      <if test="params.catalogId != null and params.catalogId != ''">AND good.CATALOG_ID = #{catalogId}</if>
+      <if test="params.excludePackageId !=null and params.excludePackageId !=''">
+         AND NOT EXISTS (
+                 SELECT * FROM DM_PACKAGE_DETAIL 
+                 WHERE PACKAGE_ID = #{excludePackageId} AND GOODS_ID = good.GOODS_ID)
+      </if>
+    </trim>
+  </select>
+</mapper>

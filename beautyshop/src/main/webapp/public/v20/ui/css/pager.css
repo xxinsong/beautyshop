@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+
+a {
+	text-decoration: none;
+}
+
+.clear {
+	clear: both;
+}
+
+/*分页样式*/
+.pager {
+	float: right;
+	line-height: 14px;
+	padding: 10px 0;
+	font-size: 12px;
+}
+
+.pager a,.pager span {
+	border: 1px solid #d5d5d5;
+	float: left;
+	margin-left: 5px;
+	padding: 5px 8px;
+	color: #444;
+}
+
+.pager .page_break {
+	padding: 5px;
+}
+
+.pager a:hover,.pager .page_cur {
+	background: #64b3e9;
+	border: 1px solid #45a1e0;
+	color: #fff;
+}
+
+.pager .page_disabled {
+	border: 1px solid #d5d5d5;
+	background: #fff;
+	color: #cacaca;
+}
+
+.pager .page_disabled:hover {
+	background:#fff;
+	border:1px solid #d5d5d5;
+	color: #cacaca;
+}
+
+.pager .page_cur {
+	font-weight: bold;
+}
+
+.pager a:hover {
+	background: #64b3e9;
+}
+
+.pager .page_break {
+	border: medium none;
+}
+
+.pager span.pageOp {
+	border: medium none;
+	margin-left: 5px;
+}
+
+.pager span.pageOp.go {
+	line-height: 20px;
+	padding: 2px 1px 0 0;
+}
+
+.pager span.pageOp input {
+	border: 1px solid #DBDBDB;
+	height: 14px;
+	margin: 0 4px;
+	padding: 5px 2px;
+	vertical-align: middle;
+	width: 22px;
+}
+
+.pager span.pageOp button {
+	background: url(../images/pagebtn_s.gif) no-repeat transparent;
+	border: medium none;
+	cursor: pointer;
+	height: 25px;
+	margin: -2px 0 0 2px;
+	vertical-align: middle;
+	width: 35px;
+}
+
+.page_prev_arrow {
+	background: url(../images/page_prev.gif) no-repeat;
+	display: inline-block;
+	width: 10px;
+	height: 9px;
+	vertical-align: middle;
+	margin-right: 3px;
+}
+
+.pager .page_disabled .page_prev_arrow {
+	background: url(../images/page_prev_disabled.gif) no-repeat;
+	display: inline-block;
+	width: 10px;
+	height: 9px;
+	vertical-align: middle;
+}
+
+.page_next_arrow {
+	background: url(../images/page_next.gif) no-repeat;
+	display: inline-block;
+	width: 10px;
+	height: 9px;
+	vertical-align: middle;
+	margin-left: 3px;
+}
+
+.pager .page_disabled .page_next_arrow {
+	background: url(../images/page_next_disabled.gif) no-repeat;
+	display: inline-block;
+	width: 10px;
+	height: 9px;
+	vertical-align: middle;
+}

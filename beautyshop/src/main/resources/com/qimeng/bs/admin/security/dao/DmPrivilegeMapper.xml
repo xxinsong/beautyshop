@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.admin.security.dao.DmPrivilegeMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.security.bean.DmPrivilege" >
+    <id column="PRIVILEGE_ID" property="privilegeId" jdbcType="INTEGER" />
+    <result column="MENU_ID" property="menuId" jdbcType="INTEGER" />
+    <result column="PRIVILEGE_NAME" property="privilegeName" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="isLeaf" />
+    <result column="PARENT_PRIVILEGE_ID" property="parentPrivilegeId"/>
+  </resultMap>
+  
+  <!-- 权限关系实例结果映射 -->
+   <resultMap id="RelationResultMap" type="com.qimeng.bs.admin.security.bean.DmPrivilege" >
+    <id column="PRIVILEGE_ID" property="privilegeId" jdbcType="INTEGER" />
+    <result column="MENU_ID" property="menuId" jdbcType="INTEGER" />
+    <result column="PRIVILEGE_NAME" property="privilegeName" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="isLeaf" />
+    <result column="PARENT_PRIVILEGE_ID" property="parentPrivilegeId"/>
+    <result column="STAFF_ID" property="staffId"/>
+    <result column="ROLE_ID" property="roleId"/>
+    <result column="MENU_NAME" property="menuName"/>
+  </resultMap>
+  
+  <resultMap  id="DmPrivilegeResultMap" type="com.qimeng.bs.admin.security.bean.DmPrivilege">
+     <id column="PRIVILEGE_ID" property="privilegeId" jdbcType="INTEGER" />
+     <result column="MENU_ID" property="menuId" jdbcType="INTEGER" />
+     <result column="PRIVILEGE_NAME" property="privilegeName" jdbcType="VARCHAR" />
+     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+     <result column="IS_LEAF" property="isLeaf" />
+     <result column="PARENT_PRIVILEGE_ID" property="parentPrivilegeId"/>
+     <!-- 找爸爸-->
+     <association property="parentPrivilege" column="PARENT_PRIVILEGE_ID" select="selectByPrimaryKey" />
+     <!-- 找孩子-->
+     <collection property="childrenPrivileges" column="PRIVILEGE_ID" select="getChildrenPrivileges" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+     dmpri.PRIVILEGE_ID,
+     dmpri.MENU_ID, 
+     dmpri.PRIVILEGE_NAME, 
+     dmpri.TYPE,
+     dmpri.PARENT_PRIVILEGE_ID,
+     dmpri.IS_LEAF
+  </sql>
+  
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="privilegeName != null and privilegeName != ''">AND dmpri.PRIVILEGE_NAME like CONCAT('%', #{privilegeName}, '%')</if>
+      <if test="type != null and type != ''">AND dmpri.TYPE =#{type} </if>
+      <if test="privilegeId != null and privilegeId != ''">AND dmpri.PRIVILEGE_ID =#{privilegeId} </if>
+      <choose>
+           <when test="parentPrivilegeId!=null">And dmpri.PARENT_PRIVILEGE_ID=#{parentPrivilegeId}</when>
+           <when test="parentPrivilege!=null and parentPrivilege.privilegeId !=null "> And dmpri.PARENT_PRIVILEGE_ID=#{parentPrivilege.privilegeId} </when>
+           <!-- <otherwise> And dmpri.PARENT_PRIVILEGE_ID='-10000'</otherwise> -->
+      </choose>
+    </trim>
+  </sql>
+  
+  <select id="getChildrenPrivileges" resultMap="DmPrivilegeResultMap">
+     select 
+     <include refid="Base_Column_List"/>
+     from dm_privilege dmpri
+     where dmpri.PARENT_PRIVILEGE_ID=#{privilegeId}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dm_privilege dmpri
+    where dmpri.PRIVILEGE_ID = #{privilegeId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_privilege
+    where PRIVILEGE_ID = #{privilegeId,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteStaffRelationById">
+      delete from dm_staff_privilege
+      where PRIVILEGE_ID = #{privilegeId}
+  </delete>
+  
+   <delete id="deleteRoleRelationById">
+      delete from dm_role_privilege
+      where PRIVILEGE_ID = #{privilegeId}
+  </delete>
+  
+  <insert id="insert" parameterType="com.qimeng.bs.admin.security.bean.DmPrivilege" keyProperty="privilegeId" useGeneratedKeys="true">
+    insert into dm_privilege (PRIVILEGE_ID,PARENT_PRIVILEGE_ID, MENU_ID, PRIVILEGE_NAME, 
+      TYPE,IS_LEAF)
+    values (#{privilegeId,jdbcType=INTEGER},#{parentPrivilegeId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{privilegeName,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR},#{isLeaf,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.security.bean.DmPrivilege" >
+    insert into dm_privilege
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >        PRIVILEGE_ID,      </if>
+      <if test="parentPrivilegeId != null" >        PARENT_PRIVILEGE_ID,      </if>
+      <if test="menuId != null" >        MENU_ID,      </if>
+      <if test="privilegeName != null" >        PRIVILEGE_NAME,      </if>
+      <if test="type != null" >        TYPE,      </if>
+      <if test="isLeaf != null" >        IS_LEAF,      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >        #{privilegeId,jdbcType=INTEGER},      </if>
+      <if test="parentPrivilegeId != null" >        #{parentPrivilegeId,jdbcType=INTEGER},      </if>
+      <if test="menuId != null" >        #{menuId,jdbcType=INTEGER},      </if>
+      <if test="privilegeName != null" >        #{privilegeName,jdbcType=VARCHAR},      </if>
+      <if test="type != null" >        #{type,jdbcType=VARCHAR},      </if>
+      <if test="isLeaf != null" >        #{isLeaf,jdbcType=VARCHAR},      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.security.bean.DmPrivilege" >
+    update dm_privilege
+    <set >
+      <if test="menuId != null" >        MENU_ID = #{menuId,jdbcType=INTEGER},      </if>
+      <if test="privilegeName != null" >        PRIVILEGE_NAME = #{privilegeName,jdbcType=VARCHAR},      </if>
+      <if test="type != null" >        TYPE = #{type,jdbcType=VARCHAR},      </if>
+      <if test="isLeaf != null" >        IS_LEAF = #{isLeaf,jdbcType=VARCHAR},      </if>
+    </set>
+    where PRIVILEGE_ID = #{privilegeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.security.bean.DmPrivilege" >
+    update dm_privilege
+    set MENU_ID = #{menuId,jdbcType=INTEGER},
+      PARENT_PRIVILEGE_ID = #{parentPrivilegeId,jdbcType=INTEGER},
+      PRIVILEGE_NAME = #{privilegeName,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      IS_LEAF = #{isLeaf,jdbcType=VARCHAR}
+    where PRIVILEGE_ID = #{privilegeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findPrivileges" parameterType="java.lang.Object" resultMap="RelationResultMap">
+       select 
+    <include refid="Base_Column_List"/>,
+    staff_pri.STAFF_ID,
+    role_pri.ROLE_ID,
+    menu.MENU_NAME
+    from dm_privilege dmpri
+    LEFT JOIN (SELECT * FROM dm_staff_privilege WHERE STAFF_ID=#{staffId}) staff_pri on staff_pri.PRIVILEGE_ID = dmpri.PRIVILEGE_ID
+    LEFT JOIN (SELECT * FROM dm_role_privilege where ROLE_ID=#{roleId}) role_pri ON role_pri.PRIVILEGE_ID = dmpri.PRIVILEGE_ID
+    LEFT JOIN dm_menu menu on dmpri.MENU_ID = menu.MENU_ID
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="findAllPrivileges" parameterType="com.qimeng.common.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from dm_privilege dmpri
+    <trim prefix="where" prefixOverrides="AND |OR">
+            <if test="params.privilegeName != null and params.privilegeName!=''">AND dmpri.PRIVILEGE_NAME like CONCAT('%', #{privilegeName}, '%')</if>
+            <if test="params.type != null and params.type!=''">AND dmpri.TYPE =#{type} </if>
+    </trim>
+  </select>
+  
+  <select id="searchStaffPrivs" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select a.*
+      from dm_privilege a, dm_staff_privilege b
+     where a.privilege_id = b.privilege_id
+       and b.staff_id = #{staffId,jdbcType=INTEGER}
+    union
+    select a.*
+      from dm_privilege a, dm_role_privilege b, dm_staff_role c
+     where a.privilege_id = b.privilege_id
+       and b.role_id = c.role_id
+       and c.staff_id = #{staffId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

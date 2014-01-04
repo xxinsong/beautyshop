@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd"
+       default-lazy-init="true">
+
+	<description>DWR配置 </description>
+	
+	
+    
+    <dwr:annotation-scan />
+    <!-- 注意这里新增加的dwr tag, 为使其生效，文件头中要声明namespace -->
+ 
+ 
+     <dwr:configuration>
+        <dwr:convert type="bean" class="java.lang.StackTraceElement"/>
+        <dwr:convert type="exception" class="java.lang.Exception"/>
+    </dwr:configuration>
+    <!-- 要求DWR在Spring容器中检查拥有@RemoteProxy 和 @RemoteMethod注解的类-->
+    <dwr:annotation-config id="dwrid"/>
+    <!-- 要求DWR将util.js和engine.js映射到dwrController-->
+    <dwr:url-mapping/>
+
+    <dwr:annotation-scan base-package="com.qimeng" scanDataTransferObject="true" scanRemoteProxy="true"/>
+    <!-- 部署项目时, 请把debug设为false -->
+    <dwr:controller id="dwrController" debug="true"/>
+
+ 
+ </beans>

@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+.ui_blue_btn { background: url(../images/tb_button_patch.png) 0px -610px no-repeat;padding: 0px 0px 0px 3px;display: inline-block;word-wrap: break-word;font-size: 12px;overflow: hidden;height: 28px;color: #fff;text-decoration: none;cursor: pointer; }
+.ui_blue_btn span { background: url(../images/tb_button_patch.png) right -638px no-repeat;padding: 0px 11px 0px 8px;display: inline-block;overflow: hidden;line-height: 28px;height: 28px;text-align: center; }
+.ui_blue_btn em { color: #fff;font-style: normal;float: left; }
+.ui_blue_btn em.dl { background: url(../images/xz.gif); height: 16px; width: 17px; margin: 4px auto; }
+.ui_white_btn { background: url(../images/tb_button_patch.png) 0px -910px no-repeat;padding: 0px 0px 0px 3px;display: inline-block;word-wrap: break-word;font-size: 12px;overflow: hidden;height: 28px;color: #fff;text-decoration: none;cursor: pointer; }
+.ui_white_btn span { background: url(../images/tb_button_patch.png) right -938px no-repeat;padding: 0px 11px 0px 8px;display: inline-block;overflow: hidden;line-height: 28px;height: 28px;text-align: center; }
+.ui_white_btn em { color: #000;font-style: normal;float: left; }
+
+.ui_dialog {position: absolute;z-index: 1000;width: 600px;top: 45px;left: 225px;word-break: break-all; }
+.ui_dialog .ui_dialog_fore { width: 100%; }
+.ui_dialog .ui_dialog_title { position: relative;cursor: move;background-color: #fcfcfc;border-top: #ccc 1px solid;border-right: #ccc 1px solid;border-left: #ccc 1px solid;border-bottom: 0px; }
+.ui_dialog .ui_dialog_title .buttons { position: absolute;height: 13px;top: 11px;right: 10px; }
+.ui_dialog .ui_dialog_title .buttons a { outline-style: none;outline-color: invert;outline-width: medium;width: 14px;height: 13px;display: inline-block;*display: inline;*zoom: 1;background-repeat: no-repeat;margin: 0px 5px; }
+.ui_dialog .ui_dialog_title a.close_btn { background-image: url(../images/bd_split_df07cd3b.gif); background-position: -281px -41px;cursor: pointer; }
+.ui_dialog .ui_dialog_title a.close_btn:hover { background-position: -281px -81px; }
+.ui_dialog .ui_dialog_title a.win_btn { cursor: pointer;width: 17px;height: 14px; }
+.ui_dialog .ui_dialog_title a.big { background-image: url(../images/big_03.gif); }
+.ui_dialog .ui_dialog_title a.big:hover { background-image: url(../images/big_06.gif); }
+.ui_dialog .ui_dialog_title a.small { background-image: url(../images/small_03.gif); }
+.ui_dialog .ui_dialog_title a.small:hover { background-image: url(../images/small_06.gif); }
+.ui_dialog .ui_dialog_title span { text-align: left;text-indent: 20px;text-overflow:ellipsis;line-height: 35px;display: block;color: #333;font-size: 14px;font-weight: bold;overflow: hidden;margin-right: 29px;width: auto; }
+.ui_dialog div.ui_dialog_body { background-color: #fff;border: #ccc 1px solid;border-top-width: 0px; }
+.ui_dialog .ui_dialog_body { position: relative;overflow: hidden; }
+.ui_dialog div.ui_dialog_content { border-top: #f2f2f2 1px solid;padding: 20px 20px 25px 20px; }
+.ui_dialog .ui_dialog_btns { border-top: #f2f2f2 1px solid;width: 100%;line-height: 50px;height: 50px;position: relative; }
+.ui_dialog .ui_dialog_btns a { height: 50px;text-align: center;line-height: 50px;font-size: 15px;font-weight: 700;color: #666;display: inline-block;position: absolute;top: 0px; }
+.ui_dialog .ui_dialog_btns a:hover { background-color: #64b3e9;color: #fff; }
+.ui_dialog .s_right { border-right: #f2f2f2 1px solid; }
+
+.warn_color { background-color: #ffe9e8; }
+
+.ui_common_textarea { border: #cdcdcd 1px solid;overflow: hidden;height: 20px;width: 100%; }
+.ui_common_textarea:hover { border-color: #7bbf52; }
+
+.ui_pop { line-height: 22px;height: 22px;width: 150px;position: relative; }
+.ui_pop .ipttxt.rw { width: 100%; }
+.ui_pop i { background: url(../images/icon.png) no-repeat -70px -170px;cursor: pointer;position: absolute;width: 20px;height: 20px;right: 0px;top: 0px; }
+
+.ui_pop_dialog { width:200px;margin:0 auto;position: absolute;z-index: 9997; }
+.ui_pop_dialog .sharp { width:100%;margin:20px auto 0;margin-right:2%; }
+.sharp .content div { padding:10px;text-indent:2em; }
+.ui_pop_dialog .content{ text-align: center;border-right:1px solid;border-left:1px solid;padding: 5px 10px 5px 10px; }
+
+.b1,.b2,.b3,.b4,.b5,.b6,.b7,.b8 { height:1px; font-size:1px; overflow:hidden; display:block; }
+.b1,.b8 { margin:0 5px; }
+.b2,.b7 { margin:0 3px;border-right:2px solid; border-left:2px solid; }
+.b3,.b6 { margin:0 2px;border-right:1px solid; border-left:1px solid; }
+.b4,.b5 { margin:0 1px;border-right:1px solid; border-left:1px solid; height:2px; }
+
+.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .content { border-color:#8f99a2; }
+.color1 .b1,.color1 .b8 { background:#8f99a2; }
+.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .content { background:#f7fbfe; }
+
+.color_white .b2,.color_white .b3,.color_white .b4,.color_white .b5,.color_white .b6,.color_white .b7,.color_white .content { border-color:#8f99a2; }
+.color_white .b1,.color_white .b8 { background:#8f99a2; }
+.color_white .b2,.color_white .b3,.color_white .b4,.color_white .b5,.color_white .b6,.color_white .b7,.color_white .content { background:#fff; }
+
+.ui_arrow { position: absolute;width: 22px; }
+.ui_arrow_position_top { top: -7px;left: 45%; }
+.ui_arrow_position_bottom { bottom: -5px;left: 10%; }
+.ui_arrow_position_left { top: 45%;left: -6px; }
+.ui_arrow_position_right { top: 45%;right: -17px; }
+.ui_arrow .s_line1 { color: #8f99a2; }
+.ui_arrow .s_bg1 { color: #f7fbfe; }
+.ui_arrow * { line-height: 1.231;display: block;font-family: "SimSun";height: 12px;font-size: 12px;overflow: hidden; }
+.ui_arrow.ui_arrow_position_left * { display: inline; }
+.ui_arrow.ui_arrow_position_right * { display: inline; } 
+.ui_arrow em { font-style: normal;font-weight: normal; }
+.ui_arrow_position_top span { margin: -11px 0px 0px; }
+.ui_arrow_position_bottom em { margin: 0px 0px -13px; }
+.ui_arrow_position_left span { margin: 0px 0px 0px -14px; }
+.ui_arrow_position_right em { margin: 0px -16px 0px 0px; }
+
+.box-shadow { -moz-box-shadow: 0px 0px 3px #969696;-webkit-box-shadow: 0px 0px 3px #969696;box-shadow: 0px 0px 3px #969696; }
+
+.ltxtc { color: red;margin-right: 4px; }

@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+.ui_pop_dialog { width:20%;margin:0 auto; }
+.ui_pop_dialog .sharp { width:100%;margin:20px auto 0;margin-right:2%; }
+.sharp .content div { padding:10px;text-indent:2em; }
+.ui_pop_dialog .content{ text-align: center;border-right:1px solid;border-left:1px solid;padding: 5px 10px 5px 10px; }
+
+.b1,.b2,.b3,.b4,.b5,.b6,.b7,.b8 { height:1px; font-size:1px; overflow:hidden; display:block; }
+.b1,.b8 { margin:0 5px; }
+.b2,.b7 { margin:0 3px;border-right:2px solid; border-left:2px solid; }
+.b3,.b6 { margin:0 2px;border-right:1px solid; border-left:1px solid; }
+.b4,.b5 { margin:0 1px;border-right:1px solid; border-left:1px solid; height:2px; }
+
+.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .content { border-color:#8f99a2; }
+.color1 .b1,.color1 .b8 { background:#8f99a2; }
+.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .content { background:#f7fbfe; }
+
+
+.WB_media_expand {border: 1px solid;padding: 10px 20px;line-height: 20px;margin: 10px 0px 0px;}
+.WB_arrow {position: absolute;margin: -18px 0px 0px;width: 22px;cursor: default;}
+.WB_arrow_position {margin-left: 380px;}
+.WB_arrow * {line-height: 1.231;display: block;font-family: "SimSun";height: 12px;font-size: 12px;overflow: hidden;}
+.WB_arrow em {font-style: normal;font-weight: normal;}
+.WB_arrow span {margin: -11px 0px 0px;}
+.S_bg1_c {color: #f7f7f7;}
+.S_bg4_c {color: #fafafa;}
+.S_bg_1 {background-color: #f7f7f7;}
+.S_bg_4 {background-color: #fafafa;}
+.S_bline1 {border-color: #d9d9d9;}
+.S_line1_c {color: #D9D9D9;}
+
+.ui_arrow { position: absolute;width: 22px; }
+.ui_arrow_position_top { top: -7px;left: 45%; }
+.ui_arrow_position_bottom { bottom: -5px;left: 45%; }
+.ui_arrow .s_line1 { color: #8f99a2; }
+.ui_arrow .s_bg1 { color: #f7fbfe; }
+.ui_arrow * {line-height: 1.231;display: block;font-family: "SimSun";height: 12px;font-size: 12px;overflow: hidden;}
+.ui_arrow em {font-style: normal;font-weight: normal;}
+.ui_arrow_position_top span {margin: -11px 0px 0px;}
+.ui_arrow_position_bottom em {margin: 0px 0px -13px;}
+
+
+.box-shadow{
+filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);/*for ie6,7,8*/
+background-color: #eee;
+-moz-box-shadow:2px 2px 5px #969696;/*firefox*/
+-webkit-box-shadow:2px 2px 5px #969696;/*webkit*/
+box-shadow:0 2px 10px rgba(0,0,0,.2);/*opera或ie9*/
+}

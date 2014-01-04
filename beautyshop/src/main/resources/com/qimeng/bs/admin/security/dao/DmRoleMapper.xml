@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qimeng.bs.admin.security.dao.DmRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.qimeng.bs.admin.security.bean.DmRole" >
+    <id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="STATE_DATE" property="stateDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_OPER_ID" property="createOperId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="DmRoleResultMap" type="com.qimeng.bs.admin.security.bean.DmRole" >
+    <id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="STATE_DATE" property="stateDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_OPER_ID" property="createOperId" jdbcType="INTEGER" />
+    <collection property="privileges"  ofType="com.qimeng.bs.admin.security.bean.DmPrivilege" resultMap="com.qimeng.bs.admin.security.dao.DmPrivilegeMapper.BaseResultMap"/>
+  </resultMap>
+  
+   <!-- 角色关系实例结果映射 -->
+  <resultMap id="RelationResultMap" type="com.qimeng.bs.admin.security.bean.DmRole" >
+    <id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="STATE_DATE" property="stateDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_OPER_ID" property="createOperId" jdbcType="INTEGER" />
+    <result column="STAFF_ID" property="staffId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    dmrole.ROLE_ID, 
+    dmrole.ROLE_NAME, 
+    dmrole.ROLE_DESC, 
+    dmrole.CREATE_DATE, 
+    dmrole.STATE, 
+    dmrole.STATE_DATE, 
+    dmrole.CREATE_OPER_ID
+  </sql>
+  
+  
+  <select id="selectEagerByPrimaryKey" resultMap="DmRoleResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List"/>,
+    <include refid="com.qimeng.bs.admin.security.dao.DmPrivilegeMapper.Base_Column_List"/>
+	from dm_role dmrole
+	LEFT JOIN  dm_role_privilege role_pri on dmrole.ROLE_ID = role_pri.ROLE_ID
+	LEFT JOIN dm_privilege dmpri on role_pri.PRIVILEGE_ID = dmpri.PRIVILEGE_ID
+	where dmrole.ROLE_ID=#{roleId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dm_role dmrole
+    where dmrole.ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </select>
+  
+ <!--    
+  <select id="selectWithPrivilegesById" resultMap="DmRoleResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List"/>,
+    <include refid="com.qimengeda.admin.security.dao.DmPrivilegeMapper.Base_Column_List"/>
+    from dm_role dmrole
+    left join dm_role_privilege dm_role_pri on dmrole.ROLE_ID = dm_role_pri.ROLE_ID
+    left join dm_privilege dmpri on dmpri.PRIVILEGE_ID = dm_role_pri.PRIVILEGE_ID
+    where dmrole.ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </select>-->
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dm_role
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <insert id="insert"  parameterType="com.qimeng.bs.admin.security.bean.DmRole" useGeneratedKeys="true" keyProperty="roleId">
+    insert into dm_role (ROLE_ID, ROLE_NAME, ROLE_DESC, 
+      CREATE_DATE, STATE, STATE_DATE, 
+      CREATE_OPER_ID)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{stateDate,jdbcType=TIMESTAMP}, 
+      #{createOperId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qimeng.bs.admin.security.bean.DmRole" >
+    insert into dm_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >        ROLE_ID,      </if>
+      <if test="roleName != null" >        ROLE_NAME,      </if>
+      <if test="roleDesc != null" >        ROLE_DESC,      </if>
+      <if test="createDate != null" >        CREATE_DATE,      </if>
+      <if test="state != null" >        STATE,      </if>
+      <if test="stateDate != null" >        STATE_DATE,      </if>
+      <if test="createOperId != null" >        CREATE_OPER_ID,      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},      </if>
+      <if test="roleName != null" >        #{roleName,jdbcType=VARCHAR},      </if>      
+      <if test="roleDesc != null" >        #{roleDesc,jdbcType=VARCHAR},      </if>
+      <if test="createDate != null" >        #{createDate,jdbcType=TIMESTAMP},      </if>
+      <if test="state != null" >        #{state,jdbcType=VARCHAR},      </if>
+      <if test="stateDate != null" >        #{stateDate,jdbcType=TIMESTAMP},      </if>
+      <if test="createOperId != null" >        #{createOperId,jdbcType=INTEGER},      </if>
+    </trim>
+  </insert>
+  
+  <insert id="attachPrivileges" >
+	insert into dm_role_privilege(ROLE_ID,PRIVILEGE_ID) values 
+	<foreach item="pri" collection="privileges" open="" separator="," close="">
+		(#{roleId},#{pri.privilegeId})
+	</foreach>	
+  </insert>
+  
+  <delete id="unattachPrivileges" >
+	delete from dm_role_privilege where ROLE_ID=#{roleId}
+  </delete>
+  
+   <delete id="unattachStaffs" >
+	delete from dm_staff_role where ROLE_ID=#{roleId}
+  </delete>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.qimeng.bs.admin.security.bean.DmRole" >
+    update dm_role
+    <set >
+      <if test="roleName != null" >        ROLE_NAME = #{roleName,jdbcType=VARCHAR},      </if>
+      <if test="roleDesc != null" >        ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},      </if>
+      <if test="createDate != null" >        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},      </if>
+      <if test="state != null" >        STATE = #{state,jdbcType=VARCHAR},      </if>
+      <if test="stateDate != null" >        STATE_DATE = #{stateDate,jdbcType=TIMESTAMP},      </if>
+      <if test="createOperId != null" >        CREATE_OPER_ID = #{createOperId,jdbcType=INTEGER},      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qimeng.bs.admin.security.bean.DmRole" >
+       update dm_role
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      STATE = #{state,jdbcType=VARCHAR},
+      STATE_DATE = #{stateDate,jdbcType=TIMESTAMP},
+      CREATE_OPER_ID = #{createOperId,jdbcType=INTEGER}
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="roleName != null">AND dmrole.ROLE_NAME like CONCAT('%', #{roleName}, '%')</if>
+      <if test="state != null">AND dmrole.STATE =#{state} </if>
+    </trim>
+  </sql>
+  
+  <select id="findRoles" parameterType="java.lang.Object" resultMap="RelationResultMap">
+     select 
+    <include refid="Base_Column_List"/>,
+    staff_role.STAFF_ID
+    from dm_role dmrole
+    LEFT JOIN (select * from dm_staff_role where STAFF_ID = #{staffId}) staff_role
+     on dmrole.ROLE_ID = staff_role.ROLE_ID
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="findAllRoles" parameterType="com.qimeng.common.Page" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+    from  dm_role dmrole
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="params.roleName != null and params.roleName!=''">AND dmrole.ROLE_NAME like CONCAT('%', #{roleName}, '%')</if>
+      <if test="params.state != null and params.state!=''">AND dmrole.STATE =#{state} </if>
+    </trim>
+  </select>
+</mapper>

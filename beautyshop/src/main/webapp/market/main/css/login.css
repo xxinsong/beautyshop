@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+.login_bar{ background:url(../images/login_top.jpg) repeat-x; height:93px;}
+.login_logo{ background:url(../images/login_logo.jpg) no-repeat; width:230px; height:90px;}
+.login_left{ background:url(../images/login_left.jpg) no-repeat; width:600px; height:390px; float:left; margin-top:28px;}
+.login_div{ width:388px; float:left; margin-left:10px; margin-top:28px;}
+.login_top{ background:url(../images/login_top_bg.jpg) no-repeat; width:388px; height:10px;}
+.login_center{ background:url(../images/login_center_bg.jpg) repeat-y; width:388px;}
+.login_bottom{ background:url(../images/login_bottom_bg.jpg) no-repeat; width:388px; height:10px;}
+.login_center .you_can{padding-left:20px; margin-top:0px; border-top:1px solid #ddd; padding-top:5px; padding-bottom:10px; margin-left:10px; margin-right:10px;}
+.new_user{ position:absolute; left:0px; top:3px; background:url(../images/login_user.gif) no-repeat; width:32px; height:32px;}
+.new_psw{ position:absolute; left:0px; top:3px; background:url(../images/login_psw.gif) no-repeat; width:32px; height:32px;}
+.login_table_con{ padding:20px 40px;}
+.login_table_con table{}
+.login_table_con table td{ padding-top:8px; padding-bottom:8px;}
+.login_table_con table td a.blue{ color:#0280c9}
+.login_table_con table td input{ vertical-align:middle; margin-right:5px;}

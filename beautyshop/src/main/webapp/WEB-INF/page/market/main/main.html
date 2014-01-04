@@ -1,0 +1,537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>数据超市</title>
+<link rel="stylesheet" href="css/reset.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+<div class="header">
+	<div class="topbar">
+    	<div class="wrap" style="z-index:2000;">
+        	<div class="top_l">你好，欢迎光临！<span><a href="#">请登录</a><a href="#">免费注册</a></span></div>
+            <div class="top_r">
+            	<div class="top_ul">
+                	<a href="#">我的订单</a><span>|</span>
+                    <a href="#" class="selected">个人中心<i class="arrow"></i>
+                    </a>
+                    	<div class="top_ul_selected" style="display:block;">
+                        	<ul>
+                            	<li><a href="#">下拉菜单一</a></li>
+                            	<li><a href="#">下拉菜单一</a></li>
+                            	<li><a href="#">下拉菜单一</a></li>
+                            </ul>
+                        </div>
+                    <a href="#">在线客服</a><span>|</span>
+                    <a href="#">网站导航<i class="arrow"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap" style="z-index:1000;">
+    	<div class="header_logo"></div>
+        <div class="header_search">
+   	    	<div class="searchBox">
+            	<div class="searchIpt">
+            	  <input name="textfield" type="text" id="textfield" value="输入搜索关键字" />
+       			</div>
+   		  		<a href="#" class="searchBtn">搜索</a>
+       	  	</div>
+            <div class="recommendDiv"><span>推荐搜索：</span><a href="#">大屏拼接</a>  <a href="#">数字标牌</a>  <a href="#">PVC</a>  <a href="#">LED</a>  <a href="#">印刷</a></div>
+        </div>
+        <div class="mini_cart clearfix opened">
+            <div class="minicart_box">
+                <a href="#" class="mini_my_cart">
+                <i class="cartico"></i>去购物车结算<i class="cartarrow"></i></a>
+                <div class="minicart_list" style="display: none; height: auto;">
+                    <ul class="cart_tab hide">
+                        <li class="cur_tab">购物车</li>
+                    </ul>
+                    <div class="list_detail">
+                        <div class="none_tips"><span class="shop_cart"></span>您的购物车里还没有1号店的商品，欢迎选购！</div>
+                    </div>
+                    <div class="list_detail hide" style="display: none;"></div>
+                </div>
+                <div class="minicart_list" style="display:block ; height: auto;">
+                    <ul class="cart_tab hide">
+                        <li class="cur_tab">购物车</li>
+                    </ul>
+                    <div class="list_detail">
+                        <ul>
+                            <li>
+                                <a href="#" class="pro_img" traget="_blank"><img src="images/cartimg.jpg" alt="娥佩兰 调量睫毛液1号（黑色不带纤维） 12g"></a>
+                                <a href="#" class="pro_name" traget="_blank">娥佩兰 调量睫毛液1号（黑色不带纤维） 12g</a>
+                                <span class="pro_price">¥49.20</span>
+                                <div class="num_box">
+                                    <a href="javascript:void(0);">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#" class="pro_img" traget="_blank"><img src="images/cartimg.jpg" alt="娥佩兰 调量睫毛液1号（黑色不带纤维） 12g"></a>
+                                <a href="#" class="pro_name" traget="_blank">娥佩兰 调量睫毛液1号（黑色不带纤维） 12g</a>
+                                <span class="pro_price">¥49.20</span>
+                                <div class="num_box">
+                                    <a href="javascript:void(0);">删除</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="checkout_box">
+                            <p><span class="fl" style="line-height:24px;">共<strong>1</strong>件商品</span>共计：<strong>¥49.20</strong>
+                            <a class="checkout_btn" href="#">去结算</a></p>
+                        </div>
+                    </div>
+                    <div class="list_detail hide" id="dqgMiniCart" style="display: none;">
+                    </div>
+                </div>
+                <div class="ap_shopping_warning"></div>
+            </div>
+        </div>
+    </div>
+    <div class="menubar">    	
+    	<div class="wrap" style="z-index:900;">
+            <div class="allSortbox">
+                <h2 class="all_sort_link"><a href="#">全部商品分类</a></h2>
+                <div id="allCategoryHeader" class="allsort_out_box">
+                    <div class="allsort_out">
+                        <ul class="allsort">
+                            <li class="">
+                                <h3>
+                                    <a href="#" target="_blank" title="图书、音像、数字商品">·图书、音像、数字商品</a>
+                                </h3>
+                          	</li>
+                             <li class="cur">
+                                <h3>
+                                    <a href="#" title="礼品箱包、钟表、珠宝">·礼品箱包、钟表、珠宝</a>
+                                </h3>
+                                <div style="display: ;">
+                              		<div class="show_sort" style="display:block; min-height: 200px; height: 200px;">
+                                        <div class="show_sort_l fl">
+                                            <dl>
+                                                <dt><a target="_blank" href="#" tk="CatMenu_Site_100000003_6800">手机通讯</a></dt>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6805">手机</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Keywords_100000003_8665">双卡双待</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Keywords_100000003_20062">千元智能</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Keywords_100000003_20063">女性大屏</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Keywords_100000003_20064">联通3G</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Keywords_100000003_20065">移动3G</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Keywords_100000003_20066">电信3G</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6801">对讲机</a></dd>
+                                            </dl>
+                                            <dl>
+                                                <dt><a target="_blank" href="#" tk="CatMenu_Site_100000003_6820">手机配件</a></dt>
+                                                <dd><a href="#" target="_blank">手机存储卡</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6827">手机保护套</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6831">苹果手机配件</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6822">蓝牙耳机</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6821">手机电池</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6823">手机充电器</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6824">手机耳机</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6828">手写笔</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6832">手机移动电源</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6830">手机贴膜</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_16326">手机挂件</a></dd>
+                                                <dd><a href="#" target="_blank" tk="CatMenu_Site_100000003_6829">车载配件</a></dd>
+                                            </dl>
+                                       	</div>
+                                     </div>
+                               </div>
+                            </li>
+                            <li class="">
+                                <h3>
+                                    <a href="#" target="_blank" title="彩票、旅行、充值、票务">·彩票、旅行、充值、票务</a>
+                                </h3>
+                         	</li>
+                       	  <li class="">
+                                <h3>
+                                    <a href="#" target="_blank" title="商品分类、商品分类">·商品分类、商品分类</a>
+                                </h3>                            
+                   	    	</li>
+                            <li class="">
+                                <h3>
+                                    <a href="#" target="_blank" title="商品分类、商品分类公">·商品分类、商品分类</a>
+                                </h3>
+                            </li>
+                            <li>
+                                <h3>
+                                    <a href="#" target="_blank" title="商品分类、商品分类">·商品分类、商品分类</a>
+                                </h3>
+                            </li>                                         
+                      </ul>
+                    </div>
+                    <div><img src="images/advert01.jpg" width="220" height="121" /></div>
+                </div>
+            </div>
+            <div class="headerNavWrap">
+                <ul class="headerNavMain clearfix">
+                    <li style="z-index:798" class="cur"><a target="_blank" href="#">首页</a></li>
+                    <li style="z-index:797"><a target="_blank" href="#">商品类别</a></li>
+                    <li style="z-index:796"><a target="_blank" href="#">商品类别</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+	<div class="wrap clearfix">
+		<div class="left_side">
+			<div class="promo_show">
+				<div class="promo_wrapper">
+					<ol class="clearfix" style="">
+                    	<li flag="7">
+                            <a target="_blank" class="big_pic" href="#">
+                                <img src="images/flash_pic01.jpg" alt="1号店-生活电器中心-夏降到底3折起">
+                            </a>
+                            <div class="mini_promo clearfix">
+                                <a target="_blank" href="#">
+                                    <img src="images/flash_mini_01.jpg" alt="1号店-生活电器中心-夏降到底3折起">
+                                    <div class="transCon"></div>
+                                    <div class="open_pop">
+                                    	<p class="p_title">鼠标停留后滑出，商品标题名称</p>
+                                        <p class="p_info"><span class="price">折扣价:￥998</span><span class="comment">评论(99999)</span></p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="#">
+                                    <img src="images/flash_mini_02.jpg" alt="行车记录仪之大起底">
+                                    <div class="transCon"></div>
+                                    <div class="open_pop">
+                                    	<p class="p_title">鼠标停留后滑出，商品标题名称</p>
+                                        <p class="p_info"><span class="price">折扣价:￥998</span><span class="comment">评论(99999)</span></p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="http://channel.yihaodian.com/dianqi/1/">
+                                    <img src="images/flash_mini_03.jpg" alt="电器城">
+                                    <div class="transCon"></div>
+                                    <div class="open_pop">
+                                    	<p class="p_title">鼠标停留后滑出，商品标题名称</p>
+                                        <p class="p_info"><span class="price">折扣价:￥998</span><span class="comment">评论(99999)</span></p>
+                                    </div>
+                                </a>
+                            </div>
+						</li>						
+					</ol>
+				</div>
+				<div class="show_num_bg"></div>
+                <ul>
+                    <li class="cur"></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                </ul>
+            </div>
+		</div>
+ 		<div class="right_side">
+        	<div class="right_info"><img src="images/right_gg_01.jpg" width="218" height="90" /></div>
+            <div class="right_info news_div">
+           	  <h2>特百公告</h2>
+                <div class="news_content">
+                    <ul class="news_list">
+                        <li><a href="#">·这里是公告的标题</a></li>
+                        <li><a href="#">·这里是公告的标题</a></li>
+                        <li class="last"><a href="#">·这里是公告的标题</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right_info">
+            	<div class="only_yhd_div" style="display:none;">
+                	<div class="user_msg_div">
+                    	<div class="user_msg_pic"><img src="images/user_pic.gif" width="50" height="50" /></div>
+                        <div class="user_msg_txt">
+                        	<p>Hi,<a href="#">未登录</a></p>
+                            <p>当前积分: <span class="integral">--</span></p>
+                        </div>
+                    </div>
+                    <div class="user_no_login">
+                    	<a href="#" class="user_login_btn">登录</a>
+                        <a href="#" class="new_register">免费注册</a>
+                    </div>
+                </div>
+                <div class="only_yhd_div">
+                	<div class="user_msg_div">
+                    	<div class="user_msg_pic"><img src="images/user_pic.gif" width="50" height="50" /></div>
+                        <div class="user_msg_txt">
+                        	<p>Hi,<span class="userName">KINO!</span><a href="#" class="login_out">登出</a></p>
+                            <p>当前积分: <span class="integral">886</span></p>
+                        </div>
+                    </div>
+                    <div class="user_login">
+                    	<a href="#">
+                        	<p class="number">0</p>
+                            <p class="nameCurr">待收货</p>
+                        </a>
+                        <a href="#">
+                        	<p class="number">2</p>
+                            <p class="nameCurr">待收货</p>
+                        </a>
+                        <a href="#" class="last">
+                        	<p class="number">1</p>
+                            <p class="nameCurr">待评价</p>
+                        </a>
+                    </div>
+                </div>
+          	</div>  
+   	  	</div>
+	</div>
+</div>
+<div class="wrap index_floor floor1 floor_height">
+	<div class="clearfix floor_wrap">
+        <div class="middle_module">
+        	<ul class="tab_li">
+            	<li class="curr"><a href="#">热销商品分类</a></li>
+            	<li><a href="#">热销商品分类</a></li>
+            	<li><a href="#">热销商品分类</a></li>
+                <div class="clear"></div>
+            </ul>
+            <div style="display:block ;" class="tab_li_content none">
+                <ul class="clearfix">
+                    <li>
+                        <a title="Philips 飞利浦 电饭煲 HD3060" class="pro_img" href="#"><img src="images/pic150X150_01.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                    	<span class="yize"></span>
+                        <a title="Philips 飞利浦 电动剃须刀 PQ182" class="pro_img" href="#"><img src="images/pic150X150_02.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                    	<span class="zhij"></span>
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L CCB-002" class="pro_img" href="#"><img src="images/pic150X150_03.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="">
+                        <a target="_blank" title="Povos 奔腾 电水壶S1873 银色" class="pro_img" href="#"><img src="images/pic150X150_04.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="rightnor">
+                    	<span class="tehui"></span>
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L 2瓶装 CCB-027" class="pro_img" href="#"><img src="images/pic150X150_05.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap index_floor floor1 floor_height">
+	<div class="clearfix floor_wrap">
+        <div class="middle_module">
+        	<div class="pro_title">
+            	<h2>热销商品分类</h2>
+            </div>
+            <div style="display:block ;" class="tab_li_content none">
+                <ul class="clearfix">
+                    <li>
+                        <a title="Philips 飞利浦 电饭煲 HD3060" class="pro_img" href="#"><img src="images/pic150X150_06.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                        <a title="Philips 飞利浦 电动剃须刀 PQ182" class="pro_img" href="#"><img src="images/pic150X150_07.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L CCB-002" class="pro_img" href="#"><img src="images/pic150X150_08.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="">
+                        <a target="_blank" title="Povos 奔腾 电水壶S1873 银色" class="pro_img" href="#"><img src="images/pic150X150_09.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="rightnor">
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L 2瓶装 CCB-027" class="pro_img" href="#"><img src="images/pic150X150_10.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap index_floor floor1 floor_height">
+	<div class="clearfix floor_wrap">
+        <div class="middle_module">
+        	<ul class="tab_li">
+            	<li class="curr"><a href="#">热销商品分类</a></li>
+            	<li><a href="#">热销商品分类</a></li>
+            	<li><a href="#">热销商品分类</a></li>
+                <div class="clear"></div>
+            </ul>
+            <div style="display:block ;" class="tab_li_content none">
+                <ul class="clearfix">
+                    <li>
+                        <a title="Philips 飞利浦 电饭煲 HD3060" class="pro_img" href="#"><img src="images/pic150X150_01.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                    	<span class="yize"></span>
+                        <a title="Philips 飞利浦 电动剃须刀 PQ182" class="pro_img" href="#"><img src="images/pic150X150_02.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                    	<span class="zhij"></span>
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L CCB-002" class="pro_img" href="#"><img src="images/pic150X150_03.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="">
+                        <a target="_blank" title="Povos 奔腾 电水壶S1873 银色" class="pro_img" href="#"><img src="images/pic150X150_04.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="rightnor">
+                    	<span class="tehui"></span>
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L 2瓶装 CCB-027" class="pro_img" href="#"><img src="images/pic150X150_05.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap index_floor floor1 floor_height">
+	<div class="clearfix floor_wrap">
+        <div class="middle_module">
+        	<div class="pro_title">
+            	<h2>热销商品分类</h2>
+            </div>
+            <div style="display:block ;" class="tab_li_content none">
+                <ul class="clearfix">
+                    <li>
+                        <a title="Philips 飞利浦 电饭煲 HD3060" class="pro_img" href="#"><img src="images/pic150X150_06.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                        <a title="Philips 飞利浦 电动剃须刀 PQ182" class="pro_img" href="#"><img src="images/pic150X150_07.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li>
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L CCB-002" class="pro_img" href="#"><img src="images/pic150X150_08.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="">
+                        <a target="_blank" title="Povos 奔腾 电水壶S1873 银色" class="pro_img" href="#"><img src="images/pic150X150_09.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                    <li class="rightnor">
+                        <a target="_blank" title="长城世喜 高效清洁玻璃水 1.8L 2瓶装 CCB-027" class="pro_img" href="#"><img src="images/pic150X150_10.jpg"></a>
+                        <a target="_blank" title="商品名称一行十二个字，字数多可换行，最多两行…" href="#" class="pro_name">商品名称一行十二个字，字数多可换行，最多两行…</a>
+                        <p class="starCon"><span class="star fivestar"></span></p>
+                      	<p class="tl">折扣价：<strong>¥399</strong><del>￥1298</del></p>
+                        <p class="buyOn"><span>售出(99999)</span><span>评论(99999)</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom_service_link clearfix clear">
+    <div class="help_link_list">
+        <dl class="bottom_help_1">
+            <dt>新手上路</dt>
+            <dd><a target="_blank" href="#">发票制度</a></dd>
+            <dd><a target="_blank" href="#">常见问题</a></dd>
+            <dd><a target="_blank" href="#">在线客服</a></dd>
+        </dl>
+        <dl class="bottom_help_2">
+            <dt>支付方式</dt>
+            <dd><a target="_blank" href="#">网银支付</a></dd>
+        </dl>
+        <dl class="bottom_help_3">
+            <dt>物流配送</dt>
+            <dd><a target="_blank" href="#">配送范围及时间</a></dd>
+            <dd><a target="_blank" href="#">配送状态查询</a></dd>
+        </dl>
+        <dl class="bottom_help_4">
+            <dt>售后服务</dt>
+            <dd><a target="_blank" href="#">咨询与投诉</a></dd>
+            <dd><a target="_blank" href="#">维修与安装</a></dd>
+            <dd><a target="_blank" href="#">购买延保服务</a></dd>
+        </dl>
+        <dl class="bottom_help_5">
+            <dt>关注我们</dt>
+            <dd class="attention">
+            <div>
+            	<i class="sinaico"></i>微博名称<a href="#" class="attentionBtn">+&nbsp;关注</a>
+            </div>
+            <div>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" class="attenTalbe">
+                <tr>
+                  <td>关注 <span>481</span></td>
+                  <td>微博 <span>3378</span></td>
+                </tr>
+                <tr>
+                  <td>粉丝<span> 1257</span></td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+            </div>
+            </dd>
+        </dl>
+        <div class="footer_logo"></div>
+    </div>
+    <div class="footer_link">
+    <a target="_blank" href="#">关于我们</a>|<a target="_blank" href="#">联系我们</a>|<a target="_blank" href="#">诚聘英才</a>|<a target="_blank" href="#">友情链接</a>|<a target="_blank" href="#">法律声明</a>|<a target="_blank" href="#">用户体验提升计划</a>
+    </div>
+</div>
+<div class="footer">
+  	<p class="copyright">
+        Copyright© 2013 ，版权所有 粤ICP备10207551号 粤B2-20100316 出版物经营许可证新出发粤批字第A-243号
+    </p>
+    <p class="kexin"><img src="images/kexinimg01.jpg" width="112" height="35" /><img src="images/kexinimg02.jpg" width="112" height="35" /><img src="images/kexinimg03.jpg" width="112" height="35" /></p>
+</div>
+</body>
+</html>

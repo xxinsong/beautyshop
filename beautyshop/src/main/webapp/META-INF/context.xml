@@ -1,0 +1,15 @@
+<Context path="/bs" docBase="beautyshop" debug="99"  reloadable="false"
+         antiJARLocking="false" antiResourceLocking="false" allowLinking="true">
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <Resource name="jdbc/beautyshop" auth="Container" type="javax.sql.DataSource"
+              maxActive="50" maxIdle="10000" maxWait="30"
+              username="bs"
+              password="bs"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://127.0.0.1:3306/beautyshop?useUnicode=true&amp;characterEncoding=UTF-8"
+              removeAbandoned="true" removeAbandonedTimeout="60" logAbandoned="true"
+              testOnReturn="true" testWhileIdle="true"
+              validationQuery="select now()"/>
+
+</Context>
