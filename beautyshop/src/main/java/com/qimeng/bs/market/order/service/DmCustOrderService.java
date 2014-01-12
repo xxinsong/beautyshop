@@ -1,5 +1,7 @@
 package com.qimeng.bs.market.order.service;
 
+import com.qimeng.bs.market.goods.bean.DmGoodsInst;
+import com.qimeng.bs.market.goods.dao.DmGoodsInstMapper;
 import com.qimeng.common.Page;
 import com.qimeng.common.tools.PKUtils;
 import com.qimeng.bs.market.goods.dao.DmShoppingCartMapper;
@@ -30,6 +32,8 @@ public class DmCustOrderService {
     private DmSubCustOrderMapper dmSubCustOrderMapper;
     @Autowired
     private DmShoppingCartMapper dmShoppingCartMapper;
+    @Autowired
+    private DmGoodsInstMapper dmGoodsInstMapper;
 
     @Transactional
     public void insertOrder(DmCustOrder dmCustOrder) {
@@ -83,27 +87,39 @@ public class DmCustOrderService {
     @Transactional
     public void submitOrder(DmCustOrder order,String mode) {
         List<DmSubCustOrder> subCustOrderList = order.getSubCustOrderList();
-        List<Integer> instIds = new ArrayList<Integer>();
+        List<Integer> goodsIds = new ArrayList<Integer>();
         if(StringUtils.equals(mode,"CREATE")){
             dmCustOrderMapper.insert(order);
             int orderId = PKUtils.lastInsertId();
             order.setOrderId(orderId);
 
             for (DmSubCustOrder subCustOrder : subCustOrderList) {
+                DmGoodsInst goodsInst = new DmGoodsInst();
+                goodsInst.setMerchantId(order.getMerchantId());
+                goodsInst.setGoodsId(subCustOrder.getGoodsId());
+                goodsInst.setGoodsName(subCustOrder.getGoodsName());
+                goodsInst.setInstNum(subCustOrder.getItemNo());
+                goodsInst.setPrice(subCustOrder.getPrice());
+                goodsInst.setState("00A");
+                dmGoodsInstMapper.insert(goodsInst);
+                int goodsInstId = PKUtils.lastInsertId();
+
                 subCustOrder.setOrderId(orderId);
+                subCustOrder.setGoodsInstId(goodsInstId);
                 dmSubCustOrderMapper.insert(subCustOrder);
-                instIds.add(subCustOrder.getGoodsInstId());
+
+                goodsIds.add(subCustOrder.getGoodsId());
             }
         }else{
             dmCustOrderMapper.updateByPrimaryKeySelective(order);
             for (DmSubCustOrder subCustOrder : subCustOrderList) {
                 subCustOrder.setOrderId(order.getOrderId());
                 dmSubCustOrderMapper.updateByPrimaryKeySelective(subCustOrder);
-                instIds.add(subCustOrder.getGoodsInstId());
+                goodsIds.add(subCustOrder.getGoodsId());
             }
         }
 
-        dmShoppingCartMapper.batchRemoveGoodsInCart(instIds);
+        dmShoppingCartMapper.batchRemoveGoodsInCart(goodsIds);
 
     }
 
@@ -123,8 +139,20 @@ public class DmCustOrderService {
 
     public DmCustOrder selectCustOrder(Map params) {
         DmCustOrder order = dmCustOrderMapper.selectCustOrderByMerchantId(params);
-        List<DmSubCustOrder> subCustOrderList = dmSubCustOrderMapper.selectSubOrderByOrderId(order.getOrderId());
-        order.setSubCustOrderList(subCustOrderList);
+        if(order!=null){
+            List<DmSubCustOrder> subCustOrderList = dmSubCustOrderMapper.selectSubOrderByOrderId(order.getOrderId());
+            order.setSubCustOrderList(subCustOrderList);
+            int itemNo = order.getItemNo();
+            for(DmSubCustOrder subOrder:subCustOrderList){
+                itemNo = itemNo + subOrder.getItemNo();
+            }
+            order.setItemNo(itemNo);
+        }
         return order;
+    }
+
+    public List<DmSubCustOrder> selectSubCustOrder(int orderId) {
+        List<DmSubCustOrder> subCustOrderList = dmSubCustOrderMapper.selectSubOrderByOrderId(orderId);
+        return subCustOrderList;
     }
 }

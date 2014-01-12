@@ -1,5 +1,6 @@
 package com.qimeng.bs.login.controller;
 
+import com.qimeng.bs.market.goods.bean.DmShoppingCartItem;
 import com.qimeng.common.Constants;
 import com.qimeng.common.tools.DateFormatUtils;
 import com.qimeng.common.web.ApplicationContextUtil;
@@ -115,11 +116,12 @@ public class UserLoginController extends GenericController {
     }
 
     private ShoppingCart loadShoppingCart(int merchantId) {
-        List<DmGoodsInst> dmGoodsInsts = shoppingCartService.selectGoodsInstInCart(merchantId);
+        List<DmShoppingCartItem> items = shoppingCartService.selectShoppingCartItemsByMerchantId(merchantId);
         ShoppingCart cart = getShoppingCart();
-        List<DmGoodsInst> selectedGoodsInstList = cart.getAllGoodsInCart();
-        shoppingCartService.saveShoppingCart(selectedGoodsInstList);
-        cart.putGoodsInCart(dmGoodsInsts);
+        cart.putGoodsInCart(items);
+        List<DmShoppingCartItem> allItems = cart.getAllGoodsInCart();
+        shoppingCartService.saveShoppingCart(allItems);
+//        cart.putGoodsInCart(dmGoodsInsts);
         return cart;
     }
 

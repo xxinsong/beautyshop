@@ -60,20 +60,20 @@
                             <input type="checkbox" checked="" value="" price="" name="checkItem" class="checkbox">
                         </div>
                         <div class="cell p_goods">
-                            <div class="p_img"><a name="goodsImage" href="#"><img alt="xxx" src=""></a></div>
-                            <div class="p_name"><a name="goodsName" href="javascript:void(0)">xxx</a><span class="promise411"></span></div>
+                            <div class="p_img"><a name="goodsImage" href="#"><img alt="" src=""></a></div>
+                            <div class="p_name"><a name="goodsName" href="javascript:void(0)"></a><span class="promise411"></span></div>
                         </div>
                         <div class="cell p_price"><span class="price" name="price">¥0</span></div>
-                        <div class="cell p_quantity">1
-                            <%--<div class="quantity_form">--%>
-                                <%--<div class="pro_do_div">--%>
-                                    <%--<a href="#" class="pro_reduc">减少</a>--%>
-                                    <%--<input type="text" name="textfield" id="textfield" value="1" />--%>
-                                    <%--<a href="#" class="pro_add">增加</a>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+                        <div class="cell p_quantity">
+                            <div class="quantity_form">
+                                <div class="pro_do_div">
+                                    <a href="javascript:void(0)" class="pro_reduc">减少</a>
+                                    <input type="text" name="itemNo" valid_type="numOnly" maxlength="2" nullable='false' value="1" />
+                                    <a href="javascript:void(0)" class="pro_add">增加</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="cell p_inventory" name="price">¥0</div>
+                        <div class="cell p_inventory" name="subtotal">¥0</div>
                         <div class="cell p_remove">
                             <p>
                                 <a name="btn_del" href="javascript:void(0)" class="cart-remove">删除</a>

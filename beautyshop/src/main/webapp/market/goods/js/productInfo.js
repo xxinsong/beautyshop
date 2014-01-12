@@ -122,7 +122,7 @@ function sumitGoods() {
 
     })
     
-    if(tags.length == 0 ){
+    /*if(tags.length == 0 ){
     	  alert("请选择标签!");
     	  return;
     }
@@ -132,7 +132,7 @@ function sumitGoods() {
     	  alert("请选择营销区域!");
     	    $("#mapTag").trigger("mouseenter" );
     	    return;
-    }
+    }*/
     var callback = function (reply) {
         var result = reply.getResult();
         if (result) {

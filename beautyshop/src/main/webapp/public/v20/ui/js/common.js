@@ -47,32 +47,47 @@ function hideLoading() {
 
 var Attr = {
     attrlist: [],
+    subAttrList:[],
     init: function () {
         var self = this;
         $("select[attr_code]").each(function () {
             var attr_code = $(this).attr("attr_code");
-            var me = this;
-            self.getAttrData(attr_code, true, function (reply) {
+            /*for (var i = 0; i < self.subAttrList.length; i++) {
+                if (self.subAttrList[i] == attr_code) {
+                    return;
+                }
+            }*/
+            self.getAttrData(attr_code,parentVal, true, function (reply) {
                 self.render($(me), reply);
+                if(subList!=null){
+                    $(me).on('change',function(){
+                        subList.html("");
+                        if($(me).val()!=""){
+                            self.initSelectOption(subList,$(me).val(),subAttrCode);
+                        }
+                    });
+
+                }
             })
+            self.initSelectOption($(this),null,attr_code);
         });
     },
-    getAttrData: function (attr_code, async, callBack) {
-        for (var i = 0; i < this.attrlist.length; i++) {
+    getAttrData: function (attr_code,parentAttrValue, async, callBack) {
+        /*for (var i = 0; i < this.attrlist.length; i++) {
             if (this.attrlist[i].attr_code == attr_code) {
                 callBack && callBack(this.attrlist[i].data);
                 return this.attrlist[i].data;
             }
-        }
-        return this.loadAttrData(attr_code, async, callBack);
+        }*/
+        return this.loadAttrData(attr_code,parentAttrValue, async, callBack);
     },
-    loadAttrData: function (attr_code, async, callBack) {
+    loadAttrData: function (attr_code,parentAttrValue, async, callBack) {
         var me = this;
         if (typeof(async) == "undefined") {
             async = true;
         }
         if (async) {
-            Ajax.getAsy().remoteCall("StaticDataController", "getStaticData", [attr_code], function (reply) {
+            Ajax.getAsy().remoteCall("StaticDataController", "getStaticData", [attr_code,parentAttrValue], function (reply) {
                 var data = reply.getResult();
                 me.attrlist.push({ attr_code: attr_code, data: data });
 
@@ -86,13 +101,67 @@ var Attr = {
             return this.attrlist[this.attrlist.length - 1].data || [];
         }
     },
-    render: function ($jq, data) {
+    render: function ($jq, data, defVal) {
         var html = [];
-        html.push("<option value=''></option>");
+//        html.push("<option value=''></option>");
         for (var i = 0; i < data.length; i++) {
             html.push("<option value='" + data[i].attrValue + "'>" + data[i].attrValueDesc + "</option>");
         }
         $jq.html(html.join("")).data("init", 1);
+        if(defVal&&defVal!=""){
+            $jq.val(defVal);
+        }
+    },
+    initSelectOption:function(select,parentVal,attr_code){
+        var self = this;
+        var sublistName = select.attr("sublist");
+        var parentName = select.attr("parentlist");
+        var subList = null;
+        var parentList = null;
+        var parentVal = null;
+        var subAttrCode = null;
+        if(sublistName&&sublistName!=''){
+            subList = $("select[name='"+sublistName+"']");
+            subAttrCode = subList.attr("attr_code");
+
+            /*if(subAttrCode){
+                var exists = false;
+                for(var i=0;i<self.subAttrList.length;i++){
+                    if(subAttrCode==self.subAttrList[i]){
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists){
+                    self.subAttrList.push(subAttrCode);
+                }
+            }*/
+        }
+        if(parentName&&parentName!=''){
+            parentList = $("select[name='"+parentName+"']");
+            parentVal = parentList.val();
+        }
+        var me = select;
+        self.getAttrData(attr_code,parentVal, true, function (reply) {
+            self.render($(me), reply);
+            if(subList!=null){
+                $(me).on('change',function(){
+                    subList.html("");
+                    if($(me).val()!=""){
+                        self.initSelectOption(subList,$(me).val(),subAttrCode);
+                    }
+                });
+
+                /*var subListVal = subList.val();
+                subList.html("");
+                if(parentVal!=""){
+                    self.getAttrData(subAttrCode,parentVal, true, function (reply) {
+                        self.render(subList, reply,subListVal);
+                    })
+                }
+*/
+            }
+        })
     }
 }
 
@@ -199,7 +268,9 @@ var commonJs = {
                 if (!EasyuiZX.VTypes[$jq.attr("valid_type")]($jq.val())) {
                     flag = false;
                     showRed($jq);
-                    messager.pop($jq, EasyuiZX.VTypes[$jq.attr("valid_type") + "Text"]);
+                    try{
+                        messager.pop($jq, EasyuiZX.VTypes[$jq.attr("valid_type") + "Text"]);
+                    }catch(exception){}
                     return false;
                 }
             });
@@ -222,12 +293,13 @@ var commonJs = {
         return flag;
     },
     getWebPath: function () {
-        var strFullPath = window.document.location.href;
+        /*var strFullPath = window.document.location.href;
         var strPath = window.document.location.pathname;
         var pos = strFullPath.indexOf(strPath);
         var prePath = strFullPath.substring(0, pos);
         var postPath = strPath.substring(0, strPath.substr(1).indexOf('/') + 1);
-        return (prePath + postPath);
+        return (prePath + postPath);*/
+        return "";
     },
     getUrlParams: function (url) {
         var params = {};

@@ -40,12 +40,12 @@ public class DmGoodsInstController extends GenericController{
    
         return dmBizCircleService.insertDmBizCircle(param );
     }
-    
+    /*
     @RemoteMethod
     public Map sumitCartGoods(Map param){
         LoginInfo loginInfo = getCurrentLoginUser();
         
  
         return dmGoodsInstService.sumitCartGoods(    param);
-    }
+    }*/
 }

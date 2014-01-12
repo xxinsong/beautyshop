@@ -10,23 +10,28 @@
 
     <!-- 激活@Controller模式 -->
     <mvc:annotation-driven/>
-    <mvc:default-servlet-handler/>
     <!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 需要更改 -->
     <context:component-scan base-package="com.qimeng.bs"/>
     <import resource="classpath:springmvc-resteasy.xml"/>
+
     <!-- 登录拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/market/activity/**"/>
-            <mvc:mapping path="/market/order/**"/>
-            <mvc:mapping path="/market/pay/**"/>
-            <!--<mvc:mapping path="/market/user/**"/>-->
+            <mvc:mapping path="/order/**"/>
+            <mvc:mapping path="/payment/**"/>
             <mvc:mapping path="/setting/**"/>
+            <mvc:mapping path="/mycare/**"/>
+            <mvc:mapping path="/message/**"/>
             <bean class="com.qimeng.common.interceptor.LoginAnnotationInterceptor"></bean>
+        </mvc:interceptor>
+        <!-- 配置Token拦截器，防止用户重复提交数据 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.qimeng.common.interceptor.SubmissionTokenInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/page"/>
     <!-- 支持文件上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-
+    <mvc:default-servlet-handler/>
 </beans>

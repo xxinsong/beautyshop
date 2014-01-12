@@ -1,4 +1,31 @@
 var msg = {
+    alert : function(title,content,fn){
+        var html = [];
+        html.push("<div id='cautionDialog' class='dialog' style='z-index: 9999;width:300px; height:130px; left:50%; margin-left:-150px; top:50%; margin-top:-65px;'>");
+        html.push("	 <div class='alert_tit'>");
+        html.push("		<h2>" + title + "</h2>");
+        html.push("			<a href='javascript: void(0);' onclick='msg.close(this);' class='alert_close'></a>");
+        html.push("	 </div>");
+        html.push("	 <div class='alert_content'>");
+        html.push(    content);
+        html.push("	 </div>");
+        html.push("  <div class='btns'>");
+        html.push("		<a name='confirmBtn' href='javascript: void(0);' class='alert_blue' style='margin-right:10px;'>确定</a>");
+        html.push("  </div>");
+        html.push("</div>");
+
+        $("body").append(html.join(""));
+
+        //按钮事件
+        $("a[name='confirmBtn']", "#cautionDialog").click(function() {
+            msg.close(this);
+            fn && fn(true);
+        });
+
+        this.open($("#cautionDialog").draggable( {
+            handle : ".alert_tit"
+        }));
+    },
     confirm : function(title, content, fn) {
         var html = [];
         var pos = getMousePos(event);

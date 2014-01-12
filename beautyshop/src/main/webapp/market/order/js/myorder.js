@@ -102,7 +102,7 @@ function loadCancel(){
 
 function orderRowRender(data,context){
     $("[name='order_no']",context).text(data.orderNo).on('click',function(){
-        window.location.href = commonJs.getWebPath()+"/market/order/edit?id="+data.orderId;
+        window.location.href = commonJs.getWebPath()+"/order/edit?id="+data.orderId;
     });
 
     $("[name='amount']",context).text('总金额：￥'+data.amount);

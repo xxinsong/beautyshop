@@ -34,7 +34,7 @@
         </if>  
 	</select>
 	<sql id="dm_goods_column_list">
-		goods_id, catalog_id, goods_no, goods_name, alias, type, image_uri, sale_way, base_price, state, create_staff, create_date, eff_date, exp_date, date_format(putaway_time, '%Y-%m-%d %T') putaway_time, goods_desc, goods_props, view_count, hints
+		goods_id, catalog_id, goods_no, goods_name, alias, type, image_uri, sale_way, price, ori_price, state, create_staff, create_date, eff_date, exp_date, date_format(putaway_time, '%Y-%m-%d %T') putaway_time, goods_desc, goods_props, view_count, hints
     </sql>
     <sql id="dm_goods_catalog_column_list">
 		catalog_id, catalog_name, alias, catalog_desc, up_catalog_id, state, create_staff_no, create_date, order_id, is_leaf
@@ -57,7 +57,8 @@
 		<result column="type" property="type" jdbcType="VARCHAR" />
 		<result column="image_uri" property="image_uri" jdbcType="VARCHAR" />
 		<result column="sale_way" property="sale_way" jdbcType="VARCHAR" />
-		<result column="base_price" property="base_price" jdbcType="DECIMAL" />
+		<result column="price" property="price" jdbcType="FLOAT" />
+		<result column="ori_price" property="ori_price" jdbcType="FLOAT" />
 		<result column="state" property="state" jdbcType="VARCHAR" />
 		<result column="create_staff" property="create_staff" jdbcType="VARCHAR" />
 		<result column="create_date" property="create_date" jdbcType="TIMESTAMP" />
@@ -105,7 +106,7 @@
          order by inst_num desc
         </if>     
         <if test="params.query_type != null and params.query_type == '002'">
-         order by base_price desc
+         order by price desc
         </if>
         <if test="params.query_type != null and params.query_type == '003'">
          order by comment_num desc

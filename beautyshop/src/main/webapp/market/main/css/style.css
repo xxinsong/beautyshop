@@ -4777,3 +4777,30 @@ a.btn:hover, a.btn:hover span {
 #cart-delete-dialog .btns, #cart-notify-dialog .btns {
     padding: 10px 0 0 65px;
 }
+/*alert弹出框*/
+.dialog{ background:#fff; border:1px solid #c3c3c3;box-shadow:0 2px 3px 0 rgba(0,0,0,0.2); position:absolute;}
+.dialog .alert_tit{ background:url(../images/alert_tit.gif) repeat-x; height:26px; line-height:26px; border-bottom:1px solid #c3c3c3; position:relative;}
+.dialog .alert_tit h2{ color:#333; font-size:12px; font-weight:bold; padding-left:10px; line-height:26px;}
+.dialog .alert_tit .alert_close{ background:url(../images/alert_close.gif) no-repeat; width:12px; height:12px; position:absolute; right:10px; top:50%; margin-top:-6px;}
+.dialog .alert_content{ padding:15px 10px; color:#333; font-size:12px; line-height:20px;}
+.dialog .btns{ text-align:center; margin-top:10px;}
+.alert_blue{ background:url(../images/alert_blue.gif) repeat-x; height:22px; line-height:22px; display:inline-block; border:1px solid #73a3c5; color:#4e88b9; padding-left:15px; padding-right:15px;}
+.alert_blue:hover{background:url(../images/alert_blue_hover.gif) repeat-x;color:#4e88b9;}
+.alert_gray{ background:url(../images/alert_gray.gif) repeat-x; height:22px; line-height:22px; display:inline-block; border:1px solid #c3c3c3; color:#727272; padding-left:15px; padding-right:15px;}
+.alert_gray:hover{ background:url(../images/alert_gray_hover.gif) repeat-x; color:#727272;}
+
+/*succeed*/
+#succeed{position:relative;overflow:visible;}
+#succeed .corner{display:none;position:absolute;width:4px;height:4px;font-size:0;line-height:0;overflow:hidden;}
+#succeed .tl{top:-1px;left:-1px;background-position:-17px 0;}
+#succeed .tr{top:-1px;right:-1px;background-position:-21px 0;}
+#succeed .bl{bottom:-1px;left:-1px;background-position:-17px -4px;}
+#succeed .br{bottom:-1px;right:-1px;background-position:-21px -4px;}
+#succeed .btn-pay,#succeed .btn-continue,#succeed .btn-append{background:#ccc url(../images/20130425D.png) no-repeat;line-height:100px;overflow:hidden;display:block;}
+#succeed .btn-pay{float:right;width:189px;height:36px;margin:0 175px 0 10px;_margin-right:12px;background-position:0 0;}
+#succeed .btn-continue{float:right;background-position:-90px -37px;width:94px;height:36px;}
+#succeed .btn-append{background-position:-141px 0;width:93px;height:23px;}
+#succeed .success{overflow:hidden;height:65px;padding:31px 10px 16px 280px;zoom:1;}
+#succeed .success b,#succeed .success-b{float:left;overflow:hidden;width:304px;height:40px;padding-left:56px;background:url(../images/20130425D.png) no-repeat 0 -100px;font:normal 24px/40px \5fae\8f6f\96c5\9ed1;color:#7ABD54;}
+#succeed .success-b{color:#999;font:12px/150% Arial,Verdana,"\5b8b\4f53";height:auto}
+#succeed .success-b h3{font:normal 24px/40px \5fae\8f6f\96c5\9ed1;color:#7ABD54;}

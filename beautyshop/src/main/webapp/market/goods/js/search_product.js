@@ -363,23 +363,12 @@ function queryGoods() {
 }
 
 function putIntoCart(goodsId){
-    /*var callback = function (reply) {
-        var result = reply.getResult();
-        if (result) {
-            alert("加入成功");
-            initMiniCart();
-        }
-    }
-    Ajax.getAsy().remoteCall("DmGoodsInstController", "sumitCartGoods", [
-        {"goodsId": goodsId}
-    ], callback);*/
     $.ajax({
         type:"PUT",
-        url:commonJs.getWebPath()+"/mycart/add/5",
-//        contentType:"application/json",
-        data:goodsId,
+        url:commonJs.getWebPath()+"/mycart/add/"+goodsId,
         success:function(retval){
-            alert(retval);
+            initMiniCart();
+            window.location.href = commonJs.getWebPath()+"/mycart/success";
         },
         error:function(){
 

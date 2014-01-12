@@ -13,17 +13,17 @@
 		</div>
 		<div class="top_r">
             <div class="top_ul">
-                <a href="<%=request.getContextPath()%>/myorder">我的订单</a><span>|</span>
+                <a href="<%=request.getContextPath()%>/order">我的订单</a><span>|</span>
                 <a href="javascript: void(0)" class="" id="user_center" rel_div="user_center_list">个人中心<i class="arrow"></i></a>
                 <div class="top_ul_selected" style="display: none;" id="user_center_list" rel_a="user_center">
                     <ul>
                         <li><a href="<%=request.getContextPath()%>/setting/account">账户信息</a></li>
                         <li><a href="<%=request.getContextPath()%>/setting/security">安全设置</a></li>
                         <li><a href="<%=request.getContextPath()%>/message">我的消息</a></li>
-                        <li><a href="<%=request.getContextPath()%>/address">我的地址</a></li>
+                        <li><a href="<%=request.getContextPath()%>/setting/address">我的地址</a></li>
                     </ul>
                 </div>
-                <span>|</span><a href="<%=request.getContextPath()%>/mycart"">购物车</a>
+                <span>|</span><a href="<%=request.getContextPath()%>/mycart">购物车</a>
                 <%--<a href="javascript: void(0)">网站导航<i class="arrow"></i></a>--%>
             </div>
         </div>

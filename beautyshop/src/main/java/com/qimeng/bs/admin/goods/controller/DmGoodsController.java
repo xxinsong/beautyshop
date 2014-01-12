@@ -151,6 +151,6 @@ public class DmGoodsController extends GenericController {
 
     @RemoteMethod
     public DmGoods getGoodsById(DmGoods goods) {
-        return dmGoodsSerive.getGoodsById(goods);
+        return dmGoodsSerive.getGoodsById(goods.getGoodsId());
     }
 }

@@ -1,4 +1,4 @@
-var path_prefix = getWebPath();//'/DataMarket/';
+var path_prefix = '/';//getWebPath();//'/DataMarket/';
 var js_path_prefix =  getWebPath();//'/DataMarket/';
 
 
@@ -99,10 +99,11 @@ EasyuiZX.importLib = function(lib) {
 })();
 
 function getWebPath() {
-    var strFullPath = window.document.location.href;
+    return "/";
+    /*var strFullPath = window.document.location.href;
     var strPath = window.document.location.pathname;
     var pos = strFullPath.indexOf(strPath);
     var prePath = strFullPath.substring(0, pos);
     var postPath = strPath.substring(0, strPath.substr(1).indexOf('/') + 2);
-    return (prePath + postPath);
+    return (prePath + postPath);*/
 }

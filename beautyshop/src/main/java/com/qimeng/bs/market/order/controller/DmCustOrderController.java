@@ -1,23 +1,32 @@
 package com.qimeng.bs.market.order.controller;
 
+import com.qimeng.bs.market.goods.bean.DmShoppingCartItem;
+import com.qimeng.bs.market.goods.service.DmShoppingCartService;
 import com.qimeng.common.Page;
 import com.qimeng.bs.market.goods.ShoppingCart;
 import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.LoginInfo;
-import com.qimeng.bs.market.goods.bean.DmGoodsInst;
 import com.qimeng.bs.market.goods.service.DmGoodsInstService;
 import com.qimeng.bs.market.order.OrderNoGenerator;
 import com.qimeng.bs.market.order.bean.DmCustOrder;
 import com.qimeng.bs.market.order.bean.DmSubCustOrder;
 import com.qimeng.bs.market.order.service.DmCustOrderService;
+import com.qimeng.common.interceptor.SubmissionToken;
 import org.apache.commons.lang3.StringUtils;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.*;
 
 /**
@@ -26,11 +35,14 @@ import java.util.*;
  */
 @RemoteProxy
 @Controller
+@Path("/order")
 public class DmCustOrderController extends GenericController{
     @Autowired
     DmCustOrderService dmCustOrderService;
     @Autowired
     DmGoodsInstService dmGoodsInstService;
+    @Autowired
+    DmShoppingCartService dmShoppingCartService;
     @Autowired
     OrderNoGenerator orderNoGenerator;
 
@@ -61,6 +73,7 @@ public class DmCustOrderController extends GenericController{
         return dmCustOrderService.selectOrderGoodsInstList(params, pageIndex, pageSize);
     }
 
+    @SubmissionToken(remove = true)
     @RequestMapping("/order/submit")
     public String submitOrder(HttpServletRequest request){
         String mode = request.getParameter("mode");
@@ -95,15 +108,14 @@ public class DmCustOrderController extends GenericController{
         order.setCreateTime(new Date());
         order.setState("10A");//待确认
 
-        List<DmGoodsInst> instList = cart.getBuyingGoods();
-        for (DmGoodsInst inst : instList) {
+        List<DmShoppingCartItem> buying = cart.getBuying();
+        for (DmShoppingCartItem item : buying) {
             DmSubCustOrder subOrder = new DmSubCustOrder();
-            subOrder.setPlanId(inst.getPlanId());
-            subOrder.setGoodsInstId(inst.getInstId());
-            subOrder.setGoodsId(inst.getGoodsId());
-            subOrder.setGoodsName(inst.getGoodsName());
-            subOrder.setItemsCount(1);
-            subOrder.setPrice(inst.getDmGoodsPlan().getPlanPrice());
+//            subOrder.setGoodsInstId(inst.getInstId());
+            subOrder.setGoodsId(item.getGoodsId());
+            subOrder.setGoodsName(item.getGoodsName());
+            subOrder.setItemNo(item.getItemNo());
+            subOrder.setPrice(item.getAmount());
             subOrder.setCreateDate(new Date());
             subOrder.setCommentated("0");
             subOrder.setState("10A");
@@ -112,14 +124,15 @@ public class DmCustOrderController extends GenericController{
         }
 
         dmCustOrderService.submitOrder(order,mode);
-        cart.removeGoods(instList);
+        cart.removeGoods(buying);
 
         request.setAttribute("orderId",order.getOrderId());
         request.setAttribute("orderNo",order.getOrderNo());
         request.setAttribute("amount",order.getAmount());
-        return "forward:payment";
+        return "forward:/payment";
     }
 
+    @SubmissionToken(save = true)
     @RequestMapping("/order/edit")
     public String editOrder(HttpServletRequest request) {
         int orderId = Integer.parseInt(request.getParameter("id"));
@@ -135,12 +148,12 @@ public class DmCustOrderController extends GenericController{
             request.setAttribute("invoiceType",order.getInvoiceType());
             request.setAttribute("invoiceNotes",order.getInvoiceNotes());
             request.setAttribute("invoiceDetail",order.getInvoiceDetail());
-            ShoppingCart cart = getShoppingCart();
-            cart.getBuyingGoods().clear();
-            for(DmSubCustOrder subOrder:order.getSubCustOrderList()){
-                DmGoodsInst inst = dmGoodsInstService.selectGoodsInstById(subOrder.getGoodsInstId());
-                cart.addBuyingGoods(inst);
-            }
+//            ShoppingCart cart = getShoppingCart();
+//            cart.getBuying().clear();
+//            for(DmSubCustOrder subOrder:order.getSubCustOrderList()){
+//                DmShoppingCartItem item = dmShoppingCartService.selectGoodsInstById(subOrder.getGoodsId());
+//                cart.addBuyingGoods(inst.getGoodsId());
+//            }
             if(StringUtils.equals(order.getState(),"10A")){
                 request.setAttribute("mode","EDIT");
             }else{
@@ -151,6 +164,7 @@ public class DmCustOrderController extends GenericController{
             return "forward:notfound";
         }
     }
+    @SubmissionToken(save = true)
     @RequestMapping("/order/confirm")
     public String createOrder(HttpServletRequest request){
         LoginInfo currUser = getCurrentLoginUser();
@@ -163,7 +177,7 @@ public class DmCustOrderController extends GenericController{
         return "/market/order/order.jsp";
     }
 
-    @RequestMapping("/myorder")
+    @RequestMapping("/order")
     public String listMyOrder(HttpServletRequest request){
         return "/market/order/myorder.jsp";
     }
@@ -179,5 +193,44 @@ public class DmCustOrderController extends GenericController{
         return "/market/order/payment.jsp";
     }
 
+    @GET
+    @Path("{orderId}/calc")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String calcOrderAmount(@PathParam("orderId") Integer orderId) throws JSONException {
+        LoginInfo currUser = getCurrentLoginUser();
+        Map params = new HashMap();
+        params.put("merchantId",currUser.getMerchantId());
+        params.put("orderId",orderId);
+        DmCustOrder order = dmCustOrderService.selectCustOrder(params);
+        JSONObject result = new JSONObject();
+        result.put("totalPrice",order.getAmount());
+        result.put("totalCount", order.getItemNo());
+        return result.toString();
+    }
 
+
+    @RemoteMethod
+    public Page getBuyingGoodsList(Map params, int pageIndex, int pageSize) {
+        LoginInfo currUser = getCurrentLoginUser();
+        params.put("merchantId",currUser.getMerchantId());
+//        int orderId = MapUtils.getInteger(params,"orderId");
+        DmCustOrder order = dmCustOrderService.selectCustOrder(params);
+        List<DmSubCustOrder> subOrderList = order.getSubCustOrderList();
+//        for(DmSubCustOrder subOrder:subOrderList){
+//                DmShoppingCartItem item = dmShoppingCartService.selectGoodsInstById(subOrder.getGoodsId());
+//                cart.addBuyingGoods(inst.getGoodsId());
+
+//        }
+        int size = subOrderList.size();
+        Page<DmSubCustOrder> page = new Page<DmSubCustOrder>(pageIndex,pageSize);
+        page.setTotal(size);
+        if(size>0){
+            int startIndex = (pageIndex-1)*pageSize;
+
+            int endIndex = pageIndex*pageSize;
+            endIndex = (endIndex > size) ? size:endIndex;
+            page.setRows(subOrderList.subList(startIndex,endIndex));
+        }
+        return page;
+    }
 }

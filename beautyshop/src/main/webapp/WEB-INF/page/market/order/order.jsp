@@ -10,7 +10,7 @@
     <meta http-equiv="library" content="market"/>
     <title></title>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
-    <script type="text/javascript" src="js/order.js"></script>
+    <script type="text/javascript" src="<%=path%>/market/order/js/order.js"></script>
 </head>
 <body>
 <script>
@@ -222,7 +222,7 @@
                                     <td class="fore1">商品</td>
                                     <td class="fore3">价格</td>
                                     <td class="fore4">数量</td>
-                                    <td class="fore4">库存</td>
+                                    <td class="fore4">总价</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -233,7 +233,7 @@
                                             <td class="fore1">
                                                 <div class="p_goods">
                                                     <div class="p_img"><a target="_blank" href="#"><img
-                                                            src="../main/images/pic01.jpg" alt=""></a></div>
+                                                            src="<%=path%>/market/main/images/pic01.jpg" alt=""></a></div>
                                                     <div class="p_detail">
                                                         <div class="p_name">
                                                             <a name="goodsName" target="_blank" href="javascript:void(0)">
@@ -251,8 +251,8 @@
                                                 </div>--%>
                                             </td>
                                             <td name="price" class="p_promotion" style="padding-right: 0px;">￥39.90</td>
-                                            <td class="fore2">x 1</td>
-                                            <td skuid="136363" class="fore2 p_inventory">现货</td>
+                                            <td name="itemNo" class="fore2">x 1</td>
+                                            <td name="amount" skuid="136363" class="fore2 p_inventory">总价</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -264,7 +264,7 @@
                         <div class="order_summary">
                             <div class="statistic fr">
                                 <div class="list">
-                                    <span><em id="total">0</em> 件商品&nbsp;&nbsp;&nbsp;&nbsp;总价：</span>
+                                    <span><em id="total">0</em> 件商品&nbsp;&nbsp;&nbsp;&nbsp;合计：</span>
                                     <em v="59.90" id="totalPrice" class="price">￥0.00</em>
                                 </div>
                                 <div class="list">
@@ -280,7 +280,7 @@
             </div>
             <span class="clr"></span>
         </div>
-        <form id="form_order" action="<%=request.getContextPath()%>/market/order/submit" method="POST">
+        <form id="form_order" action="<%=request.getContextPath()%>/order/submit" method="POST">
             <input type="hidden" name="mode" value="${mode}"/>
             <input type="hidden" name="orderId" value="${orderId}"/>
             <input type="hidden" name="orderNo" value="${orderNo}"/>
@@ -289,6 +289,7 @@
             <input type="hidden" name="invoiceType" value="${invoiceType}"/>
             <input type="hidden" name="invoiceNotes" value="${invoiceNotes}"/>
             <input type="hidden" name="invoiceDetail" value="${invoiceDetail}"/>
+            <input type="hidden" name="token" value="${token}"/>
         </form>
         <div class="checkout_buttons group">
             <div class="sticky_wrap">

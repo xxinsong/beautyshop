@@ -12,7 +12,7 @@
                     </div>
                     <div class="user_content">
                         <ul class="user_list">
-                            <li id="mnu_myorder" class="curr"><a href="<%=request.getContextPath()%>/myorder">我的订单</a></li>
+                            <li id="mnu_myorder" class="curr"><a href="<%=request.getContextPath()%>/order">我的订单</a></li>
                             <li id="mnu_mycart"><a href="<%=request.getContextPath()%>/mycart">我的购物车</a></li>
                             <li id="mnu_mycare" class="last"><a href="<%=request.getContextPath()%>/mycare">我的关注</a></li>
                         </ul>
@@ -24,7 +24,7 @@
                         <ul class="user_list">
                             <li id="mnu_myaccount"><a href="<%=request.getContextPath()%>/setting/account">账户信息</a></li>
                             <li id="mnu_security"><a href="#">安全设置</a></li>
-                            <li id="mnu_myaddress"><a href="<%=request.getContextPath()%>/address">我的收货地址</a></li>
+                            <li id="mnu_myaddress"><a href="<%=request.getContextPath()%>/setting/address">我的收货地址</a></li>
                             <li id="mnu_mymessage" class="last"><a href="#">我的消息</a></li>
                         </ul>
                     </div>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.qimeng.bs.login.bean.LoginInfo;
+import com.qimeng.bs.market.goods.bean.DmShoppingCartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,6 @@ import com.qimeng.bs.market.goods.ShoppingCart;
 import com.qimeng.bs.market.goods.bean.DmBizCircle;
 import com.qimeng.bs.market.goods.bean.DmGoodsInst;
 import com.qimeng.bs.market.goods.bean.DmGoodsInstTagItem;
-import com.qimeng.bs.market.goods.bean.DmShoppingCart;
 import com.qimeng.bs.market.goods.dao.DmBizCircleMapper;
 import com.qimeng.bs.market.goods.dao.DmGoodsInstMapper;
 import com.qimeng.bs.market.goods.dao.DmGoodsInstTagItemMapper;
@@ -56,6 +56,7 @@ public class DmGoodsInstService {
         return dmGoodsInstMapper.queryAvailableGoodsInst(params);
     }
 
+    /*
     @Transactional
     public Map sumitCartGoods(Map param) {
     	
@@ -83,11 +84,11 @@ public class DmGoodsInstService {
         dmGoodsInst.setInstId(inst_id);
 
         //加入商品到购物车
-        DmShoppingCart dmShoppingCart = new DmShoppingCart();
+        DmShoppingCartItem dmShoppingCart = new DmShoppingCartItem();
         dmShoppingCart.setCteateTime(new Date());
 
-        dmShoppingCart.setGoodsInstId(inst_id);
-        dmShoppingCart.setGoodsItemNo(1);
+        dmShoppingCart.setGoodsId(inst_id);
+        dmShoppingCart.setItemNo(1);
         dmShoppingCart.setMerchantId(1);
         dmShoppingCartMapper.insert(dmShoppingCart);
         Integer dmShoppingCartId = PKUtils.lastInsertId();
@@ -114,7 +115,7 @@ public class DmGoodsInstService {
         dmBizCircleMapper.updateInstIdByPrimaryKey(dmBizCircle);
 
         return new HashMap();
-    }
+    }*/
 
     public DmGoodsInst selectGoodsInstById(Integer goodsInstId) {
         return dmGoodsInstMapper.selectGoodsInstAndPrice(goodsInstId);

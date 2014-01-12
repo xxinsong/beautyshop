@@ -5,10 +5,10 @@ $(function() {
 //        window.location.href=commonJs.getWebPath()+"/"
     });
     $("#waitForPay").on('click',function(){
-        window.location.href=commonJs.getWebPath()+"/myorder?state=processing";
+        window.location.href=commonJs.getWebPath()+"/order?state=processing";
     });
     $("#waitForComment").on('click',function(){
-        window.location.href=commonJs.getWebPath()+"/myorder?state=done";
+        window.location.href=commonJs.getWebPath()+"/order?state=done";
     });
 })
 

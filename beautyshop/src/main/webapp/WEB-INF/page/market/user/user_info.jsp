@@ -10,6 +10,7 @@
     <meta http-equiv="library" content="market"/>
     <title>数据超市</title>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
+    <script type="text/javascript" src="<%=path%>/public/jquery/jquery.cxselect.min.js"></script>
     <script type="text/javascript" src="<%=path%>/public/ajax/ajaxfileupload.js"></script>
     <script type="text/javascript" src="<%=path%>/market/user/js/user_info.js"></script>
 </head>
@@ -111,12 +112,12 @@
                         </tr>--%>
                         <tr>
                             <th>所在地：</th>
-                            <td>
-                                <select name="provinceCode" class="ui_select bold" attr_code="MERCHANT_PROVINCE">
+                            <td id="selectaddress">
+                                <select name="provinceCode" data-val="${LOGIN_INFO.provinceCode}" class="province">
                                 </select>
-                                <select name="cityCode" class="ui_select bold" attr_code="MERCHANT_CITY">
+                                <select name="cityCode" data-val="${LOGIN_INFO.cityCode}" class="city">
                                 </select>
-                                <select name="districtCode" class="ui_select bold" attr_code="MERCHANT_DISTRICT">
+                                <select name="districtCode" data-val="${LOGIN_INFO.districtCode}" class="area">
                                 </select>
                             </td>
                             <td></td>

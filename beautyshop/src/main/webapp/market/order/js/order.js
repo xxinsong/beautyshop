@@ -1,10 +1,12 @@
 var goodsInstList;
-var orderId = 1;
+var orderId;
 var total=0;
 var totalPrice = 0;
 var cashBack = 0.00;
 var state = "OK";
 $(function(){
+    orderId = $("input[name='orderId']").val();
+
     goodsInstList = new QryPager({
         $tpl_scope:$("#goodsInst_list"),
         $tpl_ele:$("#row_tpl"),
@@ -19,6 +21,7 @@ $(function(){
     loadContactInfo();
     loadInvoiceInfo();
     loadGoodsInstList();
+
 
     $("#btnEditInvoice").on('click',function(){
         showInvoiceEditContent();
@@ -35,26 +38,59 @@ $(function(){
        submitOrder();
     });
     $("#goShoppingCart").on('click',function(){
-       window.location.href=commonJs.getWebPath()+"/market/cart/mycart";
+       window.location.href=commonJs.getWebPath()+"/mycart";
     });
+    if(mode != "CREATE"){
+        $("#goShoppingCart").hide();
+    }
 });
 
 function goodsInstRowRender(data,context){
     $("[name='goodsName']",context).text(data.goodsName);
-    $("[name='goodsNo']",context).text("商品编号："+data.goodsId);
-    $("[name='price']",context).text("￥"+data.dmGoodsPlan.planPrice);
-    totalPrice =  accAdd(totalPrice,data.dmGoodsPlan.planPrice);
-    $("#total").text(++total);
+    $("[name='goodsNo']",context).text("商品编号："+data.goodsNo);
+    $("[name='price']",context).text("￥"+data.price);
+    $("[name='itemNo']",context).text("x "+data.itemNo);
+    $("[name='amount']",context).text("￥"+data.amount);
+    /*totalPrice =  accAdd(totalPrice,data.amount);
+    total = accAdd(total,data.goodsItemNo);
+    $("#total").text(total);
     $("#totalPrice").text("￥"+totalPrice);
     $("#disp_amount").text("￥"+totalPrice);
-    $("#payPriceId").text("￥"+totalPrice);
+    $("#payPriceId").text("￥"+totalPrice);*/
+}
+
+function loadTotalPrice(){
+    var url = '';
+    if(mode == "CREATE"){
+        url = commonJs.getWebPath()+"/mycart/calc/";
+    }else{
+        url = commonJs.getWebPath()+"/order/"+orderId+"/calc";
+    }
+    $.ajax({
+        url:url,
+        method:'GET',
+        success:function(data){
+            totalPrice =  data.totalPrice;
+            total = data.totalCount;
+            $("#total").text(total);
+            $("#totalPrice").text("￥"+totalPrice);
+            $("#disp_amount").text("￥"+totalPrice);
+            $("#payPriceId").text("￥"+totalPrice);
+        }
+    })
 }
 
 function loadGoodsInstList(params){
     if(!params){
         params = {'orderId':orderId};
     }
+    if(mode == "CREATE"){
+        goodsInstList.service = "DmShoppingCartController";
+    }else if(mode == "EDIT"){
+        goodsInstList.service = "DmCustOrderController";
+    }
     goodsInstList.loadData(params);
+    loadTotalPrice();
 }
 function showInvoiceEditContent(){
     $("#invoice_view").hide();

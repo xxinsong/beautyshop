@@ -11,24 +11,28 @@
         <!-- jdbc连接信息 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/beautyshop"
-                        userId="root" password=""/>
+                        userId="bs" password="bs"/>
         <!-- 生成vo对象 -->
-        <javaModelGenerator targetPackage="com.qimeng.bs.admin.merchant.bean" targetProject="${target.java.dir}"/>
+        <javaModelGenerator targetPackage="com.qimeng.bs.market.user.bean" targetProject="${target.java.dir}"/>
         <!-- 生成用于查询的Example对象 -->
-        <sqlMapGenerator targetPackage="com.qimeng.bs.admin.merchant.dao" targetProject="${target.xml.dir}"/>
+        <sqlMapGenerator targetPackage="com.qimeng.bs.market.user.dao" targetProject="${target.xml.dir}"/>
         <!-- 生成DAO的类文件以及配置文件 -->
-        <javaClientGenerator targetPackage="com.qimeng.bs.admin.merchant.dao" targetProject="${target.java.dir}" type="XMLMAPPER"/>
+        <javaClientGenerator targetPackage="com.qimeng.bs.market.user.dao" targetProject="${target.java.dir}" type="XMLMAPPER"/>
         <!-- 想要生成的数据库表,自动化工具会根据该表的结构生成相应的vo对象 -->
         <!--<table schema="datamarket" tableName="dm_cust_comment"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>-->
-        <table schema="beautyshop" tableName="dm_merchant"
+        <table schema="beautyshop" tableName="dm_address"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-
+        <!--<table schema="beautyshop" tableName="dm_goods_inst"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
     </context>
 </generatorConfiguration>  

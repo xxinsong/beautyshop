@@ -5,11 +5,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.qimeng.bs.login.bean.LoginInfo;
 import com.qimeng.bs.market.goods.bean.DmGoodsInst;
+import com.qimeng.bs.market.goods.bean.DmShoppingCartItem;
+import com.qimeng.common.tools.PKUtils;
+import com.qimeng.common.web.ApplicationContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qimeng.bs.market.goods.bean.DmShoppingCart;
 import com.qimeng.bs.market.goods.dao.DmShoppingCartMapper;
 import com.qimeng.bs.market.order.bean.DmSubCustOrder;
 import com.qimeng.bs.market.order.dao.DmSubCustOrderMapper;
@@ -26,8 +29,8 @@ public class DmShoppingCartService {
 	/**
 	 * 插入客户子订单
 	 */
-	public DmShoppingCart insertShoppingCart(){
-		DmShoppingCart record = new DmShoppingCart();
+	public DmShoppingCartItem insertShoppingCart(){
+		DmShoppingCartItem record = new DmShoppingCartItem();
 		record.setCteateTime(new Date());
 		dmShoppingCartMapper.insert(record);
 		return record;
@@ -42,10 +45,15 @@ public class DmShoppingCartService {
 		
 	}
 
-    public List<DmGoodsInst> selectGoodsInstInCart(int merchantId){
+    public List<DmShoppingCartItem> selectShoppingCartItemsByMerchantId(int merchantId){
+        List<DmShoppingCartItem> items = dmShoppingCartMapper.selectShoppingCartItemsByMerchantId(merchantId);
+        return items;
+    }
+
+    /*public List<DmGoodsInst> selectGoodsInstInCart(int merchantId){
         List<DmGoodsInst> dmGoodsInsts = dmShoppingCartMapper.selectGoodsInstInCart(merchantId);
         return dmGoodsInsts;
-    }
+    }*/
 
     /*public Page selectGoodsInstInCart(Map params, int pageIndex, int pageSize) {
         Page page = new Page(pageIndex,pageSize);
@@ -71,15 +79,31 @@ public class DmShoppingCartService {
         dmShoppingCartMapper.removeGoodsInCartByMerchantId(merchantId);
     }
 
-    public void saveShoppingCart(List<DmGoodsInst> goodsInstList) {
-        for(DmGoodsInst inst: goodsInstList){
-            DmShoppingCart cart = new DmShoppingCart();
-            cart.setMerchantId(inst.getMerchantId());
-            cart.setGoodsInstId(inst.getInstId());
-            cart.setGoodsItemNo(1);
-            cart.setCteateTime(new Date());
-            cart.setState("00A");
-            dmShoppingCartMapper.insert(cart);
+    public void saveShoppingCart(List<DmShoppingCartItem> items) {
+//        LoginInfo currUser = ApplicationContextUtil.getCurrentLoginUser();
+        for(DmShoppingCartItem item: items){
+            /*if(item.getId()==null){
+                item.setMerchantId(currUser.getMerchantId());
+                dmShoppingCartMapper.insert(item);
+                Integer id = PKUtils.lastInsertId();
+                item.setId(id);
+            }else{
+                dmShoppingCartMapper.updateByPrimaryKey(item);
+            }*/
+            saveShoppingCart(item);
+        }
+
+    }
+
+    public void saveShoppingCart(DmShoppingCartItem item) {
+        LoginInfo currUser = ApplicationContextUtil.getCurrentLoginUser();
+        if(item.getId()==null){
+            item.setMerchantId(currUser.getMerchantId());
+            dmShoppingCartMapper.insert(item);
+            Integer id = PKUtils.lastInsertId();
+            item.setId(id);
+        }else{
+            dmShoppingCartMapper.updateByPrimaryKey(item);
         }
 
     }

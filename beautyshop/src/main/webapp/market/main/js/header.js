@@ -12,7 +12,7 @@ $(function() {
     });
 
     $("#btn_pay").on('click',function(){
-        window.location.href = commonJs.getWebPath()+"/market/cart/mycart";
+        window.location.href = commonJs.getWebPath()+"/mycart";
     });
 
     $(".mini_cart").hover(function() {
@@ -127,16 +127,16 @@ function initMiniCart() {
 var m_total=0;
 var m_totalPrice=0.0;
 function goodsInstRowRender(data,context){
-    $("[name='goodsName']",context).text(data.goodsName).on('click',function(){
+    $("[name='goodsName']",context).text(data.goodsName+"  * "+data.itemNo).on('click',function(){
         window.location.href = commonJs.getWebPath()+"/product?id="+data.goodsId;
     });
-    $("[name='price']",context).text("￥"+data.dmGoodsPlan.planPrice);
+    $("[name='price']",context).text("￥"+data.amount);
     $("[name='btn_del']",context).on('click',function(){
-        Ajax.getAsy().remoteCall("DmShoppingCartController", "deleteGoodsInstFromCart", [[data.instId]], function(){
+        Ajax.getAsy().remoteCall("DmShoppingCartController", "removeGoodsFromCart", [[data.goodsId]], function(){
             initMiniCart();
         });
     });
-    m_totalPrice = accAdd(m_totalPrice,data.dmGoodsPlan.planPrice);
+    m_totalPrice = accAdd(m_totalPrice,data.amount);
     $("#m_totalPrice").text("￥"+m_totalPrice);
     $("#m_total").text(++m_total);
     $("#noneTips").hide();

@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <meta http-equiv="library" content="market"/>
-    <link rel="stylesheet" href="css/login.css" type="text/css"/>
+    <link rel="stylesheet" href="<%=path%>/market/main/css/login.css" type="text/css"/>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
     <script type="text/javascript" src="<%=path%>/market/main/js/login.js"></script>
 </head>
@@ -86,9 +86,9 @@
         Copyright© 2013 ，版权所有 粤ICP备10207551号 粤B2-20100316 出版物经营许可证新出发粤批字第A-243号
     </p>
 
-    <p class="kexin"><img src="images/kexinimg01.jpg" width="112" height="35"/><img src="images/kexinimg02.jpg"
+    <p class="kexin"><img src="<%=path%>/market/main/images/kexinimg01.jpg" width="112" height="35"/><img src="<%=path%>/market/main/images/kexinimg02.jpg"
                                                                                     width="112" height="35"/><img
-            src="images/kexinimg03.jpg" width="112" height="35"/></p>
+            src="<%=path%>/market/main/images/kexinimg03.jpg" width="112" height="35"/></p>
 </div>
 </body>
 </html>

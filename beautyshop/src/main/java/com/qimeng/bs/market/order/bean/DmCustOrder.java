@@ -721,4 +721,14 @@ public class DmCustOrder {
     public void setSubCustOrderList(List<DmSubCustOrder> subCustOrderList) {
         this.subCustOrderList = subCustOrderList;
     }
+
+    private int itemNo;
+
+    public int getItemNo() {
+        return itemNo;
+    }
+
+    public void setItemNo(int itemNo) {
+        this.itemNo = itemNo;
+    }
 }

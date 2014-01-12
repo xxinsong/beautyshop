@@ -1,5 +1,12 @@
 $(function() {
-	switchMenu($("#mnu_myaccount"));
+    $.cxSelect.defaults.url=commonJs.getWebPath()+"/public/jquery/city.min.js";
+
+    $("#selectaddress").cxSelect({
+        selects:["province","city","area"]
+    });
+
+
+    switchMenu($("#mnu_myaccount"));
 	initPage();
 	$("#submit_btn").click(function() {
 		modifyUserInfo();
@@ -70,6 +77,7 @@ function initPage() {
 			$("[name='kind']", "#userInfoDiv").html(loginInfo.kind);
 			$("[name='logonName']", "#userInfoDiv").html(loginInfo.logonName);
 			$("[name='email']", "#userInfoDiv").html(loginInfo.email);
+			$("[name='address']", "#userInfoDiv").val(loginInfo.address);
             if(loginInfo.headImage&&loginInfo.headImage!=null){
 			    $("#headImage").attr("src", path_prefix.substring(0, path_prefix.lastIndexOf("/")) + loginInfo.headImage);
             }
