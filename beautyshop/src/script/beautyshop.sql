@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : bs@local
+Source Server         : 本机
 Source Server Version : 50612
 Source Host           : localhost:3306
 Source Database       : beautyshop
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2014-01-12 23:44:48
+Date: 2014-02-12 22:33:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,7 +33,7 @@ CREATE TABLE `dc_attribute` (
   `STATE` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`ATTR_ID`),
   UNIQUE KEY `IDX_ATTRIBUTE_ATTR_CODE` (`ATTR_CODE`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dc_attribute
@@ -65,6 +65,12 @@ INSERT INTO `dc_attribute` VALUES ('24', 'ADMIN_AD_LEVEL', '广告促销级别',
 INSERT INTO `dc_attribute` VALUES ('25', 'ADMIN_GOODPLAN_STATE', '定价计划状态', '定价计划状态', null, null, null, null, null, null, '00A');
 INSERT INTO `dc_attribute` VALUES ('26', 'ADMIN_GOODPLAN_TYPE', '定价计划类型', '定价计划类型', null, null, null, null, null, null, '00A');
 INSERT INTO `dc_attribute` VALUES ('27', 'ADMIN_GOODPLAN_GOODSTYPE', '定价计划商品类型', '定价计划商品类型', null, null, null, null, null, null, '00A');
+INSERT INTO `dc_attribute` VALUES ('28', 'IS_DRAWUP', '是否出具发票', '是否出具发票', null, null, null, null, null, null, '00A');
+INSERT INTO `dc_attribute` VALUES ('29', 'NOTICE_STATE', '公告发布状态', '公告发布状态', null, null, null, null, null, null, '00A');
+INSERT INTO `dc_attribute` VALUES ('30', 'INTERFACE_STATE', '接口状态', '接口状态', null, null, null, null, null, null, '00A');
+INSERT INTO `dc_attribute` VALUES ('31', 'INTERFACE_TYPE', '接口类型', '接口类型', null, null, null, null, null, null, '00A');
+INSERT INTO `dc_attribute` VALUES ('32', 'ADMIN_MSG_TYPE', '消息类型', '消息类型', null, null, null, null, null, null, '00A');
+INSERT INTO `dc_attribute` VALUES ('33', 'ADMIN_MSG_RECIVERTYPE', '接收人类型', '接收人类型', null, null, null, null, null, null, '00A');
 
 -- ----------------------------
 -- Table structure for dc_attr_value
@@ -128,8 +134,8 @@ INSERT INTO `dc_attr_value` VALUES ('42', '17', '00E', '编辑中', '1');
 INSERT INTO `dc_attr_value` VALUES ('43', '17', '00A', '上架', '2');
 INSERT INTO `dc_attr_value` VALUES ('44', '18', '1', '类型1', '1');
 INSERT INTO `dc_attr_value` VALUES ('45', '18', '2', '类型2', '2');
-INSERT INTO `dc_attr_value` VALUES ('46', '19', '1', '状态1', '1');
-INSERT INTO `dc_attr_value` VALUES ('47', '19', '2', '状态2', '2');
+INSERT INTO `dc_attr_value` VALUES ('46', '19', '1', '有效', '1');
+INSERT INTO `dc_attr_value` VALUES ('47', '19', '2', '无效', '2');
 INSERT INTO `dc_attr_value` VALUES ('48', '17', '00X', '下架', '3');
 INSERT INTO `dc_attr_value` VALUES ('52', '23', '1', '状态1', '1');
 INSERT INTO `dc_attr_value` VALUES ('53', '23', '2', '状态2', '2');
@@ -141,6 +147,21 @@ INSERT INTO `dc_attr_value` VALUES ('59', '26', '01', '数据营销', '1');
 INSERT INTO `dc_attr_value` VALUES ('60', '26', '02', '分析服务', '2');
 INSERT INTO `dc_attr_value` VALUES ('61', '27', '2', '商品包', '2');
 INSERT INTO `dc_attr_value` VALUES ('62', '27', '1', '商品', '1');
+INSERT INTO `dc_attr_value` VALUES ('3577', '28', 'Y', '是', '1');
+INSERT INTO `dc_attr_value` VALUES ('3578', '28', 'N', '否', '2');
+INSERT INTO `dc_attr_value` VALUES ('3579', '29', '00A', '有效', '1');
+INSERT INTO `dc_attr_value` VALUES ('3580', '29', '00X', '无效', '2');
+INSERT INTO `dc_attr_value` VALUES ('3581', '30', '00A', '有效', '1');
+INSERT INTO `dc_attr_value` VALUES ('3582', '30', '00X', '无效', '1');
+INSERT INTO `dc_attr_value` VALUES ('3583', '31', '1', 'WebService', '1');
+INSERT INTO `dc_attr_value` VALUES ('3584', '31', '2', '消息接口', '2');
+INSERT INTO `dc_attr_value` VALUES ('3585', '31', '3', '文件接口', '3');
+INSERT INTO `dc_attr_value` VALUES ('3586', '31', '4', '其他', '4');
+INSERT INTO `dc_attr_value` VALUES ('3588', '32', '01', '系统消息', '1');
+INSERT INTO `dc_attr_value` VALUES ('3589', '32', '02', '用户消息', '2');
+INSERT INTO `dc_attr_value` VALUES ('3590', '32', '03', '管理员消息', '3');
+INSERT INTO `dc_attr_value` VALUES ('3591', '33', 'A', '全体', null);
+INSERT INTO `dc_attr_value` VALUES ('3592', '33', 'U', '用户', null);
 INSERT INTO `dc_attr_value` VALUES ('11479', '20', '11', '北京市', null);
 INSERT INTO `dc_attr_value` VALUES ('11481', '22', '110101', '东城区', null);
 INSERT INTO `dc_attr_value` VALUES ('11482', '22', '110102', '西城区', null);
@@ -3550,7 +3571,7 @@ CREATE TABLE `dc_system_config` (
   `PARAM_DESC` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `IDX_SYSCFG_PARA_CODE` (`PARAM_CODE`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dc_system_config
@@ -3572,6 +3593,7 @@ INSERT INTO `dc_system_config` VALUES ('16', 'ADMIN_GOOD_IMAGE_W_MINI', '60', '�
 INSERT INTO `dc_system_config` VALUES ('17', 'ADMIN_AD_IMAGE_H_MINI', '80', '后台广告管理[小]图片高度限制');
 INSERT INTO `dc_system_config` VALUES ('18', 'ADMIN_AD_IMAGE_W_MINI', '40', '后台广告管理[小]图片高度限制');
 INSERT INTO `dc_system_config` VALUES ('19', 'ADMIN_ROLE_ID', '11', '管理员角色ID');
+INSERT INTO `dc_system_config` VALUES ('20', 'USER_MAX_PRESENTEE', '10', '用户可推荐人数');
 
 -- ----------------------------
 -- Table structure for dm_address
@@ -3589,11 +3611,16 @@ CREATE TABLE `dm_address` (
   `ZIP_CODE` varchar(6) DEFAULT NULL,
   `IS_DEFAULT` char(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_address
 -- ----------------------------
+INSERT INTO `dm_address` VALUES ('1', '11', '邹启蒙', '18664604464', '河南', '信阳', '浉河区', '谭家河乡', '464137', '1');
+INSERT INTO `dm_address` VALUES ('2', '11', '邹启蒙2', '18664604464', '广东', '广州', '天河区', '黄村东路2', '510000', '0');
+INSERT INTO `dm_address` VALUES ('3', null, '怎么起码', '18664604464', null, null, null, '试试', '123456', null);
+INSERT INTO `dm_address` VALUES ('4', null, 'zqm', '18664604464', '河南', '信阳', '浉河区', 'ddddd', '1234', '');
+INSERT INTO `dm_address` VALUES ('6', '11', '邹启蒙3', '18655556666', '江西', '南昌', '青云谱区', '多少', '12345', '');
 
 -- ----------------------------
 -- Table structure for dm_advertisement
@@ -3608,12 +3635,18 @@ CREATE TABLE `dm_advertisement` (
   `AD_LEVEL` char(1) DEFAULT NULL COMMENT '1:首页轮播广告,2:二级广告',
   `AD_ORDER` int(2) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_advertisement
 -- ----------------------------
-INSERT INTO `dm_advertisement` VALUES ('1', '1', 'rrr', null, 'rrr', '1', '1');
+INSERT INTO `dm_advertisement` VALUES ('1', '8', '你值得拥有', '/photos/data_market_p/ads/1/23e4056bebfe49b7bdbaeff2135d6239.jpg', '你值得拥有！！', '1', '6');
+INSERT INTO `dm_advertisement` VALUES ('4', '2', '乐动达人包', '/photos/data_market_p/ads/4/b7143cd97209427c8d65a1b918c4db45.jpg', '乐动达人包，乐动、乐动！！', '1', '3');
+INSERT INTO `dm_advertisement` VALUES ('5', '3', '运动达人包', '/photos/data_market_p/ads/5/7f7c1bcf7077419583297951cadcd836.jpg', '运动达人包，生命在于运动！！', '1', '4');
+INSERT INTO `dm_advertisement` VALUES ('8', '5', '元旦贺信大礼包', '/photos/data_market_p/ads/8/4dd33e5fb5ba454fadd2f7a40544c7be.jpg', '元旦贺信大礼包', '2', '1');
+INSERT INTO `dm_advertisement` VALUES ('9', '4', 'note2', '/photos/data_market_p/ads/9/2a0b6ac419504179ae9e7c6fac958636.jpg', 'note2', '2', '4');
+INSERT INTO `dm_advertisement` VALUES ('10', '6', '三星手机', '/photos/data_market_p/ads/10/6e7ec23081524403b1b3a035a7dba83b.jpg', '三星手机啊！！', '2', '4');
+INSERT INTO `dm_advertisement` VALUES ('11', '13', '营销数据', '/photos/data_market_p/ads/11/65cc4c28d1e645df88b4265d282c90e1.jpg', '营销数据', '1', '3');
 
 -- ----------------------------
 -- Table structure for dm_biz_circle
@@ -3717,18 +3750,25 @@ CREATE TABLE `dm_consultation` (
   `ID` int(9) NOT NULL,
   `GOODS_ID` int(9) DEFAULT NULL,
   `MERCHANT_ID` int(9) DEFAULT NULL,
+  `CONSULT_TYPE` char(1) DEFAULT NULL,
   `CONTENT` varchar(200) DEFAULT NULL,
   `COMMIT_TIME` date DEFAULT NULL,
   `REPLY_CONTENT` varchar(200) DEFAULT NULL,
   `REPLY_TIME` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FK_Reference_61` (`GOODS_ID`),
-  CONSTRAINT `FK_Reference_61` FOREIGN KEY (`GOODS_ID`) REFERENCES `dm_goods` (`GOODS_ID`)
+  KEY `FK_Reference_61` (`GOODS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_consultation
 -- ----------------------------
+INSERT INTO `dm_consultation` VALUES ('20', '8', '11', '1', '价格可以便宜点不？？', '2014-01-15', '亲，不可以喔!不要你9999，只要你6999，很便宜啦！！', '2014-01-15');
+INSERT INTO `dm_consultation` VALUES ('21', '6', '11', '2', '这手机有正规发票吗！！', '2014-01-15', '有的，亲！！', '2014-01-15');
+INSERT INTO `dm_consultation` VALUES ('25', '8', '11', '1', '  ', '2014-01-15', '第三方的', '2014-01-22');
+INSERT INTO `dm_consultation` VALUES ('26', '8', '11', '1', 'sdfsd', '2014-01-15', 'ss', '2014-02-12');
+INSERT INTO `dm_consultation` VALUES ('27', '8', '11', '1', '你好', '2014-01-15', null, null);
+INSERT INTO `dm_consultation` VALUES ('28', '2', '11', '1', '好玩吗？？', '2014-01-21', '32323', '2014-01-23');
+INSERT INTO `dm_consultation` VALUES ('29', '4', '11', '1', '你好', '2014-01-26', null, null);
 
 -- ----------------------------
 -- Table structure for dm_contact
@@ -3746,7 +3786,7 @@ CREATE TABLE `dm_contact` (
   `CONTACT_DUTY` varchar(200) DEFAULT NULL,
   `COMMENTS` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`CONTACT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_contact
@@ -3757,6 +3797,7 @@ INSERT INTO `dm_contact` VALUES ('11', '11', '', null, null, null, null, null, n
 INSERT INTO `dm_contact` VALUES ('12', '14', '', null, null, null, null, null, null, null);
 INSERT INTO `dm_contact` VALUES ('13', '13', '许家乐', null, null, null, null, null, null, null);
 INSERT INTO `dm_contact` VALUES ('14', '16', '', null, null, null, null, null, null, null);
+INSERT INTO `dm_contact` VALUES ('15', '47', '', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for dm_cust_comment
@@ -3898,8 +3939,8 @@ CREATE TABLE `dm_goods` (
   `TYPE` varchar(3) DEFAULT NULL COMMENT '01:数据营销,02:数据服务\r\n            02 分析服务',
   `IMAGE_URI` varchar(100) DEFAULT NULL,
   `SALE_WAY` varchar(3) DEFAULT NULL COMMENT '01:短信,02:彩信,03:报告',
-  `PRICE` float(8,2) DEFAULT NULL,
-  `ORI_PRICE` float(8,2) DEFAULT NULL,
+  `PRICE` float(10,2) DEFAULT NULL,
+  `ORI_PRICE` float(10,2) DEFAULT NULL,
   `STATE` varchar(3) DEFAULT NULL COMMENT '00C:未上架,00A:已上架,00X:已下架',
   `CREATE_STAFF` varchar(6) DEFAULT NULL,
   `CREATE_DATE` datetime DEFAULT NULL,
@@ -3911,17 +3952,18 @@ CREATE TABLE `dm_goods` (
   `VIEW_COUNT` int(8) DEFAULT NULL,
   `HINTS` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`GOODS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_goods
 -- ----------------------------
-INSERT INTO `dm_goods` VALUES ('1', '1', '12', '美食达人包', '美食达人包', '1', '', '1', '299.99', '500.00', '00E', null, '2013-12-16 03:49:58', '2013-12-02 03:49:59', '2013-12-16 03:49:56', '2013-12-16 03:50:00', 'miaoshu', '', null, '');
-INSERT INTO `dm_goods` VALUES ('2', '1', '123', '乐动达人包', '乐动达人包', '1', null, '', '199.99', '400.00', '1', null, '2013-12-16 15:58:19', '2013-12-16 15:58:22', '2013-12-16 15:58:21', '2013-12-16 15:58:24', null, '用户特征', null, '');
-INSERT INTO `dm_goods` VALUES ('3', '6', null, '运动达人包', '运动达人包', '1', null, null, '99.99', '300.00', null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `dm_goods` VALUES ('4', '6', null, '手机2', null, null, null, null, '249.00', '350.00', null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `dm_goods` VALUES ('5', '6', '5', '元旦贺信大礼包', '元旦贺信大礼包(测试)', null, null, '3', '159.00', '1000.00', null, '22', '2013-12-17 09:54:42', '2013-12-24 15:08:52', '2013-12-11 15:08:57', '2013-12-11 15:08:59', '元旦贺岁大礼包', '连锁餐厅', null, '元旦大优惠');
-INSERT INTO `dm_goods` VALUES ('6', '4', '111', '三星3', '111', '1', '', '1', '88.88', '188.00', '00E', null, '1970-01-01 08:00:00', '1970-01-01 08:00:00', '1970-01-01 08:00:00', '1970-01-01 08:00:00', '', '', null, '');
+INSERT INTO `dm_goods` VALUES ('1', '1', '12', '美食达人包', '美食达人包', '1', '/photos/data_market_p/goods/1/89031b0c88ac44ebba081858656e9487.jpg', '1', '299.99', '500.00', '00A', null, '2013-12-16 03:49:58', '2013-12-02 03:49:59', '2099-12-16 03:49:56', '2013-12-16 03:50:00', 'miaoshu', '', null, '');
+INSERT INTO `dm_goods` VALUES ('2', '1', '123', '乐动达人包', '乐动达人包', '1', '/photos/data_market_p/goods/2/13a122edfc864969b641cb68c622c92e.jpg', '', '199.99', '400.00', '00A', null, '2013-12-16 15:58:19', '2013-12-16 15:58:22', '2099-12-16 15:58:21', '2013-12-16 15:58:24', null, '用户特征', null, '');
+INSERT INTO `dm_goods` VALUES ('3', '6', null, '运动达人包', '运动达人包', '1', '/photos/data_market_p/goods/3/ecad620932964c019e13350487335fa9.jpg', null, '99.99', '300.00', '00A', null, '2013-12-01 14:32:46', '2013-12-16 15:58:22', '2099-12-16 15:58:21', null, null, null, null, null);
+INSERT INTO `dm_goods` VALUES ('4', '6', null, '手机2', null, null, '/photos/data_market_p/goods/4/7dab53744d454e528300925908872fd1.jpg', null, '249.00', '350.00', '00A', null, '2013-12-01 14:32:46', '2013-12-16 15:58:22', '2099-12-16 15:58:21', null, null, null, null, null);
+INSERT INTO `dm_goods` VALUES ('5', '6', '5', '元旦贺信大礼包', '元旦贺信大礼包(测试)', null, '/photos/data_market_p/goods/5/537f9eac8a904be9ac684e8ff4cec56d.jpg', '3', '159.00', '1000.00', null, '22', '2013-12-17 09:54:42', '2013-12-24 15:08:52', '2013-12-11 15:08:57', '2013-12-11 15:08:59', '元旦贺岁大礼包', '连锁餐厅', null, '元旦大优惠');
+INSERT INTO `dm_goods` VALUES ('6', '4', '111', '三星3', '111', '1', '/photos/data_market_p/goods/6/fe17de77b18e4591a0046c1c613819f5.jpg', '1', '88.88', '188.00', '00E', null, '1970-01-01 08:00:00', '1970-01-01 08:00:00', '1970-01-01 08:00:00', '1970-01-01 08:00:00', '', '', null, '');
+INSERT INTO `dm_goods` VALUES ('7', '10', 'FLR911', '法拉利', '法拉利', null, '/photos/data_market_p/goods/7/ae9d13949cc142bf8390f4411759cf1c.jpg', null, '88888.88', '99999.99', '00A', '管理员', '2014-02-11 21:16:08', '2014-02-11 21:44:44', '2099-12-31 00:00:00', '2014-02-11 21:44:44', '法拉利911', null, null, '高富帅必备');
 
 -- ----------------------------
 -- Table structure for dm_goods_catalog
@@ -3939,20 +3981,20 @@ CREATE TABLE `dm_goods_catalog` (
   `ORDER_ID` decimal(8,0) DEFAULT NULL,
   `IS_LEAF` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`CATALOG_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_goods_catalog
 -- ----------------------------
 INSERT INTO `dm_goods_catalog` VALUES ('1', '商品目录1', '1', '234', '-1', '1', null, '2013-12-16 12:04:55', '1', '0');
 INSERT INTO `dm_goods_catalog` VALUES ('2', '商品目录2', null, null, '-1', null, null, null, null, '0');
-INSERT INTO `dm_goods_catalog` VALUES ('3', '商品目录3', null, null, '-1', null, null, null, null, '0');
-INSERT INTO `dm_goods_catalog` VALUES ('4', '手机通讯', null, null, '2', null, null, null, null, '1');
+INSERT INTO `dm_goods_catalog` VALUES ('4', '手机通讯', '手机通讯', '', '2', '1', null, '1970-01-01 08:00:00', null, '1');
 INSERT INTO `dm_goods_catalog` VALUES ('5', '手机配件', null, null, '2', null, null, null, null, '1');
 INSERT INTO `dm_goods_catalog` VALUES ('6', '手机', null, null, '4', null, null, null, null, '1');
 INSERT INTO `dm_goods_catalog` VALUES ('7', '电信3G', null, null, '4', null, null, null, null, '1');
 INSERT INTO `dm_goods_catalog` VALUES ('8', '手机存储卡', null, null, '5', null, null, null, null, '1');
 INSERT INTO `dm_goods_catalog` VALUES ('9', '手机充电器', null, null, '5', null, null, null, null, '1');
+INSERT INTO `dm_goods_catalog` VALUES ('10', '子目录', '子目录', '子目录', '1', '1', '管理员', '1970-01-01 08:00:00', null, '1');
 
 -- ----------------------------
 -- Table structure for dm_goods_evaluation
@@ -4487,7 +4529,7 @@ CREATE TABLE `dm_goods_tag` (
   `TAG_ID` int(9) DEFAULT NULL,
   `GOODS_ID` int(9) DEFAULT NULL,
   PRIMARY KEY (`TAG_GROUP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_goods_tag
@@ -4509,6 +4551,9 @@ INSERT INTO `dm_goods_tag` VALUES ('17', '19', '6');
 INSERT INTO `dm_goods_tag` VALUES ('18', '1', '6');
 INSERT INTO `dm_goods_tag` VALUES ('19', '2', '6');
 INSERT INTO `dm_goods_tag` VALUES ('20', '21', '6');
+INSERT INTO `dm_goods_tag` VALUES ('21', '7', '7');
+INSERT INTO `dm_goods_tag` VALUES ('22', '8', '7');
+INSERT INTO `dm_goods_tag` VALUES ('23', '9', '7');
 
 -- ----------------------------
 -- Table structure for dm_goods_tag_value
@@ -4519,7 +4564,7 @@ CREATE TABLE `dm_goods_tag_value` (
   `TAG_GROUP_ID` int(9) DEFAULT NULL,
   `ITEM_ID` int(9) DEFAULT NULL,
   PRIMARY KEY (`TAG_VALUE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_goods_tag_value
@@ -4533,6 +4578,9 @@ INSERT INTO `dm_goods_tag_value` VALUES ('8', '11', '11');
 INSERT INTO `dm_goods_tag_value` VALUES ('15', '15', '12');
 INSERT INTO `dm_goods_tag_value` VALUES ('16', '8', '6');
 INSERT INTO `dm_goods_tag_value` VALUES ('17', '18', '12');
+INSERT INTO `dm_goods_tag_value` VALUES ('18', '21', '6');
+INSERT INTO `dm_goods_tag_value` VALUES ('19', '22', '13');
+INSERT INTO `dm_goods_tag_value` VALUES ('20', '22', '7');
 
 -- ----------------------------
 -- Table structure for dm_menu
@@ -4549,19 +4597,34 @@ CREATE TABLE `dm_menu` (
   `MENU_PATH` varchar(100) DEFAULT NULL,
   `MENU_DESC` varchar(200) DEFAULT NULL,
   `MENU_ORDER` int(3) DEFAULT NULL,
+  `STATE` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`MENU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_menu
 -- ----------------------------
-INSERT INTO `dm_menu` VALUES ('27', 'sys', '系统管理', '-1', null, null, '0', null, null, null);
-INSERT INTO `dm_menu` VALUES ('28', 'menu', '菜单管理', '27', '/admin/system/menu.jsp', null, '1', null, null, null);
-INSERT INTO `dm_menu` VALUES ('33', 'staffmanager', '员工管理', '27', '/admin/security/staff/staffmanager.jsp', null, '1', null, '员工管理', null);
-INSERT INTO `dm_menu` VALUES ('34', 'orgmanager', '组织管理', '27', '/admin/security/org/orgmanager.jsp', null, '1', null, '组织管理', null);
-INSERT INTO `dm_menu` VALUES ('35', 'rolemanager', '角色管理', '27', '/admin/security/role/rolemanager.jsp', null, '1', null, '角色管理', null);
-INSERT INTO `dm_menu` VALUES ('36', 'privilegemanager', '权限管理', '27', '/admin/security/privilege/privilegemanager.jsp', null, '1', null, '权限管理', null);
-INSERT INTO `dm_menu` VALUES ('37', 'test', '测试', '-1', null, null, '0', null, null, null);
+INSERT INTO `dm_menu` VALUES ('28', 'menu', '菜单管理', '56', '/admin/system/menu.jsp', null, '1', null, '菜单管理', null, '00A');
+INSERT INTO `dm_menu` VALUES ('33', 'staffmanager', '员工管理', '56', '/admin/security/staff/staffmanager.jsp', null, '1', null, '员工管理', null, '00A');
+INSERT INTO `dm_menu` VALUES ('34', 'orgmanager', '组织管理', '56', '/admin/security/org/orgmanager.jsp', null, '1', null, '组织管理', null, '00A');
+INSERT INTO `dm_menu` VALUES ('35', 'rolemanager', '角色管理', '56', '/admin/security/role/rolemanager.jsp', null, '1', null, '角色管理', null, '00A');
+INSERT INTO `dm_menu` VALUES ('36', 'privilegemanager', '权限管理', '56', '/admin/security/privilege/privilegemanager.jsp', null, '1', null, '权限管理', null, '00A');
+INSERT INTO `dm_menu` VALUES ('55', 'user', '商家中心', '-1', null, null, '0', null, '商家中心', '2', '00X');
+INSERT INTO `dm_menu` VALUES ('56', 'Backstage manager', '系统管理', '-1', null, null, '0', null, '后台管理', '3', '00A');
+INSERT INTO `dm_menu` VALUES ('57', 'POC', '运营管理', '-1', null, null, '0', null, '平台运营中心', '4', '00A');
+INSERT INTO `dm_menu` VALUES ('58', 'account', '商户管理', '57', '/admin/merchant/account.jsp', null, '1', null, '商户管理', '1', null);
+INSERT INTO `dm_menu` VALUES ('59', 'audit', '商户资质审核', '57', '/admin/merchant/audit.jsp', null, '1', null, '商户资质审核', '2', null);
+INSERT INTO `dm_menu` VALUES ('60', 'tagsmanager', '标签管理', '57', '/admin/goods/tags/tagsmanager.jsp', null, '1', null, '标签管理', '3', '00A');
+INSERT INTO `dm_menu` VALUES ('61', 'tagsitemmanager', '标签值管理', '57', '/admin/goods/tagitems/tagsitemmanager.jsp', null, '1', null, '标签值管理', '4', '00A');
+INSERT INTO `dm_menu` VALUES ('63', 'catalogmanager', '商品目录管理', '57', '/admin/goods/catalogs/catalogmanager.jsp', null, '1', null, '商品目录管理', '5', '00A');
+INSERT INTO `dm_menu` VALUES ('64', 'goodsmanager', '商品管理', '57', '/admin/goods/good/goodsmanager.jsp', null, '1', null, '商品管理', '6', '00A');
+INSERT INTO `dm_menu` VALUES ('65', 'goodpackagemanager', '商品包管理', '56', '/admin/goods/package/goodpackagemanager.jsp', null, '1', null, '商品包管理', '1', null);
+INSERT INTO `dm_menu` VALUES ('66', 'goodplanmanager', '商品定价管理', '57', '/admin/goods/plan/goodplanmanager.jsp', null, '1', null, '商品定价管理', '7', null);
+INSERT INTO `dm_menu` VALUES ('67', 'admanager', '广告管理', '57', '/admin/goods/ad/admanager.jsp', null, '1', null, '广告管理', '8', '00A');
+INSERT INTO `dm_menu` VALUES ('68', 'invoice', '发票管理', '57', '/admin/order/invoice.jsp', null, '1', null, '发票管理', '2', '00X');
+INSERT INTO `dm_menu` VALUES ('69', 'consulationmanager', '咨询管理', '57', '/admin/goods/consulation/consulationmanager.jsp', null, '1', null, '咨询管理', '3', '00A');
+INSERT INTO `dm_menu` VALUES ('70', 'notice', '公告管理', '57', '/admin/notice/notice.jsp', null, '1', null, '公告管理', '4', '00A');
+INSERT INTO `dm_menu` VALUES ('71', 'intemanager', '接口管理', '56', '/admin/inte/intemanager.jsp', null, '1', null, '接口管理', '5', '00A');
 
 -- ----------------------------
 -- Table structure for dm_merchant
@@ -4592,22 +4655,34 @@ CREATE TABLE `dm_merchant` (
   `MERCHANT_TYPE` varchar(20) DEFAULT NULL COMMENT '01 ??\r\n            02 ??\r\n            03 ???',
   PRIMARY KEY (`MERCHANT_ID`),
   KEY `FK_Reference_19` (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='????????';
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='????????';
 
 -- ----------------------------
 -- Records of dm_merchant
 -- ----------------------------
 INSERT INTO `dm_merchant` VALUES ('0', '1', null, '腾讯科技', null, 'B', null, null, null, null, '华景', null, null, null, null, null, null, null, '00X', null, null, null);
-INSERT INTO `dm_merchant` VALUES ('7', '10', null, 'xxx', null, null, null, '1', '1', '', '华景新城', null, null, null, '12123', null, null, null, null, null, null, null);
-INSERT INTO `dm_merchant` VALUES ('8', '2', null, 'xxx', null, null, null, '2', '', '', '华景新城', null, null, null, '', null, null, null, '00X', null, null, null);
-INSERT INTO `dm_merchant` VALUES ('9', '3', null, 'xxx', null, null, null, '2', '', '', '中山大道西华景软件园89号', null, null, null, '', null, null, null, '00X', null, null, null);
-INSERT INTO `dm_merchant` VALUES ('10', '4', null, '', null, null, null, '', '', '', '', null, null, null, '', null, null, null, '00X', null, null, null);
-INSERT INTO `dm_merchant` VALUES ('11', '18', null, '中兴软创', '1', null, null, '河南', '驻马店', '西平县', '华景新城111号', null, null, null, '', null, null, null, '00L', '2013-12-31 16:21:36', '2013-12-31 16:21:36', '01');
-INSERT INTO `dm_merchant` VALUES ('12', '19', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2013-12-31 16:40:20', '2013-12-31 16:40:20', '01');
-INSERT INTO `dm_merchant` VALUES ('13', '20', null, '牛B公司', null, null, null, '', '', '', '', null, null, null, '', null, null, null, '00L', '2014-01-02 10:04:20', '2014-01-02 10:04:20', '01');
-INSERT INTO `dm_merchant` VALUES ('14', '21', null, '', null, null, null, '1', '1', '', '', null, null, null, '', null, null, null, '00L', '2014-01-03 09:28:04', '2014-01-03 09:28:04', '01');
-INSERT INTO `dm_merchant` VALUES ('15', '0', 's', 'xxx', null, 'B', null, '44', '01', '06', '华景新城', null, '', null, '', null, null, null, '00A', null, null, null);
-INSERT INTO `dm_merchant` VALUES ('16', '22', null, '邹启蒙', '0', null, null, '44', '4401', '', '三十岁', null, null, null, '', null, null, null, '00L', '2014-01-04 15:45:36', '2014-01-04 15:45:36', '01');
+INSERT INTO `dm_merchant` VALUES ('11', '18', null, '中兴软创', '1', null, null, '河南', '信阳', '浉河区', '华景新城111号', null, null, null, '', null, null, null, '00L', '2013-12-31 16:21:36', '2013-12-31 16:21:36', '01');
+INSERT INTO `dm_merchant` VALUES ('17', '23', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 17:23:46', '2014-01-25 17:23:46', '01');
+INSERT INTO `dm_merchant` VALUES ('20', '26', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 17:36:30', '2014-01-25 17:36:30', '01');
+INSERT INTO `dm_merchant` VALUES ('26', '32', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 17:46:24', '2014-01-25 17:46:24', '01');
+INSERT INTO `dm_merchant` VALUES ('27', '33', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 17:47:06', '2014-01-25 17:47:06', '01');
+INSERT INTO `dm_merchant` VALUES ('32', '38', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 17:52:49', '2014-01-25 17:52:49', '01');
+INSERT INTO `dm_merchant` VALUES ('34', '40', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:20:27', '2014-01-25 18:20:27', '01');
+INSERT INTO `dm_merchant` VALUES ('35', '41', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:22:37', '2014-01-25 18:22:37', '01');
+INSERT INTO `dm_merchant` VALUES ('36', '42', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:23:13', '2014-01-25 18:23:13', '01');
+INSERT INTO `dm_merchant` VALUES ('37', '43', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:24:02', '2014-01-25 18:24:02', '01');
+INSERT INTO `dm_merchant` VALUES ('38', '44', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:25:22', '2014-01-25 18:25:22', '01');
+INSERT INTO `dm_merchant` VALUES ('39', '45', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:27:47', '2014-01-25 18:27:47', '01');
+INSERT INTO `dm_merchant` VALUES ('40', '46', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:29:01', '2014-01-25 18:29:01', '01');
+INSERT INTO `dm_merchant` VALUES ('41', '47', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:29:38', '2014-01-25 18:29:38', '01');
+INSERT INTO `dm_merchant` VALUES ('42', '48', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:30:05', '2014-01-25 18:30:05', '01');
+INSERT INTO `dm_merchant` VALUES ('43', '49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:30:30', '2014-01-25 18:30:30', '01');
+INSERT INTO `dm_merchant` VALUES ('44', '50', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:31:02', '2014-01-25 18:31:02', '01');
+INSERT INTO `dm_merchant` VALUES ('45', '51', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:31:26', '2014-01-25 18:31:26', '01');
+INSERT INTO `dm_merchant` VALUES ('46', '52', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 18:32:03', '2014-01-25 18:32:03', '01');
+INSERT INTO `dm_merchant` VALUES ('47', '53', null, '小号', '1', null, null, '山东', '聊城', '东昌府区', '试试', null, null, null, '', null, null, null, '00L', '2014-01-25 18:47:05', '2014-01-25 18:47:05', '01');
+INSERT INTO `dm_merchant` VALUES ('48', '54', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 19:33:06', '2014-01-25 19:33:06', '01');
+INSERT INTO `dm_merchant` VALUES ('51', '57', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '00L', '2014-01-25 19:41:03', '2014-01-25 19:41:03', '01');
 
 -- ----------------------------
 -- Table structure for dm_merchant_activity
@@ -4668,6 +4743,33 @@ INSERT INTO `dm_merchant_file` VALUES ('5', '2', null, '02', '/photos/data_marke
 INSERT INTO `dm_merchant_file` VALUES ('6', '13', '营业执照', '01', '/photos/data_market_p/mf/13/88fb8ab723e2461a9ec9193c9e9e44d8.jpg', '2014-01-02 10:37:27', '00A', '2014-01-02 10:37:27');
 
 -- ----------------------------
+-- Table structure for dm_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `dm_notice`;
+CREATE TABLE `dm_notice` (
+  `NOTICE_ID` int(9) NOT NULL AUTO_INCREMENT,
+  `NOTICE_TITLE` varchar(200) DEFAULT NULL,
+  `NOTICE_DEST` varchar(200) DEFAULT NULL,
+  `NOTICE_CONTEXT` varchar(2000) DEFAULT NULL,
+  `STATE` varchar(3) DEFAULT NULL COMMENT '00A:??,00X:??',
+  `CREATE_DATE` datetime DEFAULT NULL,
+  `ORDER_ID` int(9) DEFAULT NULL,
+  `PUBLISHER` varchar(200) DEFAULT NULL,
+  `PUBLISH_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`NOTICE_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dm_notice
+-- ----------------------------
+INSERT INTO `dm_notice` VALUES ('1', '年终送美女', '商户', '你还在耿耿于怀公司的年终奖吗，你还在眼红别人年终送车、送金条吗？？别傻啦，来商户营销平台吧，这里有美女送啊，寒夜里有人帮你暖床！！', '00A', '2014-01-16 06:00:46', '1', '商户营销平台', '2014-01-17 09:46:21');
+INSERT INTO `dm_notice` VALUES ('2', '红包派发', '商户', '红包派发啦!', '00A', '2014-01-16 06:06:15', '2', '管理员', '2014-01-17 09:44:25');
+INSERT INTO `dm_notice` VALUES ('3', '优惠大促销', '商户', '优惠大促销活动！！', '00A', '2014-01-16 06:06:41', '3', '商户营销平台', '2014-01-17 09:45:30');
+INSERT INTO `dm_notice` VALUES ('4', '降价通知', '商户', '降价活动通知！', '00A', '2014-01-17 09:50:39', '4', '商户营销平台', '2014-01-17 11:08:44');
+INSERT INTO `dm_notice` VALUES ('5', '降价商品认领', '商户', '来、来、来，降价商品认领啦！！', '00A', '2014-01-17 11:01:43', '3', '商户营销平台', '2014-01-17 11:06:46');
+INSERT INTO `dm_notice` VALUES ('6', '促销', '商户', '促销', '00A', '2014-01-23 04:57:29', '5', '数据员', '2014-01-23 16:58:34');
+
+-- ----------------------------
 -- Table structure for dm_order_invoice
 -- ----------------------------
 DROP TABLE IF EXISTS `dm_order_invoice`;
@@ -4688,7 +4790,7 @@ CREATE TABLE `dm_order_invoice` (
 -- ----------------------------
 -- Records of dm_order_invoice
 -- ----------------------------
-INSERT INTO `dm_order_invoice` VALUES ('1', '20131248', 'N', '1140102150000012', null, null, null, null, null, null);
+INSERT INTO `dm_order_invoice` VALUES ('1', '20131248', 'Y', '1140102150000012', null, null, null, null, '2014-02-12', '管理员');
 
 -- ----------------------------
 -- Table structure for dm_organization
@@ -4763,6 +4865,37 @@ INSERT INTO `dm_pay_config` VALUES ('5', 'BANKUL', 'http://localhost:8080/DataMa
 INSERT INTO `dm_pay_config` VALUES ('6', 'BANKKEY', '123456', 'BANKKEY');
 INSERT INTO `dm_pay_config` VALUES ('7', 'RETNCODE', '0000', '处理结果码');
 INSERT INTO `dm_pay_config` VALUES ('8', 'RETNINFO', '0000', '处理结果解释码');
+
+-- ----------------------------
+-- Table structure for dm_points
+-- ----------------------------
+DROP TABLE IF EXISTS `dm_points`;
+CREATE TABLE `dm_points` (
+  `POINT_ID` int(9) NOT NULL AUTO_INCREMENT,
+  `MERCHANT_ID` int(9) DEFAULT NULL COMMENT '序列生成',
+  `POINT` int(9) DEFAULT NULL,
+  `ORDER_ID` int(9) DEFAULT NULL,
+  `POINT_DESC` varchar(200) DEFAULT NULL,
+  `GAIN_TIME` datetime DEFAULT NULL,
+  `EFF_TIME` datetime DEFAULT NULL,
+  `EXP_TIME` datetime DEFAULT NULL,
+  `STATE` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`POINT_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dm_points
+-- ----------------------------
+INSERT INTO `dm_points` VALUES ('1', '19', '369', '20131282', null, '2014-01-21 14:40:32', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('2', '19', '6999', '20131285', null, '2014-01-21 15:17:53', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('3', '19', '4390', '20131286', null, '2014-01-21 15:18:36', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('4', '19', '569', '20131287', null, '2014-01-21 17:35:03', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('5', '19', '569', '20131290', null, '2014-01-22 10:00:40', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('6', '2', '369', '20131292', null, '2014-01-22 10:54:30', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('7', '19', '6889', '20131298', null, '2014-01-24 16:48:48', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('8', '19', '6889', '20131298', null, '2014-01-24 16:49:13', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('9', '19', '2889', '20131300', null, '2014-01-26 11:04:36', null, null, '00A');
+INSERT INTO `dm_points` VALUES ('10', '19', '300', '20131302', null, '2014-01-26 16:08:53', null, null, '00A');
 
 -- ----------------------------
 -- Table structure for dm_privilege
@@ -4848,11 +4981,12 @@ CREATE TABLE `dm_shopping_cart` (
   `CTEATE_TIME` datetime DEFAULT NULL,
   `STATE` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_shopping_cart
 -- ----------------------------
+INSERT INTO `dm_shopping_cart` VALUES ('1', '1', '11', null, '2', '2014-02-11 20:21:06', '00A');
 
 -- ----------------------------
 -- Table structure for dm_staff
@@ -5126,174 +5260,71 @@ CREATE TABLE `dm_user` (
   `LOCK_TIME` datetime DEFAULT NULL,
   `LOGON_FAILED_COUNT` int(11) NOT NULL,
   `LAST_LOGIN_TIME` datetime DEFAULT NULL,
+  `LEVEL` int(2) DEFAULT NULL,
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dm_user
 -- ----------------------------
-INSERT INTO `dm_user` VALUES ('1', '18900000001', '邹启蒙', '/photos/data_market_p/user/t1_5170f5a931844827a303627624206633.jpg', null, '1399d54349a96d40c848626cfc74efd2', null, null, '00A', '2013-12-24 10:48:39', null, null, null, '0', '2014-01-04 17:11:34');
-INSERT INTO `dm_user` VALUES ('2', '18900000002', null, null, null, 'e1431dc890d7c04d4b01d06f747a8f6f', null, null, '00A', '2013-12-24 10:55:18', null, null, null, '1', '2013-12-24 10:55:51');
-INSERT INTO `dm_user` VALUES ('3', '18900000003', '', null, null, '014d1fdacfe2b87ff8d7219b6641d03e', null, null, '00A', '2013-12-24 11:14:50', null, null, null, '0', '2013-12-31 10:44:51');
-INSERT INTO `dm_user` VALUES ('7', '18900000004', null, null, null, 'c18feb2157a653ea7cd429fcc5ecde20', null, null, '00A', '2013-12-24 13:56:21', null, null, null, '0', '2013-12-24 13:56:21');
-INSERT INTO `dm_user` VALUES ('10', '18900000005', 'tttggggg', '/photos/data_market_p/user/04c7138187d8432c974495f80a2aa7a5.jpg', 'xxx@126.com', 'bc1ad232a38136fd3c938754b7f40627', null, null, '00A', '2013-12-24 14:09:35', null, null, null, '0', '2013-12-31 17:14:18');
-INSERT INTO `dm_user` VALUES ('11', '18900000006', null, null, null, '90cd85dafdc67b0c4a679cfeb81797e5', null, null, '00A', '2013-12-24 16:33:17', null, null, null, '0', '2013-12-24 16:33:17');
-INSERT INTO `dm_user` VALUES ('12', '18900000007', null, null, null, 'c2a21573cd68e9d594d04a4cc2316700', null, null, '00A', '2013-12-24 17:03:52', null, null, null, '0', '2013-12-24 17:03:52');
-INSERT INTO `dm_user` VALUES ('13', '18900000008', null, null, null, '349c1e695d4f5fc643245f15f61d7aea', null, null, '00A', '2013-12-24 17:16:31', null, null, null, '0', '2013-12-31 10:43:12');
-INSERT INTO `dm_user` VALUES ('14', '18929585950', null, null, null, '8870cd6c584f82af505059ca5d7047ba', null, null, '00A', '2013-12-27 11:32:38', null, null, null, '0', '2013-12-31 16:18:44');
-INSERT INTO `dm_user` VALUES ('15', '18900000009', null, null, null, '92d9312e1f86c494e3712869cacf9a25', null, null, '00A', '2013-12-27 16:39:57', null, null, null, '0', '2013-12-31 10:43:41');
-INSERT INTO `dm_user` VALUES ('16', '18900000100', null, null, '111@163.com', '52371e65d1e38e6a80d3676eb0d728fa', null, null, '00A', '2013-12-31 10:57:33', null, null, null, '0', '2013-12-31 10:57:33');
-INSERT INTO `dm_user` VALUES ('18', '18664604464', '邹启蒙', null, null, 'a215a07ba964cd2a2916f292cff19d11', null, null, '00A', '2013-12-31 16:21:36', null, null, null, '0', '2014-01-12 23:37:59');
-INSERT INTO `dm_user` VALUES ('19', '18916000000', null, null, null, '6713fa25be542b207cd9539364d9f890', null, null, '00A', '2013-12-31 16:40:20', null, null, null, '0', '2014-01-03 17:09:48');
-INSERT INTO `dm_user` VALUES ('20', '15013004041', 'LEO', null, null, 'a152be6f2e4d9d45066029367e07def2', null, null, '00A', '2014-01-02 10:04:19', null, null, null, '0', '2014-01-03 15:15:06');
-INSERT INTO `dm_user` VALUES ('21', '13802541888', '', '/photos/data_market_p/user/2255966ec48b4e9190a1096ceedfccfe.jpg', null, '54062f80e69423af3c8d25ddaccbc453', null, null, '00A', '2014-01-03 09:28:03', null, null, null, '0', '2014-01-03 14:50:29');
-INSERT INTO `dm_user` VALUES ('22', '18611112222', '看海的猫', null, null, 'c6cdd19c14d67daf429205c0cfd15aa4', null, null, '00A', '2014-01-04 15:45:35', null, null, null, '0', '2014-01-04 16:35:31');
+INSERT INTO `dm_user` VALUES ('1', '18900000001', '邹启蒙', '/photos/data_market_p/user/t1_5170f5a931844827a303627624206633.jpg', null, '1399d54349a96d40c848626cfc74efd2', null, null, '00A', '2013-12-24 10:48:39', null, null, null, '0', '2014-01-04 17:11:34', '1');
+INSERT INTO `dm_user` VALUES ('18', '18664604464', '邹启蒙', null, 'zqmshark@gmail.com', 'a215a07ba964cd2a2916f292cff19d11', null, null, '00A', '2013-12-31 16:21:36', null, null, null, '0', '2014-02-12 22:01:19', '1');
+INSERT INTO `dm_user` VALUES ('23', '18664604465', null, null, null, 'c75ca173378d564f9d4e3f554a9b48ec', null, null, '00A', '2014-01-25 17:23:46', null, null, null, '0', '2014-01-25 17:23:46', '1');
+INSERT INTO `dm_user` VALUES ('26', '18600000000', null, null, null, '6eb48a9c027ab90dbf01fac827695570', null, null, '00A', '2014-01-25 17:36:29', null, null, null, '0', '2014-01-25 17:36:29', '1');
+INSERT INTO `dm_user` VALUES ('32', '18600001000', null, null, null, 'd2bd6aa34218104d55a2c1812f25bd9d', null, null, '00A', '2014-01-25 17:46:23', null, null, null, '0', '2014-01-25 17:46:23', '2');
+INSERT INTO `dm_user` VALUES ('33', '18600002000', null, null, null, 'b58dc4634b40bd166f8dbd5b96796f01', null, null, '00A', '2014-01-25 17:47:05', null, null, null, '0', '2014-01-25 17:47:05', '2');
+INSERT INTO `dm_user` VALUES ('38', '18600001100', null, null, null, '0b1b7e57abef4d2e6cd9af502e8fd8db', null, null, '00A', '2014-01-25 17:52:48', null, null, null, '0', '2014-01-25 17:52:48', '3');
+INSERT INTO `dm_user` VALUES ('40', '18600001200', null, null, null, '47ecc2097745734cde3f85f690f20385', null, null, '00A', '2014-01-25 18:20:27', null, null, null, '0', '2014-01-25 18:20:27', '3');
+INSERT INTO `dm_user` VALUES ('41', '18600002100', null, null, null, 'a10dc680f299c1719419af2a92aa0238', null, null, '00A', '2014-01-25 18:22:36', null, null, null, '0', '2014-01-25 18:22:36', '3');
+INSERT INTO `dm_user` VALUES ('42', '18600002200', null, null, null, '2ac97118832c556b196edb9391574f1d', null, null, '00A', '2014-01-25 18:23:12', null, null, null, '0', '2014-01-25 18:23:12', '3');
+INSERT INTO `dm_user` VALUES ('43', '18600001110', null, null, null, '47a525040e62202f05d979e674c497e7', null, null, '00A', '2014-01-25 18:24:01', null, null, null, '0', '2014-01-25 18:24:01', '4');
+INSERT INTO `dm_user` VALUES ('44', '18600001120', null, null, null, 'e15f97cc823ade57fd110fbd73e867bd', null, null, '00A', '2014-01-25 18:25:21', null, null, null, '0', '2014-01-25 18:25:21', '4');
+INSERT INTO `dm_user` VALUES ('45', '18600002110', null, null, null, '34e2d6283cd995ff0d5284bddfd589ff', null, null, '00A', '2014-01-25 18:27:47', null, null, null, '0', '2014-01-25 18:27:47', '4');
+INSERT INTO `dm_user` VALUES ('46', '18600002120', null, null, null, 'e03ae86064407873ea653bd8825e6fd4', null, null, '00A', '2014-01-25 18:29:01', null, null, null, '0', '2014-01-25 18:29:01', '4');
+INSERT INTO `dm_user` VALUES ('47', '18600002130', null, null, null, 'cff59b4592c9d546385029d993c576a1', null, null, '00A', '2014-01-25 18:29:37', null, null, null, '0', '2014-01-25 18:29:37', '4');
+INSERT INTO `dm_user` VALUES ('48', '18600002140', null, null, null, '64e6ace9b205d82fb0b147d7af17727a', null, null, '00A', '2014-01-25 18:30:05', null, null, null, '0', '2014-01-25 18:30:05', '4');
+INSERT INTO `dm_user` VALUES ('49', '18600002150', null, null, null, '9eb589c54bba60e3d51bb40a3b7d0e0c', null, null, '00A', '2014-01-25 18:30:29', null, null, null, '0', '2014-01-25 18:30:29', '4');
+INSERT INTO `dm_user` VALUES ('50', '18600002160', null, null, null, '30a2266cfe8e12a48f4769ffe11f61c1', null, null, '00A', '2014-01-25 18:31:02', null, null, null, '0', '2014-01-25 18:31:02', '4');
+INSERT INTO `dm_user` VALUES ('51', '18600002170', null, null, null, '64dacc7bf210a48fd6df5337a29e0ba5', null, null, '00A', '2014-01-25 18:31:26', null, null, null, '0', '2014-01-25 18:31:26', '5');
+INSERT INTO `dm_user` VALUES ('52', '18600022200', null, null, null, '603c9a768a0c90e1467cd605ea7cf9c6', null, null, '00A', '2014-01-25 18:32:03', null, null, null, '0', '2014-01-25 18:32:03', '5');
+INSERT INTO `dm_user` VALUES ('53', '18610000000', '小号', null, null, '672fecaafe54b06e1b4c99590a04436c', null, null, '00A', '2014-01-25 18:47:05', null, null, null, '0', '2014-01-25 18:47:05', '2');
+INSERT INTO `dm_user` VALUES ('54', '18700000000', null, null, null, '13167a4516bd491fc2361e02c2452947', null, null, '00A', '2014-01-25 19:33:06', null, null, null, '0', '2014-01-25 19:33:06', '2');
+INSERT INTO `dm_user` VALUES ('57', '18800000000', '看海的猫', null, null, 'f58fc7a23dd52d7cc0beb6785d827ffc', null, null, '00A', '2014-01-25 19:41:03', null, null, null, '0', '2014-01-25 19:41:03', '2');
 
 -- ----------------------------
--- Table structure for menu
+-- Table structure for referrer_info
 -- ----------------------------
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE `menu` (
-  `menu_id` int(9) NOT NULL,
-  `system_id` int(3) NOT NULL,
-  `menu_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `menu_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `order_id` int(3) NOT NULL,
-  `target_name` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `parameter` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `open_flag` char(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `privilege_flag` char(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `valid_flag` char(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `menu_type` char(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `menu_grade` int(3) NOT NULL,
-  `super_id` int(9) DEFAULT NULL,
-  `image_path` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `comments` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `path_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `sort_value` int(9) DEFAULT NULL,
-  PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `referrer_info`;
+CREATE TABLE `referrer_info` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `referrer_id` int(9) DEFAULT NULL,
+  `presentee_id` int(9) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of menu
+-- Records of referrer_info
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1021826', '1', 'CMMNMNG', '系统管理', '13', null, null, '1', '1', '0', '0', '1', '-1', null, null, 'CMMNMNG', null);
-INSERT INTO `menu` VALUES ('1021827', '1', 'MENU', '菜单管理', '4', '/oaas/manager/Menu.jsp', null, '0', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.MENU', null);
-INSERT INTO `menu` VALUES ('1021828', '1', 'STAFF', '员工管理', '3', '/oaas/manager/Staff.jsp', null, '0', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.STAFF', null);
-INSERT INTO `menu` VALUES ('1021829', '1', 'PRIV', '权限管理', '5', '/oaas/manager/Privilege.jsp', null, '0', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.PRIV', null);
-INSERT INTO `menu` VALUES ('1021830', '1', 'ROLES', '角色管理', '2', '/oaas/manager/Roles.jsp', null, '0', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.ROLES', null);
-INSERT INTO `menu` VALUES ('1021831', '1', 'ORG', '组织管理', '1', '/oaas/manager/Organization.jsp', null, '0', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.ORG', null);
-INSERT INTO `menu` VALUES ('1021913', '1', 'ATTR', '静态数据配置', '2', '/oaas/attr/attributeManage.jsp', null, '0', '1', '0', '0', '1', '1024012', null, null, 'CMMNMNG.ATTR_DATA.ATTR', null);
-INSERT INTO `menu` VALUES ('1022172', '1', 'SOURCE', '数据源管理', '1', 'http://10.45.47.152:9088/udmp/datasource/datasourceManager.jsp', null, '0', '1', '0', '0', '1', '1022677', null, '数据源配置管理', 'ETL.SOURCE', null);
-INSERT INTO `menu` VALUES ('1022592', '1', 'LOGINLOG', '登录日志查询', '1', '/oaas/manager/LoginLog.jsp', null, '0', '1', '0', '0', '1', '1024032', null, null, 'CMMNMNG.SYSLOG', null);
-INSERT INTO `menu` VALUES ('1022612', '1', 'OPERLOG', '操作日志查询', '2', '/oaas/manager/OperationLog.jsp', null, '0', '1', '0', '0', '1', '1024032', null, null, 'CMMNMNG.SYSLOG', null);
-INSERT INTO `menu` VALUES ('1022677', '1', 'ETL', '数据处理', '3', null, null, '1', '1', '0', '0', '1', '-1', null, null, 'ETL', null);
-INSERT INTO `menu` VALUES ('1022678', '1', 'ETLFLOW', 'ETL流程配置', '3', '/etlControl/configure/ETLProcessDefine.jsp', null, '0', '1', '0', '0', '1', '1024493', null, null, 'ETL.ETL_2.ETLFLOW', null);
-INSERT INTO `menu` VALUES ('1022679', '1', 'ETLTASK', 'ETL任务配置', '2', '/etlControl/configure/ETLTaskDefine.jsp', null, '0', '1', '0', '0', '1', '1024493', null, null, 'ETL.ETL_2.ETLTASK', null);
-INSERT INTO `menu` VALUES ('1022696', '1', 'ETLMONITOR', 'ETL任务监控', '4', '/etlControl/monitor/ETLInstMonitor.jsp', null, '0', '1', '0', '0', '1', '1024493', null, null, 'ETL.ETL_2.ETLMONITOR', null);
-INSERT INTO `menu` VALUES ('1022733', '1', 'SCHEDULER', '定时任务管理', '9', null, null, '1', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.SCHEDULER', null);
-INSERT INTO `menu` VALUES ('1022734', '1', 'scheduler', '定时任务配置', '1', '/oaas/job/jobManager.jsp', null, '0', '1', '0', '0', '1', '1022733', null, null, 'CMMNMNG.SCHEDULER.scheduler', null);
-INSERT INTO `menu` VALUES ('1022735', '1', 'monitor', '定时任务监控', '2', '/oaas/job/jobRuningQuery.jsp', null, '0', '1', '0', '0', '1', '1022733', null, null, 'CMMNMNG.SCHEDULER.monitor', null);
-INSERT INTO `menu` VALUES ('1022792', '1', 'REPORT', '报表管理', '4', null, null, '1', '1', '0', '0', '1', '-1', null, null, 'REPORT', null);
-INSERT INTO `menu` VALUES ('1022793', '1', 'REPORT_SET', '报表配置', '3', '/report/console', null, '0', '1', '0', '0', '1', '1022792', null, null, 'REPORT.REPORT_SET', null);
-INSERT INTO `menu` VALUES ('1023152', '1', 'DC_PUB', '公共数据配置', '3', '/oaas/attr/DcPublic.jsp', null, '0', '1', '0', '0', '1', '1024012', null, null, 'CMMNMNG.ATTR_DATA.DC_PUB', null);
-INSERT INTO `menu` VALUES ('1023872', '1', 'syxympz', '首页小页面管理', '1', '/oaas/manager/MmPortlet.jsp', '', '0', '1', '0', '0', '1', '1021826', '', '', 'CMMNMNG.syxympz', null);
-INSERT INTO `menu` VALUES ('1024012', '1', 'ATTR_DATA', '静态数据管理', '7', null, null, '1', '1', '0', '0', '1', '1021826', null, null, 'CMMNMNG.ATTR_DATA', null);
-INSERT INTO `menu` VALUES ('1024032', '1', 'SYSLOG', '系统日志管理', '8', null, null, '1', '1', '0', '0', '1', '1021826', null, '系统日志管理', 'CMMNMNG.SYSLOG', null);
-INSERT INTO `menu` VALUES ('1024072', '1', 'COMP_ANA', '数据应用', '1', null, null, '1', '1', '0', '0', '1', '-1', null, '综合分析', 'COMP_ANA', null);
-INSERT INTO `menu` VALUES ('1024192', '1', 'cnqs', '智能取数', '1', null, null, '1', '1', '0', '0', '1', '1022792', null, null, 'REPORT.cnqs', null);
-INSERT INTO `menu` VALUES ('1024193', '1', 'iq001', '我的任务', '1', 'http://10.45.47.152:9088/eps/iq/task/MyTask.jsp', null, '0', '1', '0', '0', '1', '1024192', null, null, 'REPORT.cnqs.iq001', null);
-INSERT INTO `menu` VALUES ('1024194', '1', 'iq002', '我的取数', '1', 'http://10.45.47.152:9088/eps/iq/instance/MyIQ.jsp', null, '0', '1', '0', '0', '1', '1024192', null, null, 'REPORT.cnqs.iq002', null);
-INSERT INTO `menu` VALUES ('1024195', '1', 'iq003', '主题配置', '1', 'http://10.45.47.152:9088/eps/iq/subject/Subject.jsp', null, '0', '1', '0', '0', '1', '1024192', null, null, 'REPORT.cnqs.iq003', null);
-INSERT INTO `menu` VALUES ('1024196', '1', 'iq004', '模板配置', '1', 'http://10.45.47.152:9088/eps/iq/template/Template.jsp', null, '0', '1', '0', '0', '1', '1024192', null, null, 'REPORT.cnqs.iq004', null);
-INSERT INTO `menu` VALUES ('1024197', '1', 'iq005', '维度划分', '1', 'http://10.45.47.152:9088/eps/iq/subject/SubjectClassify.jsp', null, '0', '1', '0', '0', '1', '1024192', null, null, 'REPORT.cnqs.iq005', null);
-INSERT INTO `menu` VALUES ('1024198', '1', 'iq006', '任务管理', '1', 'http://10.45.47.152:9088/eps/iq/task/TaskManager.jsp', null, '0', '1', '0', '0', '1', '1024192', null, null, 'REPORT.cnqs.iq006', null);
-INSERT INTO `menu` VALUES ('1024220', '20', 'url', 'URL库', '1', null, null, '1', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.url', null);
-INSERT INTO `menu` VALUES ('1024221', '20', 'app', 'APP库', '1', '/app/configData/AppInfo.jsp', null, '0', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.app', null);
-INSERT INTO `menu` VALUES ('1024222', '20', 'keylab', '搜索关键词库', '1', null, null, '1', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.keylab', null);
-INSERT INTO `menu` VALUES ('1024223', '20', 'zhongduan', '终端库', '1', null, null, '1', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.zhongduan', null);
-INSERT INTO `menu` VALUES ('1024233', '1', '20130105', 'URL库', '1', '/app/url/urlManage.jsp', '', '0', '1', '1', '0', '1', '1024220', '', '', 'BASEINFO.url.20130105', null);
-INSERT INTO `menu` VALUES ('1024252', '20', '2b2b', '兴趣点管理', '10', '/app/configData/InterestInfo.jsp', null, '0', '1', '0', '0', '1', '1025113', null, null, 'BASEINFO.xqdml.2b2b', null);
-INSERT INTO `menu` VALUES ('1024312', '1', 'FLOWANA', '流量诊断', '10', null, null, '1', '1', '0', '0', '1', '1024072', null, null, 'COMP_ANA.FLOWANA', null);
-INSERT INTO `menu` VALUES ('1024313', '1', 'FLOWVIEW', '流量经营月总视图', '1', '/report/iuba/C_FLOW_MANAGE', null, '1', '1', '0', '0', '1', '1024312', null, null, 'COMP_ANA.FLOWANA.FLOWVIEW', null);
-INSERT INTO `menu` VALUES ('1024332', '1', 'FLOWKPI', '流量经营月考核KPI', '1', '/report/iuba/C_FLOW_MANAGE_KPI', null, '0', '1', '0', '0', '1', '1024312', null, null, 'COMP_ANA.FLOWANA.FLOWKPI', null);
-INSERT INTO `menu` VALUES ('1024359', '1', 'USRINFOANA', '用户健康度日分析', '1', '/reportconfig/JSP/UserInfoAnalyseReport.jsp', null, '0', '1', '1', '0', '1', '1024312', null, null, 'COMP_ANA.FLOWANA.USRINFOANA', null);
-INSERT INTO `menu` VALUES ('1024360', '20', 'BASEINFO', '基础信息库', '1', null, null, '1', '1', '0', '0', '1', '-1', null, null, 'BASEINFO', null);
-INSERT INTO `menu` VALUES ('1024361', '20', 'SEARCHKEY', '搜索关键词库', '1', '/app/configData/SearchKey.jsp', null, '0', '1', '0', '0', '1', '1024222', null, null, 'BASEINFO.keylab.SEARCHKEY', null);
-INSERT INTO `menu` VALUES ('1024362', '1', 'FLOWTREND', '存量用户流量月趋势', '1', '/reportconfig/JSP/UserFlowTrend.jsp', null, '0', '1', '1', '0', '1', '1024312', null, null, 'COMP_ANA.FLOWANA.FLOWTREND', null);
-INSERT INTO `menu` VALUES ('1024363', '20', 'JUNK_AD', '无效URL库', '1', '/app/configData/JunkADFilterLib.jsp', null, '0', '1', '0', '0', '1', '1024220', null, null, 'BASEINFO.url.JUNK_AD', null);
-INSERT INTO `menu` VALUES ('1024412', '1', 'FLOWUSER', '高低无流量用户月分析', '1', '/reportconfig/JSP/flow_user.jsp', null, '0', '1', '1', '0', '1', '1024312', null, '流量用户', 'COMP_ANA.FLOWANA.FLOWUSER', null);
-INSERT INTO `menu` VALUES ('1024452', '20', 'COMPANY', '公司库', '1', '/app/configData/Company.jsp', null, '0', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.COMPANY', null);
-INSERT INTO `menu` VALUES ('1024472', '1', 'USRINFVIEW', '用户信息视图', '1', '/app/customcontent/UserInfoViewEasyui.jsp', null, '0', '1', '0', '0', '1', '1024072', null, null, 'COMP_ANA.USRINFVIEW', null);
-INSERT INTO `menu` VALUES ('1024493', '1', 'ETL_2', 'ETL', '1', null, null, '1', '1', '0', '0', '1', '1022677', null, null, 'ETL.ETL_2', null);
-INSERT INTO `menu` VALUES ('1024572', '1', 'USERLOCATE', '用户定位器', '1', '/app/customcontent/UserLocation.jsp', null, '0', '1', '1', '0', '1', '1024072', null, null, 'COMP_ANA.USERLOCATE', null);
-INSERT INTO `menu` VALUES ('1024632', '1', 'APPUSING', '用户APP日使用查询', '1', '/report/iuba/tbd_st_app_using_list_day', null, '0', '1', '0', '0', '1', '1024072', null, '用户使用APP查询', 'COMP_ANA.APPUSING', null);
-INSERT INTO `menu` VALUES ('1024652', '1', 'ETLOrd', 'ETL任务工单监控', '5', '/etlControl/monitor/ETLOrderMonitor.jsp', null, '0', '1', '0', '0', '1', '1024493', null, null, 'ETL.ETL_2.ETLOrd', null);
-INSERT INTO `menu` VALUES ('1024653', '1', 'ETLCata', 'ETL目录管理', '1', '/etlControl/privilege/ETLCataLogManager.jsp', null, '0', '1', '0', '0', '1', '1024493', null, null, 'ETL.ETL_2.ETLCata', null);
-INSERT INTO `menu` VALUES ('1024732', '20', 'unvalrule', '无效URL规则', '1', '/app/url/UnvalidUrlRule.jsp', null, '0', '1', '0', '0', '1', '1024220', null, '无效URL规则设置', 'BASEINFO.url.unvalrule', null);
-INSERT INTO `menu` VALUES ('1024772', '20', '222bb', '搜索管理', '1', '/app/configData/SearchWebsite.jsp', null, '0', '1', '0', '0', '1', '1024222', null, null, 'BASEINFO.keylab.222bb', null);
-INSERT INTO `menu` VALUES ('1024832', '20', 'HOTCONTENT', '热点内容配置', '1', '/app/configData/hotContents/HotWebsite.jsp', null, '0', '1', '0', '0', '1', '1025112', null, '热点内容获取', 'BASEINFO.lrtsgl.HOTCONTENT', null);
-INSERT INTO `menu` VALUES ('1024872', '20', 'HOTCONT', '热点内容推送', '1', '/app/configData/hotContents/HotContentsSend.jsp', null, '0', '1', '0', '0', '1', '1025112', null, '热点内容推送', 'BASEINFO.lrtsgl.HOTCONT', null);
-INSERT INTO `menu` VALUES ('1024952', '20', 'USER_GROUP', '用户群管理', '1', '/app/configData/userGroup/UserGrp.jsp', null, '0', '1', '0', '0', '1', '1024360', null, '用户群管理与兴趣点', 'BASEINFO.USER_GROUP', null);
-INSERT INTO `menu` VALUES ('1024972', '20', 'UrlInfoRul', 'URL快速匹配规则', '1', '/app/configData/urlInfoRule/UrlInfoRule.jsp', null, '0', '1', '0', '0', '1', '1024220', null, null, 'BASEINFO.url.UrlInfoRul', null);
-INSERT INTO `menu` VALUES ('1024992', '1', 'SYSPARAMS', '系统参数配置', '1', '/oaas/attr/DcSystemParam.jsp', null, '0', '1', '0', '0', '1', '1024012', null, null, 'CMMNMNG.ATTR_DATA.SYSPARAMS', null);
-INSERT INTO `menu` VALUES ('1024993', '1', 'MLDMPARAMS', '实体数据管理', '1', '/metadata/DataDictionaryManager.jsp', null, '0', '1', '0', '0', '1', '1024012', null, null, 'CMMNMNG.ATTR_DATA.MLDMPARAMS', null);
-INSERT INTO `menu` VALUES ('1025073', '20', 'DOMAINLIB', '域名库', '1', '/app/configData/domain/DomainInfo.jsp', null, '0', '1', '0', '0', '1', '1024220', null, null, 'BASEINFO.url.DOMAINLIB', null);
-INSERT INTO `menu` VALUES ('1025112', '20', 'lrtsgl', '内容管理', '1', null, null, '1', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.lrtsgl', null);
-INSERT INTO `menu` VALUES ('1025113', '20', 'xqdml', '兴趣点', '1', null, null, '1', '1', '0', '0', '1', '1024360', null, null, 'BASEINFO.xqdml', null);
-INSERT INTO `menu` VALUES ('1025174', '20', 'urlVerify', 'url审核', '1', '/app/url/urlVerify.jsp', '', '0', '1', '0', '0', '1', '1024220', '', '', 'BASEINFO.url.urlVerify', null);
-INSERT INTO `menu` VALUES ('1025193', '20', 'urlManager', 'url库', '1', '/app/url/urlManager.jsp', '', '0', '1', '0', '0', '1', '1024220', '', '', 'BASEINFO.url.urlManager', null);
-INSERT INTO `menu` VALUES ('1025215', '1', 'NewDavce', '终端库管理', '1', '/app/configData/NewTdsaMtType.jsp', null, '0', '1', '0', '0', '1', '1024223', null, null, 'BASEINFO.zhongduan.NewDavce', null);
-INSERT INTO `menu` VALUES ('1025233', '1', 'APPA', '第三方应用流量分析', '1', '/reportconfig/JSP/tbdStApp.jsp', null, '0', '1', '0', '0', '1', '1024312', null, '第三方应用流量分析', 'COMP_ANA.FLOWANA.APPA', null);
-INSERT INTO `menu` VALUES ('1025253', '1', 'DOMAIN', '域名流量分析', '1', '/reportconfig/JSP/tbdStDomain.jsp', null, '0', '1', '0', '0', '1', '1024312', null, null, 'COMP_ANA.FLOWANA.DOMAIN', null);
-INSERT INTO `menu` VALUES ('1025273', '1', 'dom_visit', '用户上网日记录查询', '1', '/report/iuba/tbd_st_domain_visited_list_day', null, '0', '1', '0', '0', '1', '1024072', null, '用户上网记录查询', 'COMP_ANA.dom_visit', null);
-INSERT INTO `menu` VALUES ('1025274', '1', 'ESURFINGAP', '基地APP使用分析', '1', '/reportconfig/JSP/tbdEsurfingStApp.jsp', null, '0', '1', '0', '0', '1', '1024312', null, null, 'COMP_ANA.FLOWANA.ESURFINGAP', null);
-INSERT INTO `menu` VALUES ('1025293', '1', 'yewucj', '业务场景应用', '1', null, null, '1', '1', '1', '0', '1', '1024072', null, null, 'COMP_ANA.yewucj', null);
-INSERT INTO `menu` VALUES ('1025294', '1', 'huodong', '逢5活动每日监控', '1', '/report/iuba/everyf_active', null, '0', '1', '0', '0', '1', '1025293', null, null, 'COMP_ANA.yewucj.huodong', null);
-INSERT INTO `menu` VALUES ('1025313', '1', 'apppaihang', '应用排行榜', '1', '/report/iuba/yyph', null, '0', '1', '0', '0', '1', '1025318', null, '应用排行榜', 'COMP_ANA.flow_jingy.apppaihang', null);
-INSERT INTO `menu` VALUES ('1025314', '1', 'newuserapp', '新增用户行为分析应用', '1', '/report/iuba/xzyytop20', null, '0', '1', '0', '0', '1', '1025318', null, '新增用户行为分析应用TOP20', 'COMP_ANA.flow_jingy.newuserapp', null);
-INSERT INTO `menu` VALUES ('1025315', '1', 'nuterminal', '新增用户行为分析终端', '1', '/report/iuba/xzyyzd', null, '0', '1', '0', '0', '1', '1025318', null, '新增用户行为分析终端TOP20', 'COMP_ANA.flow_jingy.nuterminal', null);
-INSERT INTO `menu` VALUES ('1025316', '1', 'interest', '月度兴趣点分布', '1', '/report/iuba/interes_traffic', null, '0', '1', '0', '0', '1', '1025318', null, '月度兴趣点分布报表', 'COMP_ANA.flow_jingy.interest', null);
-INSERT INTO `menu` VALUES ('1025317', '1', '3ginterest', '月全量3G用户兴趣点', '1', '/report/iuba/3g_interestTraffic', null, '0', '1', '0', '0', '1', '1025318', null, '月度全量3G用户兴趣点报表', 'COMP_ANA.flow_jingy.3ginterest', null);
-INSERT INTO `menu` VALUES ('1025318', '1', 'flow_jingy', '流量经营', '1', null, null, '1', '1', '0', '0', '1', '1024072', null, null, 'COMP_ANA.flow_jingy', null);
-INSERT INTO `menu` VALUES ('1025319', '1', 'ivrcallana', 'IVR外呼结果分析', '1', '/report/iuba/tbd_st_user_new_flow_ivr', null, '0', '1', '0', '0', '1', '1025318', null, null, 'COMP_ANA.flow_jingy.ivrcallana', null);
-INSERT INTO `menu` VALUES ('1025333', '1', 'actionpush', '流量经营工作台', '1', '/actionpush/actionpush.jsp', null, '0', '1', '1', '0', '1', '1024072', null, null, 'COMP_ANA.actionpush', null);
-INSERT INTO `menu` VALUES ('1025334', '1', 'actpCol', '活动推送结果分析', '1', '/report/iuba/tbd_ods_action_push_collect', null, '0', '1', '0', '0', '1', '1025318', null, '活动推送汇总', 'COMP_ANA.flow_jingy.actpCol', null);
-INSERT INTO `menu` VALUES ('1025335', '1', 'actpList', '活动推送清单', '1', '/report/iuba/tbd_ods_action_push_list', null, '0', '1', '0', '0', '1', '1025318', null, '活动推送清单', 'COMP_ANA.flow_jingy.actpList', null);
-INSERT INTO `menu` VALUES ('1025336', '1', '7tecUser', '7日新用户辅导日抽取', '1', '/report/iuba/tbd_ods_user_new_teach_day', null, '0', '1', '0', '0', '1', '1025318', null, '7日新用户辅导日抽取表', 'COMP_ANA.flow_jingy.7tecUser', null);
-INSERT INTO `menu` VALUES ('1025337', '1', '7tecResult', '7日辅导结果分析', '1', '/report/iuba/tbd_ods_user_new_teach_result', null, '0', '1', '0', '0', '1', '1025318', null, '7日辅导结果', 'COMP_ANA.flow_jingy.7tecResult', null);
-INSERT INTO `menu` VALUES ('1025353', '20', 'hotneirong', '热点内容', '1', '/app/configData/hotContents/HotContents2.jsp', null, '0', '1', '0', '0', '1', '1025112', null, null, 'BASEINFO.lrtsgl.hotneirong', null);
-INSERT INTO `menu` VALUES ('1025354', '1', 'renwupei', '任务配置(IUBA)', '1', '/oaas/job/jobManager.jsp', null, '0', '1', '0', '0', '1', '1022733', null, null, 'CMMNMNG.SCHEDULER.renwupei', null);
-INSERT INTO `menu` VALUES ('1025355', '1', 'renwujian', '任务监控(IUBA)', '1', '/oaas/job/jobRuningQuery.jsp', null, '0', '1', '0', '0', '1', '1022733', null, null, 'CMMNMNG.SCHEDULER.renwujian', null);
-INSERT INTO `menu` VALUES ('1025373', '20', 'Coredata', '核心数据管理', '1', '/app/configData/CoreData.jsp', null, '1', '1', '0', '0', '1', '1024360', null, '核心数据管理', 'BASEINFO.Coredata', null);
-INSERT INTO `menu` VALUES ('1025413', '50', '20130916', '实时营销', '1', null, null, '1', '1', '0', '0', '1', '-1', null, null, '20130916', null);
-INSERT INTO `menu` VALUES ('1025414', '50', '2013091601', '实时营销配置', '1', '/realtime/market/RealTimeMkt.jsp', null, '0', '1', '0', '0', '1', '1025413', null, null, '20130916.2013091601', null);
-INSERT INTO `menu` VALUES ('1025415', '50', '20130915', '新框架测试', '1', null, null, '1', '1', '0', '0', '1', '-1', null, null, '20130915', null);
-INSERT INTO `menu` VALUES ('1025416', '50', '2013091501', 'UI', '1', '/v20/ui/TestUI.jsp', '', '0', '1', '0', '0', '1', '1025415', '', '', '20130915.2013091501', null);
-INSERT INTO `menu` VALUES ('1025433', '50', '20130917', '流量经营工作台', '1', '/actionpush/actionpushV2.jsp', null, '0', '1', '0', '0', '1', '1025573', null, null, 'busiana.20130917', null);
-INSERT INTO `menu` VALUES ('1025473', '50', 'map', '营销服务', '1', null, null, '1', '1', '0', '0', '1', '-1', null, null, 'map', null);
-INSERT INTO `menu` VALUES ('1025475', '50', '2013092202', '商圈选择', '1', '/realtime/map/chnMgrCircleSmall.jsp', null, '0', '1', '1', '0', '1', '1025473', null, null, 'map.2013092202', null);
-INSERT INTO `menu` VALUES ('1025513', '50', 'map_dis', '人流分布管理', '1', '/realtime/map/locaDisMap.jsp', null, '0', '1', '0', '0', '1', '1025573', null, null, 'busiana.map_dis', null);
-INSERT INTO `menu` VALUES ('1025533', '50', 'mapman', '商圈地图', '1', '/realtime/map/chnMgrMap.jsp', null, '0', '1', '0', '0', '1', '1025413', null, null, '20130916.mapman', null);
-INSERT INTO `menu` VALUES ('1025573', '50', 'busiana', '业务分析', '1', null, null, '1', '1', '0', '0', '1', '-1', null, null, 'busiana', null);
-INSERT INTO `menu` VALUES ('1025593', '50', 'dataCenter', '数据分析中心', '1', '/dataStatistics/dataCenter.jsp', null, '0', '1', '0', '0', '1', '1025573', null, null, 'busiana.dataCenter', null);
-INSERT INTO `menu` VALUES ('1025633', '50', 'markearms', '营销服务武器库', '1', '/realtime/market/navigate/marketArmsguide.jsp', null, '0', '1', '1', '0', '1', '1025473', null, null, 'map.markearms', null);
-INSERT INTO `menu` VALUES ('1025634', '50', 'marketguid', '营销服务指引', '1', '/realtime/market/navigate/marketguide.jsp', null, '0', '1', '1', '0', '1', '1025473', null, null, 'map.marketguid', null);
-INSERT INTO `menu` VALUES ('1025635', '50', '2013101501', '商圈管理', '1', '/realtime/map/CircleManageV2.jsp', null, '0', '1', '0', '0', '1', '1025413', null, null, '20130916.2013101501', null);
-INSERT INTO `menu` VALUES ('1025673', '50', 'MM_SEND', '彩信推送', '1', '/realtime/market/mms/mmsendtask.jsp', null, '0', '1', '0', '0', '1', '1025473', null, null, 'map.MM_SEND', null);
-INSERT INTO `menu` VALUES ('1025713', '1', '111', '智能取数（gp）', '1', null, null, '1', '1', '0', '0', '1', '1022792', null, null, 'REPORT.111', null);
-INSERT INTO `menu` VALUES ('1025714', '1', '112', '我的任务', '1', 'http://10.45.47.152:9088/eps/iq/task/MyTask.jsp', null, '0', '1', '0', '0', '1', '1025713', null, null, 'REPORT.111.112', null);
-INSERT INTO `menu` VALUES ('1025715', '1', '113', '我的取数', '1', 'http://10.45.47.152:9088/eps/iq/instance/MyIQ.jsp', null, '0', '1', '0', '0', '1', '1025713', null, null, 'REPORT.111.113', null);
-INSERT INTO `menu` VALUES ('1025716', '1', '114', '主题配置', '1', 'http://10.45.47.152:9088/eps/iq/subject/Subject.jsp', null, '0', '1', '0', '0', '1', '1025713', null, null, 'REPORT.111.114', null);
-INSERT INTO `menu` VALUES ('1025717', '1', '115', '模板配置', '1', 'http://10.45.47.152:9088/eps/iq/template/Template.jsp', null, '0', '1', '0', '0', '1', '1025713', null, null, 'REPORT.111.115', null);
-INSERT INTO `menu` VALUES ('1025718', '1', '116', '维度划分', '1', 'http://10.45.47.152:9088/eps/iq/subject/SubjectClassify.jsp', null, '0', '1', '0', '0', '1', '1025713', null, null, 'REPORT.111.116', null);
-INSERT INTO `menu` VALUES ('1025719', '1', '117', '任务管理', '1', 'http://10.45.47.152:9088/eps/iq/task/TaskManager.jsp', null, '0', '1', '0', '0', '1', '1025713', null, null, 'REPORT.111.117', null);
-INSERT INTO `menu` VALUES ('1025793', '50', '20131011', 'demo', '1', '/realtime/market/weapon/weapon.html', null, '0', '1', '0', '0', '1', '1025473', null, null, 'map.20131011', null);
-INSERT INTO `menu` VALUES ('1025813', '50', '2013110101', '测试', '1', '/v20/ui/demo.html', null, '0', '1', '0', '0', '1', '1025415', null, null, '20130915.2013110101', null);
-INSERT INTO `menu` VALUES ('1025833', '50', '2013110401', '活动', '1', '/weapon/weaponAct.jsp', null, '0', '1', '0', '0', '1', '1025473', null, null, 'map.2013110401', null);
-INSERT INTO `menu` VALUES ('1025873', '50', 'wqgl', '武器/武器类别管理', '1', '/weapon/test.jsp', null, '1', '1', '0', '0', '1', '1025415', null, null, '20130915.wqgl', null);
-INSERT INTO `menu` VALUES ('1025893', '1', '2013110601', '测试', '1', '/datasource/datasourceManager.jsp', null, '0', '1', '0', '0', '1', '1022677', null, null, 'ETL.2013110601', null);
-INSERT INTO `menu` VALUES ('1025913', '50', '2013111201', '营销武器库', '1', '/weapon/weaponStore.jsp', null, '0', '1', '0', '0', '1', '1025473', null, null, 'map.2013111201', null);
+INSERT INTO `referrer_info` VALUES ('7', '18', '32', '2014-01-25 17:46:25');
+INSERT INTO `referrer_info` VALUES ('8', '18', '33', '2014-01-25 17:47:06');
+INSERT INTO `referrer_info` VALUES ('11', '32', '38', '2014-01-25 17:53:12');
+INSERT INTO `referrer_info` VALUES ('13', '32', '40', '2014-01-25 18:21:26');
+INSERT INTO `referrer_info` VALUES ('14', '33', '41', '2014-01-25 18:22:53');
+INSERT INTO `referrer_info` VALUES ('15', '33', '42', '2014-01-25 18:23:31');
+INSERT INTO `referrer_info` VALUES ('16', '41', '43', '2014-01-25 18:24:40');
+INSERT INTO `referrer_info` VALUES ('17', '41', '44', '2014-01-25 18:27:25');
+INSERT INTO `referrer_info` VALUES ('18', '38', '45', '2014-01-25 18:28:38');
+INSERT INTO `referrer_info` VALUES ('19', '38', '46', '2014-01-25 18:29:05');
+INSERT INTO `referrer_info` VALUES ('20', '40', '47', '2014-01-25 18:29:41');
+INSERT INTO `referrer_info` VALUES ('21', '42', '48', '2014-01-25 18:30:08');
+INSERT INTO `referrer_info` VALUES ('22', '40', '49', '2014-01-25 18:30:35');
+INSERT INTO `referrer_info` VALUES ('23', '42', '50', '2014-01-25 18:31:02');
+INSERT INTO `referrer_info` VALUES ('24', '47', '51', '2014-01-25 18:31:26');
+INSERT INTO `referrer_info` VALUES ('25', '48', '52', '2014-01-25 18:32:03');
+INSERT INTO `referrer_info` VALUES ('26', '26', '53', '2014-01-25 18:47:16');
+INSERT INTO `referrer_info` VALUES ('27', '26', '54', '2014-01-25 19:33:10');
+INSERT INTO `referrer_info` VALUES ('30', '18', '57', '2014-01-25 19:41:03');
 
 -- ----------------------------
 -- Table structure for sensitive_word
