@@ -372,4 +372,10 @@
         where merchant_id = #{merchantId}
         and ORDER_ID = #{orderId,jdbcType=INTEGER}
     </select>
+    <select id="selectBePaidByMerchantId" resultType="java.lang.Integer" >
+        select IFNULL(count(1),0)as bepaid  from (select
+        <include refid="Base_Column_List" />
+        from dm_cust_order custorder
+        WHERE custorder.merchant_id = #{merchantId}  and custorder.state in ('10A','10B','10E')) userBePaid
+    </select>
 </mapper>

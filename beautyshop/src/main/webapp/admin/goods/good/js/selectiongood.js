@@ -2,9 +2,13 @@ var requestParmas = {};
 var selectedGood = "";// 选择特定商品对象
 var goodsGrid = "";// 商品列表对象
 var ajaxAsy = Ajax.getAsy();
+var adParams = "";
 
 function search_btn(goodsGrid) {
 	requestParmas["goodsName"] = $('#searchGoodsName').val();
+	if(adParams){
+		requestParmas["excludeAdExist"] = adParams;
+	}
 	goodsGrid.loadData(requestParmas);
 }
 
@@ -46,6 +50,7 @@ function myAjaxExceptionHandler(msg, exc) {
 }
 
 $(function() {
+	adParams = window.dialogArguments;
 	/** ********************************************************************* */
 	goodsGrid = new TableGrid({
 		$table : $("#goodList").find("table"),
@@ -64,7 +69,7 @@ $(function() {
 		renderColumn : function(field, value, row) {
 			if ("createDate" == field || "effDate" == field || "expDate" == field || "putawayTime" == field) {
 				if (value)
-					return $.formatDate(value, "yyyy-MM-dd hh:mm:ss");
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
 			} else if (field == "imageUri") {
 				if (value) {
 					var strArray = value.split(".");

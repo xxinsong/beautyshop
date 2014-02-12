@@ -10,8 +10,11 @@ import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +50,18 @@ public class GoodsController extends GenericController{
 		return goodsService.searchHotGoods(num);
 	}
 
+    /**
+     * 广告产品
+     * @param params
+     * @return
+     */
+    public List<Map> searchAdGoods(Map params){
+	/*   Integer num = Integer.valueOf(sqlParams.get("num").toString());
+	    String adLevel = (String)sqlParams.get("adLevel");*/
+        List<Map> ret = goodsService.searchAdGoods(params);
+        return ret;
+    }
+
     @RequestMapping("/product")
     public String goodsInfoPage(HttpServletRequest request){
         String subOrderId = request.getParameter("cmt");
@@ -80,7 +95,11 @@ public class GoodsController extends GenericController{
     }
 
     @RequestMapping("/search")
-    public String searchPage(){
-        return "/market/goods/search_product.jsp";
+    public ModelAndView searchPage(HttpServletRequest request) throws UnsupportedEncodingException {
+        String  wq= request.getParameter("wq");
+        if(!org.springframework.util.StringUtils.isEmpty(wq)){
+            request.setAttribute("wq", URLDecoder.decode(wq, "utf-8"));
+        }
+        return new ModelAndView("/market/goods/search_product.jsp");
     }
 }

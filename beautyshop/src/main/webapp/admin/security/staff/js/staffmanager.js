@@ -285,12 +285,12 @@ function beforeLoading() {
 function myDateFormate(data) {
 	if (data.createDate) {
 		if ($.type(data.createDate) == "date") {
-			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd hh:mm:ss");
+			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.effDate) {
 		if ($.type(data.effDate) == "date") {
-			data.effDate = $.formatDate(data.effDate, "yyyy-MM-dd hh:mm:ss");
+			data.effDate = $.formatDate(data.effDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	return data;
@@ -460,7 +460,7 @@ $(function() {
 		renderColumn : function(field, value) {
 			if ("createDate" == field || "effDate" == field) {
 				if (value)
-					return $.formatDate(value, "yyyy-MM-dd hh:mm:ss");
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
 			}
 			return value;
 		},

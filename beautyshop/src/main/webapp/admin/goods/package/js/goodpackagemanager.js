@@ -4,22 +4,23 @@ var selectedGoodPackage = "";// 选择特定商品对象
 var selectedGood = "";
 var goodPackageGrid = "";// 商品包列表对象
 var goodsListGrid = "";// 商品列表
+var goodPlanGrid = "";
 var ajaxAsy = Ajax.getAsy();
 
 function goodPackageDateFormate(data) {
 	if (data.createDate) {// 创建时间
 		if ($.type(data.createDate) == "date") {
-			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd hh:mm:ss");
+			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.effDate) {// 生效时间
 		if ($.type(data.effDate) == "date") {
-			data.effDate = $.formatDate(data.effDate, "yyyy-MM-dd hh:mm:ss");
+			data.effDate = $.formatDate(data.effDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.expDate) {// 失效时间
 		if ($.type(data.expDate) == "date") {
-			data.expDate = $.formatDate(data.expDate, "yyyy-MM-dd hh:mm:ss");
+			data.expDate = $.formatDate(data.expDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	return data;
@@ -100,6 +101,18 @@ function search_GoodsList(goodsListGrid) {
 	goodsListGrid.loadData(params);
 }
 
+function search_goodsplan(){
+	selectedGoodPackage = goodPackageGrid.getSelected();
+	if (selectedGoodPackage) {
+		goodPlanGrid.loadData({
+			"goodsId" : selectedGoodPackage.packageId,
+			"goodsType": "2"
+		});
+	} else {
+		goodPlanGrid.clearRows();
+	}
+}
+
 /**
  * 根据选择的商品加载该商品标签
  */
@@ -133,6 +146,10 @@ function loadTabGoodWraps(me) {
 	search_GoodsList(goodsListGrid);
 }
 
+function loadGoodsPlan(me){
+	search_goodsplan();
+}
+
 function selectGood() {
 	var param = "";
 	var selectcatalog = window.showModalDialog("../catalogs/selectioncatalog.jsp", param, "dialogHeight: 600px; dialogWidth: 1020px;");
@@ -146,6 +163,14 @@ function selectGood() {
 }
 
 function goodwrapTab_beforeClick() {
+	var ret = false;
+	if (packageButtonTools.confirmAction()) {
+		ret = true;
+	}
+	return ret;
+}
+
+function goodsPlanTab_beforeClick(){
 	var ret = false;
 	if (packageButtonTools.confirmAction()) {
 		ret = true;
@@ -231,6 +256,7 @@ $(function() {
 			selectedGoodPackage = this.getSelected();
 			commonJs.setData($("#packageEditorForm"), goodPackageDateFormate(data));
 			search_GoodsList(goodsListGrid);
+			search_goodsplan();
 		},
 		onBeforeClickRow : function(data) {
 			if (packageButtonTools.confirmAction()) {
@@ -246,7 +272,7 @@ $(function() {
 		renderColumn : function(field, value, row) {
 			if ("createDate" == field || "effDate" == field || "expDate" == field || "putawayTime" == field) {
 				if (value)
-					return $.formatDate(value, "yyyy-MM-dd hh:mm:ss");
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
 			}
 			return value;
 		},
@@ -263,6 +289,32 @@ $(function() {
 	});
 
 	search_btn(goodPackageGrid);
+	
+	
+	goodPlanGrid = new TableGrid({
+		$table : $("#goodsPlanList").find("table"),
+		service : "DmGoodsPlanController",
+		method : "queryPage",
+		pageIndex : 1,
+		pageSize : 10,
+		onClickRow : function(data) {
+			/*selectedGoodPlan = this.getSelected();
+			commonJs.setData($("#planEditorForm"), goodPlanDateFormate(data));*/
+		},
+		onClickCell : function(field, value) {
+		},
+		onDblClickRow : function(data) {
+		},
+		renderColumn : function(field, value, row) {
+			if ("stateDate" == field || "effDate" == field || "expDate" == field) {
+				if (value)
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
+			}
+			return value;
+		},
+		afterLoadData : function() {
+		}
+	});
 
 	// 查询数据信息
 	$("#search_btn").click(function() {
@@ -277,6 +329,7 @@ $(function() {
 				state : "00E",
 				createDate : new Date()
 			});
+			$("#state").attr("disabled",true);//约束添加商品包的时候只能是编辑中状态
 		}
 	});
 
@@ -289,7 +342,14 @@ $(function() {
 		}
 
 		if (packageButtonTools.confirmAction(this)) {
-			commonJs.enable($("#packageEditorForm"));
+			//当商品包是下架或者上架的状态时,约束商品包其它信息不能更改，只能更改状态
+			if ("00X" == selectedGoodPackage.state || "00A" == selectedGoodPackage.state) {
+				$("#state").removeAttr("disabled");
+			} else {
+				//只能是编辑中的商品包状态才允许更改所有信息
+				commonJs.enable($("#packageEditorForm"));
+			}
+			
 		}
 	});
 

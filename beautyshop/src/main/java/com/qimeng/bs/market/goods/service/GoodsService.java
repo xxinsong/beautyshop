@@ -91,4 +91,10 @@ public class GoodsService {
 		sqlParams.put("num", num);
 		return goodsMapper.searchHotGoods(sqlParams);
 	}
+
+    public List<Map> searchAdGoods(Map sqlParams) {
+    /*sqlParams.put("num", num);
+    sqlParams.put("adLevel", adLevel);*/
+        return goodsMapper.searchAdGoods(sqlParams);
+    }
 }

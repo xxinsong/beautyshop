@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.directwebremoting.annotations.DataTransferObject;
+import org.springframework.util.StringUtils;
 
 @DataTransferObject
 public class DmPrivilege {

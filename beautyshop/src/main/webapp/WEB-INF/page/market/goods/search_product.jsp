@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
-String path = request.getContextPath();
+    String path = request.getContextPath();
+    String wq=request.getAttribute("wq")==null?"":(String)request.getAttribute("wq");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -8,9 +9,12 @@ String path = request.getContextPath();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="library" content="market" />
-<title>数据超市</title>
+<title>韩塑美-您的美容专柜</title>
 <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
 <script type="text/javascript" src="<%=path%>/market/goods/js/search_product.js"></script>
+<script type="text/javascript">
+    var wq = '<%=wq%>';
+</script>
 </head>
 
 <body>
@@ -78,7 +82,7 @@ String path = request.getContextPath();
                     </div>
                     <div class="proListBtn">
                     	<a name="addCar" href="javascript: void(0)" class="greenBtn" style="width:78px;">加入购物车</a>
-                    	<a href="javascript: void(0)" class="grayBtn" style="width:78px; margin-top:10px;">加关注</a>
+                    	<%--<a name="addFav" href="javascript: void(0)" class="grayBtn" style="width:78px; margin-top:10px;">加关注</a>--%>
                     </div>
               	</li>
             </ul>

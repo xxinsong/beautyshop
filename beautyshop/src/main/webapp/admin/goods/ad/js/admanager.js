@@ -55,21 +55,30 @@ function search_GoodsList(goodsListGrid) {
 }
 
 function selectGood() {
-	var param = "";
+	var param = "excludeAdExist";
 	var selectgood = window.showModalDialog("../good/selectiongood.jsp", param, "dialogHeight: 600px; dialogWidth: 1020px;");
 	if (selectgood) {
 		$("#goodsId").val(selectgood.goodsId);
 		$("#goodsName").val(selectgood.goodsName);
 	} else {
-		$("#goodsId").val("-1");
-		$("#goodsName").val("");
+		selectedAd = goodAdGrid.getSelected();
+		if(selectedAd){
+			$("#goodsId").val(selectedAd.goodsId);
+			$("#goodsName").val(selectedAd.goodsName);
+		}else{
+			$("#goodsId").val("-1");
+			$("#goodsName").val("");
+		}
+		
 	}
 }
 
 /**
  * 上传图片弹出框
  */
-function popoUploadDiv() {
+function popoUploadDiv(me) {
+	if($(me).parent().parent(".curr").length==0)
+		return;
 	overlay();
 	selectedAd = goodAdGrid.getSelected();
 	$("#popDiv").show();
@@ -159,9 +168,9 @@ $(function() {
 			if (field == "imageUrl") {
 				if (value) {
 					var strArray = value.split(".");
-					value = "<img id='" + row.id + "' src=" + path + strArray[0] + "_mini." + strArray[1] + " /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv()' />";
+					value = "<img id='" + row.id + "' src=" + path + strArray[0] + "_mini." + strArray[1] + " /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv(this)' />";
 				} else {
-					value = "<img id='" + row.id + "' src= /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv()' />";
+					value = "<img id='" + row.id + "' src= /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv(this)' />";
 				}
 			}
 			return value;

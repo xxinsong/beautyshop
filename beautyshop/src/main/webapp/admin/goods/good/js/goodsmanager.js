@@ -4,6 +4,7 @@ var selectedGood = "";// 选择特定商品对象
 var selectedTag = "";
 var goodsGrid = "";// 商品列表对象
 var tagsGrid = "";// 商品标签列表对象
+//var goodPlanGrid = "";
 var tagItemsGrid = "";
 var tagItemsEdiable = false;
 var ajaxAsy = Ajax.getAsy();
@@ -11,22 +12,22 @@ var ajaxAsy = Ajax.getAsy();
 function goodsDateFormate(data) {
 	if (data.createDate) {// 创建时间
 		if ($.type(data.createDate) == "date") {
-			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd hh:mm:ss");
+			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.effDate) {// 生效时间
 		if ($.type(data.effDate) == "date") {
-			data.effDate = $.formatDate(data.effDate, "yyyy-MM-dd hh:mm:ss");
+			data.effDate = $.formatDate(data.effDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.expDate) {// 失效时间
 		if ($.type(data.expDate) == "date") {
-			data.expDate = $.formatDate(data.expDate, "yyyy-MM-dd hh:mm:ss");
+			data.expDate = $.formatDate(data.expDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.putawayTime) {// 上架时间
 		if ($.type(data.putawayTime) == "date") {
-			data.putawayTime = $.formatDate(data.putawayTime, "yyyy-MM-dd hh:mm:ss");
+			data.putawayTime = $.formatDate(data.putawayTime, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	return data;
@@ -134,6 +135,18 @@ function search_tagsItems() {
 	}
 }
 
+/*function search_goodsplan(){
+	selectedGood = goodsGrid.getSelected();
+	if (selectedGood) {
+		goodPlanGrid.loadData({
+			"goodsId" : selectedGood.goodsId,
+			"goodsType": "1"
+		});
+	} else {
+		goodPlanGrid.clearRows();
+	}
+}*/
+
 function goodsTab_beforeClick() {
 	if (tagItemsEdiable) {
 		messager.alert("提示", "请先保存或者取消当前操作");
@@ -151,6 +164,20 @@ function tagItemsTab_beforeClick() {
 		return true;
 	}
 }
+
+/*function goodsPlanTab_beforeClick(){
+	if (goodsButtonTools.currentAction != "") {
+		messager.alert("提示", "请先保存或者取消当前操作");
+		return false;
+	} else {
+		if (tagItemsEdiable) {
+			messager.alert("提示", "请先保存或者取消当前操作");
+			return false;
+		} else {
+			return true;
+		}
+	}
+}*/
 /**
  * 点击标签tab加载
  * 
@@ -165,6 +192,10 @@ function loadTagItems(me) {
 
 function loadTagGood(me) {
 }
+
+/*function loadGoodsPlan(me){
+//	search_goodsplan();
+}*/
 
 /** *******************商品目录树展示****************************************************************************** */
 var zTree;
@@ -230,7 +261,9 @@ function loadCatalogTree() {
 /**
  * 上传图片弹出框
  */
-function popoUploadDiv() {
+function popoUploadDiv(me) {
+	if($(me).parent().parent(".curr").length==0)
+		return;
 	if (goodsGrid.getSelected().state != "00E") {
 		messager.alert("提示", "当前所选择的商品非编辑中状态，你不允许上传图片");
 		return;
@@ -276,7 +309,7 @@ function goodImageUpload() {
 		dataType : "json",
 		data : {
 			"goodsId" : selectedGood.goodsId,
-			"basePrice" : selectedGood.basePrice,
+			"price" : selectedGood.price,
 			"catalogId" : selectedGood.catalogId,
 			"imageUri" : selectedGood.imageUri
 		},
@@ -453,6 +486,7 @@ $(function() {
 
 			commonJs.setData($("#goodsEditorForm"), goodsDateFormate(data));
 			search_GoodTags();
+//			search_goodsplan();
 		},
 		onBeforeClickRow : function(data) {
 			if (!tagItemsEdiable) {
@@ -474,13 +508,13 @@ $(function() {
 
 			if ("createDate" == field || "effDate" == field || "expDate" == field || "putawayTime" == field) {
 				if (value)
-					return $.formatDate(value, "yyyy-MM-dd hh:mm:ss");
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
 			} else if (field == "imageUri") {
 				if (value) {
 					var strArray = value.split(".");
-					value = "<img id='" + row.goodsId + "' src=" + path + strArray[0] + "_mini." + strArray[1] + " /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv()' />";
+					value = "<img id='" + row.goodsId + "' src=" + path + strArray[0] + "_mini." + strArray[1] + " /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv(this)' />";
 				} else {
-					value = "<input type='button' class='btn' value='上 传' onClick='popoUploadDiv()' />";
+					value = "<img id='" + row.goodsId + "' src=# /><input type='button' class='btn' value='上 传' onClick='popoUploadDiv(this)' />";
 				}
 			}
 			return value;
@@ -506,6 +540,34 @@ $(function() {
 	});
 
 	search_btn(goodsGrid);
+	
+	
+	/*goodPlanGrid = new TableGrid({
+		$table : $("#goodsPlanList").find("table"),
+		service : "DmGoodsPlanController",
+		method : "queryPage",
+		pageIndex : 1,
+		pageSize : 10,
+		onClickRow : function(data) {
+			*//*selectedGoodPlan = this.getSelected();
+			commonJs.setData($("#planEditorForm"), goodPlanDateFormate(data));*//*
+		},
+		onClickCell : function(field, value) {
+		},
+		onDblClickRow : function(data) {
+		},
+		renderColumn : function(field, value, row) {
+			if ("stateDate" == field || "effDate" == field || "expDate" == field) {
+				if (value)
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
+			}
+			return value;
+		},
+		afterLoadData : function() {
+		}
+	});*/
+
+//	search_btn(goodPlanGrid);
 
 	// 查询数据信息
 	$("#search_btn").click(function() {
@@ -533,6 +595,7 @@ $(function() {
 				"catalogId" : catalogId,
 				"catalogName" : catalogName
 			});
+			$("#state").attr("disabled",true);
 		}
 	});
 
@@ -565,8 +628,8 @@ $(function() {
 		}
 		if (goodsButtonTools.confirmAction(this)) {
 			if (commonJs.validate($("#goodsEditorForm"))) {
-				messager.confirm("提示", "确认保存当前信息吗?", function(ok) {
-					if (ok) {
+				/*messager.confirm("提示", "确认保存当前信息吗?", function(ok) {
+					if (ok) {*/
 						beforeLoading();
 						var param = new Object();
 						param = goodsToDate(commonJs.getData($("#goodsEditorForm")));
@@ -579,10 +642,10 @@ $(function() {
 							messager.alert("提示", result.msg);
 						}, myAjaxExceptionHandler);
 
-					} else {
+					/*} else {
 						return;
 					}
-				});
+				});*/
 			}
 			// 允许确定后，要显示遮罩层禁止操作，进行ajaxt异步持久化数据，回调函数要把当前操作重置成空""search_btn(goodsGrid);
 		}

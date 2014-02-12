@@ -51,7 +51,7 @@ win.prototype.addWin = function (menu) {
 	
 	html.splice(0, html.length);
 	html.push("<div id='win_" + menu.menu_id + "' class='wapper' style='height: 100%;'>");
-	html.push("	<iframe frameborder='0' scrolling='auto' style='width: 100%; height: 100%;' src='/DataMarket" + menu.url +"'></iframe>");
+	html.push("	<iframe frameborder='0' scrolling='auto' style='width: 100%; height: 100%;' src='" + menu.url +"'></iframe>");
 	html.push("</div>");
 	var divJq = $(html.join(""));
 	this.$winDiv.append(html.join(""));
@@ -119,10 +119,9 @@ var myWin;
 $(function() {
 
 	myWin = new win();
-//	myWin.addWin( {
-//		menu_id : -1,
-//		menu_name : "首页",
-//		url : "/admin/main/content.html"
-//	});
-	
+	myWin.addWin( {
+		menu_id : -1,
+		menu_name : "首页",
+		url : "/admin/main/content_new.html"
+	});
 })

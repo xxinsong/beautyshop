@@ -77,7 +77,7 @@
 
             <div class="proBuyBtn">
                 <a href="javascript:void(0);" class="tocart">加入购物车</a>
-                <a href="javascript:void(0);" class="colectBtn"><i class="addico"></i>加关注</a>
+                <%--<a href="javascript:void(0);" class="colectBtn"><i class="addico"></i>加关注</a>--%>
 
             </div>
         </div>

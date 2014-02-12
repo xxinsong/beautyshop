@@ -18,6 +18,7 @@ import com.jcraft.jsch.JSchException;
 import com.qimeng.common.Page;
 import com.qimeng.common.tools.ImagesUtils;
 import com.qimeng.common.tools.SFTPClient;
+import com.qimeng.common.web.ApplicationContextUtil;
 import com.qimeng.bs.admin.goods.bean.DmAdvertisement;
 import com.qimeng.bs.admin.goods.dao.DmAdvertisementMapper;
 import com.qimeng.bs.common.service.DcSystemConfigService;

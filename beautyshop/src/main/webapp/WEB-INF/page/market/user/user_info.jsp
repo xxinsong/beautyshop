@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="library" content="market"/>
-    <title>数据超市</title>
+    <title>韩塑美-您的美容专柜</title>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
     <script type="text/javascript" src="<%=path%>/public/jquery/jquery.cxselect.min.js"></script>
     <script type="text/javascript" src="<%=path%>/public/ajax/ajaxfileupload.js"></script>
@@ -93,8 +93,8 @@
                         </tr>
                         <tr>
                             <th>手机号码：</th>
-                            <td><span class="bold" name="logonName"></span><a href="javascript: void(0)" class="blue"
-                                                                              id="modify_logon_name_btn">修改</a><span
+                            <td><span class="bold" name="logonName"></span><%--<a href="javascript: void(0)" class="blue"
+                                                                              id="modify_logon_name_btn">修改</a>--%><span
                                     style="display: none;">已验证</span></td>
                             <td></td>
                         </tr>

@@ -1,7 +1,7 @@
 function tagDateFormate(data) {
 	if (data.createDate) {
 		if ($.type(data.createDate) == "date") {
-			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd hh:mm:ss");
+			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	return data;

@@ -28,6 +28,11 @@ public class DmGoodsPackageService {
 		return page;
 	}
 	
+	public DmGoodsPackage getGoodsPackageById(DmGoodsPackage goodPackage){
+	  DmGoodsPackage ret = dmGoodsPackageMapper.selectByPrimaryKey(goodPackage.getPackageId());
+	  return ret;
+	}
+	
 	@Transactional
 	public int save(DmGoodsPackage goodPackage){
 		int rows = dmGoodsPackageMapper.insert(goodPackage);

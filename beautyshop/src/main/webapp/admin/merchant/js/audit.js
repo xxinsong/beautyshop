@@ -14,10 +14,14 @@ $(function() {
 		onDblClickRow : function(data) {
 		},
 		renderColumn : function(field, value) {
-			if (field != "target_name") {
-				return value;
-			}
-			return "<a>" + value + "</a>";
+            if (field == "target_name") {
+                return "<a>" + value + "</a>";
+            }else if(field == "createDate"){
+                return $.format.date(value,'yyyy-MM-dd HH:mm:ss');
+            }else if(field == "stateDate"){
+                return $.format.date(value,'yyyy-MM-dd HH:mm:ss');
+            }
+            return value;
 		}
 	});
 	

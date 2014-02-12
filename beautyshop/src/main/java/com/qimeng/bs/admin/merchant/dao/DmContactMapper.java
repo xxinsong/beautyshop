@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.qimeng.common.Page;
 import com.qimeng.bs.admin.merchant.bean.DmContact;
 
 @Repository
@@ -25,4 +26,10 @@ public interface DmContactMapper {
     List<DmContact> searchContacts(Map Params);
     
     int updateByMerchantId(DmContact record);
+    
+    List<DmContact> findAllContact(Page<DmContact> page);
+    
+    int resetDefaultFlagByMerchantId(Integer merchantId);
+    
+    DmContact getDefaultContact(Integer merchantId);
 }

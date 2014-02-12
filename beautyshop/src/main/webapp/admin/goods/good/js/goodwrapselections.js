@@ -70,7 +70,7 @@ $(function() {
 		renderColumn : function(field, value, row) {
 			if ("createDate" == field || "effDate" == field || "expDate" == field || "putawayTime" == field) {
 				if (value)
-					return $.formatDate(value, "yyyy-MM-dd hh:mm:ss");
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
 			} else if (field == "imageUri") {
 				if (value) {
 					var strArray = value.split(".");

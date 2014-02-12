@@ -2,7 +2,14 @@ package com.qimeng.bs.market.user.service;
 
 import java.util.*;
 
+import com.qimeng.bs.common.service.DcSystemConfigService;
+import com.qimeng.bs.market.activity.dao.DmMerchantActivityMapper;
+import com.qimeng.bs.market.order.dao.DmCustOrderMapper;
+import com.qimeng.bs.market.point.dao.DmPointsMapper;
+import com.qimeng.bs.market.user.bean.ReferrerInfo;
+import com.qimeng.bs.market.user.dao.ReferrerInfoMapper;
 import com.qimeng.common.tools.PKUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,32 +26,60 @@ import com.qimeng.bs.admin.merchant.dao.DmMerchantMapper;
 import com.qimeng.bs.market.user.bean.DmUser;
 import com.qimeng.bs.market.user.dao.DmUserMapper;
 
+import javax.annotation.PostConstruct;
+
 @Service
 @SuppressWarnings("unchecked")
 public class DmUserService {
+    @Autowired
+    private DmUserMapper dmUserMapper;
 
-	@Autowired
-	private DmUserMapper dmUserMapper;
-	
-	@Autowired
-	private DmMerchantMapper dmMerchantMapper;
-	
-	@Autowired
-	private DmContactMapper dmContactMapper;
+    @Autowired
+    private DmPointsMapper dmPointsMapper;
+
+    @Autowired
+    private DmMerchantMapper dmMerchantMapper;
+
+    @Autowired
+    private DmContactMapper dmContactMapper;
+
+    @Autowired
+    private DmMerchantActivityMapper dmMerchantActivityMapper;
+
+    @Autowired
+    private DmCustOrderMapper dmCustOrderMapper;
+
+    @Autowired
+    DcSystemConfigService systemConfigService;
+
+    @Autowired
+    private ReferrerInfoMapper referrerInfoMapper;
 	
 	public List<DmUser> searchUser(Map params) {
 		return dmUserMapper.searchUser(params);
 	}
+    private int maxPresentee;
+
+    @PostConstruct
+    void initSystemParam(){
+        try {
+            String param = systemConfigService.getSystemParamValue("USER_MAX_PRESENTEE");
+            maxPresentee = Integer.valueOf(param);
+        }catch(Throwable e){
+            maxPresentee = 10;
+        }
+    }
 
 	@Transactional
 	public Map insertUser(Map params) {
 		Map result = new HashMap(); 
-		String s_verificCode = Const.getStrValue(params, "s_verificCode");
-		String verificCode = Const.getStrValue(params, "verificCode");
+//		String s_verificCode = Const.getStrValue(params, "s_verificCode");
+//		String verificCode = Const.getStrValue(params, "verificCode");
 	
 		//是否存在相同的登录名
 		Map sqlParams = new HashMap();
 		sqlParams.put("logonName", Const.getStrValue(params, "logon_name"));
+		sqlParams.put("userName", Const.getStrValue(params, "user_name"));
 		List<DmUser> dmUsers = dmUserMapper.searchUser(sqlParams);
 		if (dmUsers.size() > 0) {
 			result.put("flag", 1);
@@ -52,14 +87,24 @@ public class DmUserService {
 		}
 		
 		//验证码是否一致
-		if (!StringUtils.equals(s_verificCode, verificCode)) {
+		/*if (!StringUtils.equals(s_verificCode, verificCode)) {
 			result.put("flag", 2);
 			return result;
 		}
-		
+		*/
+        String referrerMobileNo = MapUtils.getString(params, "referrerMobileNo");
+        DmUser referrerUser = null;
+        if(StringUtils.isNotEmpty(referrerMobileNo)){
+            referrerUser = dmUserMapper.selectByLogonName(referrerMobileNo);
+            if(referrerUser==null){
+                result.put("flag",3);
+                return result;
+            }
+        }
 		sqlParams.put("passwd", PasswordEncoder.encode(Const.getStrValue(params, "passwd"), 
 				Const.getStrValue(params, "logon_name")));
 		sqlParams.put("state", Constants.USER_STATE_00A);
+		sqlParams.put("level", 1);
 		sqlParams.put("createTime", DateFormatUtils.getFormatedDateTime());
 		sqlParams.put("logonFailedCount", 0);
 		sqlParams.put("lastLoginTime", DateFormatUtils.getFormatedDateTime());
@@ -76,10 +121,51 @@ public class DmUserService {
         merchant.setStateDate(new Date());
         merchant.setMerchantType("01");
         dmMerchantMapper.insert(merchant);
+
+        if(referrerUser!=null){
+            referrerUser = addReferrerInfo(referrerUser.getUserId(),userId);
+            if(referrerUser!=null){
+                sqlParams.put("level", referrerUser.getLevel() + 1);
+                dmUserMapper.updateUser(sqlParams);
+            }
+        }
+
 		return result;
 	}
-	
-	@Transactional
+
+    private DmUser addReferrerInfo(Integer referrerId, int presenteeId) {
+        List<ReferrerInfo> presenteeList = referrerInfoMapper.findPresentee(referrerId);
+        int size = presenteeList.size();
+
+        if(size >= maxPresentee) {
+            int currIndex = 0;
+            for (ReferrerInfo info : presenteeList) {
+                currIndex++;
+                List<ReferrerInfo> lowerLevelList = referrerInfoMapper.findPresentee(info.getPresenteeId());
+                if(lowerLevelList.size()< maxPresentee){
+                    return addReferrerInfo(info.getPresenteeId(),presenteeId);
+                }else{
+                    if(currIndex<size){
+                        continue;
+                    }else{
+                        Random ran = new Random();
+                        int index = ran.nextInt(size);
+                        return addReferrerInfo(presenteeList.get(index).getPresenteeId(),presenteeId);
+                    }
+                }
+            }
+        }else{
+            ReferrerInfo referrerInfo = new ReferrerInfo();
+            referrerInfo.setReferrerId(referrerId);
+            referrerInfo.setPresenteeId(presenteeId);
+            referrerInfo.setCreateTime(new Date());
+            referrerInfoMapper.insert(referrerInfo);
+            return dmUserMapper.selectByPrimaryKey(referrerId);
+        }
+        return null;
+    }
+
+    @Transactional
 	public boolean updateUser(Map params) {
 		dmUserMapper.updateUser(params);
 		return true;
@@ -189,4 +275,64 @@ public class DmUserService {
 		result.put("flag", "0");
 		return result;
 	}
+
+    public int queryMyEffPoint(Integer merchantId){
+        Integer ret = dmPointsMapper.selectEffPointByMerchantId(merchantId);
+        return ret;
+    }
+
+    public int queryUserActivity(Integer merchantId){
+        Integer ret = dmMerchantActivityMapper.selectActivityByMerchantId(merchantId);
+        return ret;
+    }
+
+    public int queryBePaid(Integer merchantId) {
+        Integer ret = dmCustOrderMapper.selectBePaidByMerchantId(merchantId);
+        return ret;
+    }
+
+    //下面涉及的是安全设置
+    @SuppressWarnings("rawtypes")
+    public List getUserSecurity(Map param) {
+        List<DmUser> list = dmUserMapper.searchUser(param);
+        return list;
+    }
+
+    @Transactional
+    @SuppressWarnings("rawtypes")
+    public Map updateUserReg(Map params) {
+        Map result = new HashMap();
+        String s_yzCode = Const.getStrValue(params, "s_yzCode");
+        String insertType=Const.getStrValue(params, "type");
+        String emailCode = Const.getStrValue(params, insertType);
+        if (!StringUtils.equals(s_yzCode, emailCode)) {
+            result.put("flag", 1);
+            return result;
+        }
+        Map sqlParams = new HashMap();
+        sqlParams.put("userId", Const.getStrValue(params, "userId"));
+        if (insertType.equals("email_yz")) {
+            sqlParams.put("email", Const.getStrValue(params, "email_new"));
+        }
+        if (insertType.equals("pass_yz")) {
+            boolean validFlag = PasswordEncoder.validate(Const.getStrValue(params,"pass_old"),Const.getStrValue(params,"logonName"), Const.getStrValue(params,"oldPassword"));
+            if (!validFlag) {
+                result.put("flag", 3);
+                return result;
+            }
+            sqlParams.put("passwd", PasswordEncoder.encode(Const.getStrValue(params, "pass_new"), Const.getStrValue(params, "logonName")));
+        }
+        if(insertType.equals("ques_yz")){
+            sqlParams.put("passwdQuestion", Const.getStrValue(params, "pass_ques_new"));
+            sqlParams.put("passwdAnswer", Const.getStrValue(params, "pass_answ_new"));
+        }
+        int i=dmUserMapper.updateUser(sqlParams);
+        if (i > 0) {
+            result.put("flag", 0);
+            return result;
+        }else{
+            result.put("flag", 2);
+            return result;
+        }
+    }
 }

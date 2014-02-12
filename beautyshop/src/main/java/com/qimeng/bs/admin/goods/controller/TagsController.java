@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,9 @@ public class TagsController extends GenericController{
 		Map<String,Object> ret = new HashMap<String,Object>();
 		ret.put("success", true);
 		ret.put("msg", "添加成功");
-		LoginInfo loginInfo = getCurrentLoginUser();
-		if(loginInfo!=null&&loginInfo.getUserId()!=0){
-		  dmtag.setCreateOperId(loginInfo.getUserId());
+		AdminLoginInfo loginInfo = getCurrentLoginAdmin();
+		if(loginInfo!=null&&loginInfo.getStaffId()!=0){
+		  dmtag.setCreateOperId(loginInfo.getStaffId());
 		}
 		dmTagsService.save(dmtag);
 		ret.put("me", dmtag);

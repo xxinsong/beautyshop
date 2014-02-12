@@ -67,9 +67,9 @@ public class DmMerchantService {
     return DmMerchantMapper.updateByPrimaryKeySelective(dmMerchant);
   }
   
-  public int updateStateByPrimaryKey(DmMerchant dmMerchant) {
+  /*public int updateStateByPrimaryKey(DmMerchant dmMerchant) {
     return DmMerchantMapper.updateStateByPrimaryKey(dmMerchant);
-  }
+  }*/
   
   
   @Transactional

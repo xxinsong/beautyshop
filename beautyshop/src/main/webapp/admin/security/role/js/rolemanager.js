@@ -21,12 +21,12 @@ function beforeLoading() {
 function myDateFormate(data) {
 	if (data.createDate) {
 		if ($.type(data.createDate) == "date") {
-			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd hh:mm:ss");
+			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.stateDate) {
 		if ($.type(data.stateDate) == "date") {
-			data.stateDate = $.formatDate(data.stateDate, "yyyy-MM-dd hh:mm:ss");
+			data.stateDate = $.formatDate(data.stateDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	return data;
@@ -275,7 +275,7 @@ $(function() {
 		renderColumn : function(field, value) {
 			if ("createDate" == field || "stateDate" == field) {
 				if (value)
-					return $.formatDate(value, "yyyy-MM-dd hh:mm:ss");
+					return $.formatDate(value, "yyyy-MM-dd HH:mm:ss");
 			}
 			return value;
 		},

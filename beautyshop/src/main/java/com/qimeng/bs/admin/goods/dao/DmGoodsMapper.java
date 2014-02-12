@@ -58,10 +58,9 @@ public interface DmGoodsMapper {
     int updateByPrimaryKey(DmGoods record);
     
     List<DmGoods> findGoods(Object params);
-
-    void unattachCatalog(Integer catalogId);
-
     List<DmGoods> findAllGoods(Page<DmGoods> page);
-
+    
+    void unattachCatalog(Integer catalogId);
+    
 //    List<DmGoods> findGoodsByPackageId(Integer packageId);
 }

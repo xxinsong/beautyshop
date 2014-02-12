@@ -1,6 +1,7 @@
 package com.qimeng.bs.admin.security.bean;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 

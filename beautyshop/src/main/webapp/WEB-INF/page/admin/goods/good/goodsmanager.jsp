@@ -45,6 +45,9 @@ input {
 	border: 1px solid #CDCDCD;
 	height: 24px;
 	width: 70px;
+	margin-left:10px;
+    vertical-align:middle;
+    margin-top:-20px;
 }
 
 .file {
@@ -60,8 +63,8 @@ input {
 </style>
 </head>
 <body>
-	<div>
-		<div style="float: left; width: 20%;">
+	<div style="margin-top:5px;">
+		<div style="float: left; width: 20%;border:1px solid #d5d5d5;">
 			<div class="formgrid_title">
 				<h2>商品目录树</h2>
 			</div>
@@ -83,10 +86,10 @@ input {
 					    </td> -->
 						<input type="hidden" name="searchCatalogId" id="searchCatalogId" value="-1" class="searchipt" />
 						<th>商品名称:</th>
-						<td>
+						<td width="250">
 							<input type="text" name="searchGoodsName" id="searchGoodsName" class="searchipt" />
 						</td>
-						<td style="text-align: center;">
+						<td >
 							<a href="javascript: void(0);" id="search_btn" name="search_btn" class="ui_white_btn">
 								<span><em>&nbsp;查&nbsp;询&nbsp;</em></span>
 							</a>
@@ -117,12 +120,13 @@ input {
 		</div>
 		<div class="clear"></div>
 		<!-- tabs -->
-		<div class="stat_graph mt5">
+		<div class="stat_graph mt5" style="padding-top:5px;">
 			<h3>
 				<div class="graph_tab">
 					<ul>
 						<li id="goods" crossBubble="true" class="selected"><span class="word">商品信息</span><span class="bg"></span></li>
 						<li id="tagItems" crossBubble="true" onClick="loadTagItems(this)"><span class="word">商品标签绑定</span><span class="bg"></span></li>
+						<li id="goodsPlan" crossBubble="true" onClick="loadGoodsPlan(this)" ><span class="word">商品定价列表</span><span class="bg"></span></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -218,9 +222,8 @@ input {
 			</div>
 			<!-- 员工信息tab -->
 			<div id="tagItemsTab" style="margin-top: 10px;">
-				<div id="tagItemsContain"  style="height: 400px;">
-
-					<div style="margin-bottom: 10px; margin-top: 10px; width: 48%; float: left;">
+				<div id="tagItemsContain"  style="height: 130px;">
+					<div style="margin: 10px 10px 0 10px; width: 45%; float: left;">
 						<div class="formgrid_title">
 							<h2>标签列表</h2>
 						</div>
@@ -236,12 +239,12 @@ input {
 							</table>
 						</div>
 						<dir class="btns" style="text-align: center;">
-							<a id="addTags" action="addTags" href="javascript: void(0);" class="resetbtn">增加商品标签</a>
-							<a id="deleteTags" action="deleteTags" href="javascript: void(0);" class="resetbtn">删除商品标签</a>
+							<a id="addTags" action="addTags" href="javascript: void(0);" class="resetbtn" style="margin-top:5px;">增加商品标签</a>
+							<a id="deleteTags" action="deleteTags" href="javascript: void(0);" class="resetbtn" style="margin-top:5px;">删除商品标签</a>
 						</dir>
 					</div>
 
-					<div  style="margin-bottom: 10px; margin-top: 10px; width: 48%; float: right;">
+					<div  style="margin: 10px 10px 0 0;  width: 45%; float: right;">
 						<div class="formgrid_title">
 							<h2>可选标签值列表</h2>
 						</div>
@@ -256,10 +259,31 @@ input {
 							</table>
 						</div>
 						<dir class="btns" style="text-align: center;">
-							<a id="updateTagItems" action="updateTagItems" href="javascript: void(0);" class="resetbtn">修改</a>
-							<a id="sureTagItems" action="sureTagItems" href="javascript: void(0);" class="resetbtn">确定</a>
-							<a id="cancelTagItems" action="" href="javascript: void(0);" class="resetbtn">取消</a>
+							<a id="updateTagItems" action="updateTagItems" href="javascript: void(0);" class="resetbtn" style="margin-top:5px;">修改</a>
+							<a id="sureTagItems" action="sureTagItems" href="javascript: void(0);" class="resetbtn" style="margin-top:5px;">确定</a>
+							<a id="cancelTagItems" action="" href="javascript: void(0);" class="resetbtn" style="margin-top:5px;">取消</a>
 						</dir>
+					</div>
+				</div>
+			</div>
+			<div id="goodsPlanTab" style="margin-top: 10px;">
+				<div id="goodsPlanContain"  >
+					<div style="margin: 10px 10px 0 10px;">
+						<!-- <div class="formgrid_title">
+							<h2>标签列表</h2>
+						</div> -->
+						<div class="grid" id="goodsPlanList">
+							<table  width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th field="planName">定价计划名称</th>
+									<th field="goodName">商品/商品包</th>
+									<th field="goodsType" attr_code="ADMIN_GOODPLAN_GOODSTYPE">商品类型</th>
+									<!-- <th field="planType" attr_code="ADMIN_GOODPLAN_TYPE">计划类型</th> -->
+									<th field="state" attr_code="ADMIN_GOODPLAN_STATE">状态</th>
+									<th field="planDesc">定价计划描述</th>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -272,15 +296,18 @@ input {
 				<div class="buttons">
 					<a class="close_btn" onclick="close_btn()"></a>
 				</div>
-				<span id="goodsupload_title">标题</span>
+				<span id="goodsupload_title" style="text-align:center;">标题</span>
 			</div>
-			<div class="ui_dialog_body">
+			<div class="ui_dialog_body" >
 				<div class="ui_dialog_content">
 					<div style="height: 200px; text-align: center;">
-						<div id="imageUrlTd" class="file-box">
-							<input type="hidden" name="imageUrl" id="imageUrl" class="gimage" value=""> <input type='text' name='textfield' id='textfield' class='txt' /> <input type='button' class='btn' id="viewButtion" value='浏览...' /> <input type="file" name="gfile" class="file" id="gfile" size="28"
-								onchange="document.getElementById('textfield').value=this.value"
-							/> <input type="button" id="uploadaButton" class="btn" value="上 传" onclick="goodImageUpload()" />
+						<div id="imageUrlTd" class="file-box" style="margin-left:40px;">
+							<input type="hidden" name="imageUrl" id="imageUrl" class="gimage" value=""> 
+							<input type='text' name='textfield' id='textfield' class='txt' /> 
+							<input type='button' class='btn' style="margin-top:0;" id="viewButtion" value='浏览...' /> 
+							<input type="file" name="gfile" class="file" id="gfile" size="28" style="margin-top:0;"
+								onchange="document.getElementById('textfield').value=this.value" /> 
+						    <input type="button" id="uploadaButton" class="btn"  value="上 传" onclick="goodImageUpload()" />
 						</div>
 					</div>
 				</div>

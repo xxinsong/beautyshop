@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.qimeng.common.Page;
 import com.qimeng.bs.admin.security.bean.DmPrivilege;
 import com.qimeng.bs.admin.security.bean.DmRole;
+import com.qimeng.bs.admin.security.bean.DmRole;
 import com.qimeng.bs.admin.security.dao.DmRoleMapper;
 
 @Service
@@ -32,8 +33,6 @@ public class DmRoleService {
 	@Transactional
 	public void save(DmRole role){
 		dmroleMapper.insert(role);
-		/*if(!role.getPrivileges().isEmpty())
-		   dmroleMapper.attachPrivileges(role);*/
 	}
 	
 	@Transactional

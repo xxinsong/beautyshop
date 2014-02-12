@@ -11,6 +11,7 @@ String path = request.getContextPath();
 <title>韩塑美-您的美容专柜</title>
 <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
 <script type="text/javascript" src="<%=path%>/market/main/js/main.js"></script>
+<script type="text/javascript" src="<%=path%>/market/main/js/jquery.KinSlideshow-1.2.1.min.js"></script>
 </head>
 <body>
 <jsp:include page="header.jsp" flush="true">
@@ -23,10 +24,22 @@ String path = request.getContextPath();
 				<div class="promo_wrapper">
 					<ol class="clearfix" style="">
                     	<li flag="7">
-                            <a target="_blank" class="big_pic" href="#">
+                            <%--<a target="_blank" class="big_pic" href="#">
                                 <img src="<%=path%>/market/main/images/flash_pic01.jpg" alt="1号店-生活电器中心-夏降到底3折起">
-                            </a>
+                            </a>--%>
+                            <div id="KinSlideshow"  style="visibility:hidden;">
+                            </div>
                             <div class="mini_promo clearfix">
+                            </div>
+                            <a id ="templSecondeId" target="_blank" href="#" class="templClass" style="display: none;">
+                                <img src="#" alt="1号店-生活电器中心-夏降到底3折起">
+                                <div class="transCon"></div>
+                                <div class="open_pop">
+                                    <p class="p_title">鼠标停留后滑出，商品标题名称</p>
+                                    <p class="p_info"><span class="price">折扣价:￥998</span><span class="comment">评论(99999)</span></p>
+                                </div>
+                            </a>
+                            <%--<div class="mini_promo clearfix">
                                 <a target="_blank" href="#">
                                     <img src="<%=path%>/market/main/images/flash_mini_01.jpg" alt="1号店-生活电器中心-夏降到底3折起">
                                     <div class="transCon"></div>
@@ -51,29 +64,33 @@ String path = request.getContextPath();
                                         <p class="p_info"><span class="price">折扣价:￥998</span><span class="comment">评论(99999)</span></p>
                                     </div>
                                 </a>
-                            </div>
+                            </div>--%>
 						</li>						
 					</ol>
 				</div>
 				<div class="show_num_bg"></div>
-                <ul>
+                <%--<ul>
                     <li class="cur"></li>
                     <li class=""></li>
                     <li class=""></li>
                     <li class=""></li>
-                </ul>
+                </ul>--%>
             </div>
 		</div>
  		<div class="right_side">
-        	<div class="right_info"><img src="<%=path%>/market/main/images/right_gg_01.jpg" width="218" height="90" /></div>
+        	<%--<div class="right_info"><img src="<%=path%>/market/main/images/right_gg_01.jpg" width="218" height="90" /></div>
+            <div class="right_info news_div">--%>
+            <div class="right_info" id="right_info"></div>
             <div class="right_info news_div">
-           	  <h2>特百公告</h2>
-                <div class="news_content">
+                <h2>特百公告</h2>
+                <div class="news_content" style="display: none;">
                     <ul class="news_list">
-                        <li><a href="#">·这里是公告的标题</a></li>
-                        <li><a href="#">·这里是公告的标题</a></li>
-                        <li class="last"><a href="#">·这里是公告的标题</a></li>
+                        <li><a href="javascript: void(0)">·这里是公告的标题</a></li>
+                        <li><a href="javascript: void(0)">·这里是公告的标题</a></li>
+                        <li class="last"><a href="javascript: void(0)">·这里是公告的标题</a></li>
                     </ul>
+                </div>
+                <div class="news_content" id="top_notices">
                 </div>
             </div>
             <div class="right_info" id="quick_user_div">
@@ -101,7 +118,7 @@ String path = request.getContextPath();
                     <div class="user_login">
                     	<a id="availableGoods" href="javascript: void(0)">
                         	<p class="number">0</p>
-                            <p class="nameCurr">待营销</p>
+                            <p class="nameCurr">待收货</p>
                         </a>
                         <a id="waitForPay" href="javascript: void(0)">
                         	<p class="number">0</p>

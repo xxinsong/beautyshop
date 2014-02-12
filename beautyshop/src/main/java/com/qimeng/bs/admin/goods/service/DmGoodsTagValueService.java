@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.qimeng.bs.admin.goods.bean.DmGoods;
 import com.qimeng.bs.admin.goods.bean.DmTagsItem;

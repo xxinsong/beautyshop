@@ -1,12 +1,12 @@
 function orgDateFormate(data) {
 	if (data.createDate) {
 		if ($.type(data.createDate) == "date") {
-			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd hh:mm:ss");
+			data.createDate = $.formatDate(data.createDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	if (data.statusDate) {
 		if ($.type(data.statusDate) == "date") {
-			data.statusDate = $.formatDate(data.statusDate, "yyyy-MM-dd hh:mm:ss");
+			data.statusDate = $.formatDate(data.statusDate, "yyyy-MM-dd HH:mm:ss");
 		}
 	}
 	return data;

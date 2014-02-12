@@ -23,6 +23,10 @@ $(function() {
 		$("#quick_menu").html(createMenus(menuList));
 		bindMenuEvent();
 		$("#quick_menu").children().show();
+		
+		$("#indexBg").html(indexShow(menuList));
+		indexbindMenuEvent();
+		$("#indexBg").children().show();
 	});
 })
 
@@ -64,6 +68,63 @@ function createMenus(menuList) {
 	return html.join("");
 }
 
+function indexShow(menuList){
+	var html = [];
+	html.push("<div class='content1'><ul>");
+	for ( var i = 0; i < menuList.length; i++) {
+		html.push(tabShow(menuList[i].children));
+	}
+	html.push("</ul></div>");
+	return html.join("");
+}
+
+function tabShow(menuList){
+	var html = [];
+	if (!menuList || menuList.length == 0) {
+		return "";
+	}
+	for ( var i = 0; i < menuList.length; i++) {
+		if( menuList[i].menuName=="咨询管理"||menuList[i].menuName=="标签管理"||menuList[i].menuName=="商品管理"||menuList[i].menuName=="商户管理"||menuList[i].menuName=="广告管理"||menuList[i].menuName=="商品定价管理"|| menuList[i].menuName=="发票管理"||menuList[i].menuName=="消息管理"){
+			var img="";
+			if( menuList[i].menuName=="咨询管理"){
+				img="icon01.png";
+			}
+			if( menuList[i].menuName=="标签管理"){
+				img="icon02.png";
+			}
+			if( menuList[i].menuName=="商品管理"){
+				img="icon03.png";
+			}
+			if( menuList[i].menuName=="商户管理"){
+				img="icon04.png";
+			}
+			if( menuList[i].menuName=="广告管理"){
+				img="icon05.png";
+			}
+			if( menuList[i].menuName=="商品定价管理"){
+				img="icon06.png";
+			}
+			if( menuList[i].menuName=="发票管理"){
+				img="icon07.png";
+			}
+			if( menuList[i].menuName=="消息管理"){
+				img="icon08.png";
+			}
+			var title = "title='" + menuList[i].menuName + "'";
+			var dataStr = "";
+			if (menuList[i].isLeaf == "1") {
+				dataStr = "menu_id='" + menuList[i].menuId + "' menu_name='" + menuList[i].menuName + "' url='" + menuList[i].url + "'";
+			}
+			html.push("			<li " + title + " " + dataStr + ">");
+			html.push("                 <a href='javascript: void(0)'>");
+			html.push("                     <p><img src=\"images/"+img+"\" width=\"60\" height=\"45\" /></p><p>" + menuList[i].menuName + "</p>");
+			html.push("                 </a>");
+			html.push("				</li>");
+		}
+	}
+	return html.join("");
+}
+
 function bindMenuEvent() {
 	$("li", $("#quick_menu")).each(function() {
 		$(this).hover(function() {
@@ -101,5 +162,18 @@ function bindMenuEvent() {
 		if ($(event.relatedTarget).closest(".quickMenu_div").size() == 0) {
 			$("#quick_menu").hide();
 		}
+	});
+}
+
+function indexbindMenuEvent() {
+	$("li", $("#indexBg")).click(function() {
+		var menu = {};
+		menu.menu_id = $(this).attr("menu_id");
+		menu.menu_name = $(this).attr("menu_name");
+		menu.url = $(this).attr("url");
+		if (menu.url == "null" || $.trim(menu.url) == "") {
+			return;
+		}
+		window.parent.myWin.addWin(menu);
 	});
 }

@@ -25,7 +25,8 @@ body {
 input {
 	vertical-align: middle;
 	margin: 0;
-	padding: 0
+	padding: 0;
+
 }
 
 .file-box {
@@ -44,6 +45,8 @@ input {
 	border: 1px solid #CDCDCD;
 	height: 24px;
 	width: 70px;
+	margin-left:10px;
+	margin-top:-30px;
 }
 
 .file {
@@ -60,7 +63,7 @@ input {
 </head>
 <body>
 	<!-- 查询表单 -->
-	<div class="searchformDiv" width="100%">
+	<div class="searchformDiv" width="100%" style="margin-top:5px;">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<th>广告名称:</th>
@@ -111,9 +114,9 @@ input {
 					<select id="adLevel" name="adLevel" attr_code="ADMIN_AD_LEVEL" class="searchipt" nullable="false">
 					</select>
 				</td>
-				<th>排序：</th>
+				<th><label class="ltxtc">*</label>排序：</th>
 				<td>
-					<input type="text" id="adOrder" name="adOrder" class="ipttxt" valid_type="integer" />
+					<input type="text" id="adOrder" name="adOrder" class="ipttxt" valid_type="integer"  nullable="false" />
 				</td>
 			</tr>
 			<tr>
@@ -146,9 +149,12 @@ input {
 				<div class="ui_dialog_content">
 					<div style="height: 200px; text-align: center;">
 						<div id="imageUrlTd" class="file-box">
-							<input type="hidden" name="imageUrl" id="imageUrl" class="gimage" value=""> <input type='text' name='textfield' id='textfield' class='txt' /> <input type='button' class='btn' id="viewButtion" value='浏览...' /> <input type="file" name="adfile" class="file" id="adfile" size="28"
-								onchange="document.getElementById('textfield').value=this.value"
-							/> <input type="button" id="uploadaButton" class="btn" value="上 传" onclick="adImageUpload()" />
+							<input type="hidden" name="imageUrl" id="imageUrl" class="gimage" value=""> 
+							<input type='text' name='textfield' id='textfield' class='txt' /> 
+							<input type='button' class='btn' style="margin-top: 0;" id="viewButtion" value='浏览...' /> 
+							<input type="file" name="adfile" style="margin-top: 0;" class="file" id="adfile" size="28"
+								onchange="document.getElementById('textfield').value=this.value" />
+							<input type="button" id="uploadaButton" style="margin-top: 0;" class="btn" value="上 传" onclick="adImageUpload()" />
 						</div>
 					</div>
 				</div>

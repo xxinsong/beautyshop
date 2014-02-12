@@ -37,11 +37,11 @@ public class DmUserController extends GenericController {
 	 *      flag=2：验证码不正确<br>
 	 */
 	public Map insertUser(Map params) {
-		params.put("s_verificCode", getSessionAttribute("s_verificCode"));
+//		params.put("s_verificCode", getSessionAttribute("s_verificCode"));
 		Map result = dmUserService.insertUser(params);
 		if ("0".equals(Const.getStrValue(result, "flag"))) {
 			//注销验证码
-			getSession().removeAttribute("s_verificCode");
+//			getSession().removeAttribute("s_verificCode");
 			
 			//注册成功后自动登录
 			Map sqlParams = new HashMap();
@@ -52,11 +52,11 @@ public class DmUserController extends GenericController {
 		return result;
 	}
 	
-	public String getVerificCode() {
+	/*public String getVerificCode() {
 		String verificCode = dmUserService.getVerificCode();
 		setSessionAttribute("s_verificCode", verificCode);
 		return verificCode;
-	}
+	}*/
 	
 	/**
 	 * 基本信息修改
@@ -103,6 +103,40 @@ public class DmUserController extends GenericController {
 		userLoginService.refreshLoginInfo(loginInfo.getUserId());
 		return result;
 	}
+    /**
+     * 用户有效积分
+     */
+    public int queryUserPoint() {
+        LoginInfo loginInfo = getCurrentLoginUser();
+        if (loginInfo == null)
+            return 0;
+        Integer merchantId = loginInfo.getMerchantId();
+        return dmUserService.queryMyEffPoint(merchantId);
+    }
+
+    /**
+     * 用户待营销
+     */
+    public int queryUserActivity() {
+        LoginInfo loginInfo = getCurrentLoginUser();
+        if (loginInfo == null) {
+            return 0;
+        }
+        Integer merchantId = loginInfo.getMerchantId();
+        return dmUserService.queryUserActivity(merchantId);
+    }
+
+    /**
+     * 用户待支付
+     */
+    public int queryUserBePaid() {
+        LoginInfo loginInfo = getCurrentLoginUser();
+        if (loginInfo == null) {
+            return 0;
+        }
+        Integer merchantId = loginInfo.getMerchantId();
+        return dmUserService.queryBePaid(merchantId);
+    }
 
     @RequestMapping("/setting/account")
     public ModelAndView userInfoPage(){
@@ -111,5 +145,32 @@ public class DmUserController extends GenericController {
     @RequestMapping("/register")
     public ModelAndView registerPage(){
         return new ModelAndView("/market/main/register.jsp");
+    }
+
+    //下面涉及的是安全设置
+    @RequestMapping("/security")
+    public String UserSecurity(){
+        return "/market/security/security.jsp";
+    }
+
+    @SuppressWarnings("rawtypes")
+    public List getUserSecurity() {
+        LoginInfo currUser = getCurrentLoginUser();
+        Map param=new HashMap();
+        param.put("userId", currUser.getUserId());
+        return dmUserService.getUserSecurity(param);
+    }
+
+
+    @SuppressWarnings("rawtypes")
+    public Map updateUserReg(Map param) {
+        if (!(param.get("type").equals("ques_yz"))) {
+            param.put("s_yzCode", getSessionAttribute("s_verificCode"));
+        }
+        param.put("userId",getCurrentLoginUser().getUserId());
+        param.put("logonName",getCurrentLoginUser().getLogonName());
+        Map result=dmUserService.updateUserReg(param);
+        userLoginService.refreshLoginInfo(getCurrentLoginUser().getUserId());
+        return result;
     }
 }

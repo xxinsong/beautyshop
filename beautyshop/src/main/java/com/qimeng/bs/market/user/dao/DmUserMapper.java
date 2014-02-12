@@ -25,4 +25,6 @@ public interface DmUserMapper {
 	int updateUser(Map params);
 
 	List<DmUser> searchUser(Map params);
+
+    DmUser selectByLogonName(String logonName);
 }

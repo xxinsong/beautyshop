@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.qimeng.bs.common.exception.LoginException;
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -74,4 +75,11 @@ public class ApplicationContextUtil {
         setSessionAttribute(Constants.CAR_INFO, shoppingCart);
     }
 
+    public static AdminLoginInfo getCurrentLoginAdmin() throws LoginException {
+        try {
+            return (AdminLoginInfo) getSessionAttribute(Constants.ADMIN_LOGIN_INFO);
+        } catch (Exception e) {
+            throw new LoginException("用户未登录或者登录已失效！");
+        }
+    }
 }

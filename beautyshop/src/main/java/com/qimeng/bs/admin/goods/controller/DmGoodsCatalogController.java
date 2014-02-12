@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import com.qimeng.bs.admin.goods.bean.DmGoodsCatalog;
 import com.qimeng.bs.admin.goods.service.DmGoodsCatalogService;
+import com.qimeng.bs.admin.security.bean.DmOrganization;
 import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.LoginInfo;
 
@@ -55,11 +57,11 @@ public class DmGoodsCatalogController  extends GenericController{
 		Map<String,Object> ret = new HashMap<String,Object>();
 		ret.put("success", true);
 		ret.put("msg", "添加成功");
-		LoginInfo loginInfo = getCurrentLoginUser();
-    if(loginInfo!=null
-        &&!StringUtils.isEmpty(loginInfo.getLogonName())){
-      catalog.setCreateStaffNo(loginInfo.getLogonName());
-    }
+		AdminLoginInfo loginInfo = getCurrentLoginAdmin();
+        if(loginInfo!=null
+            &&!StringUtils.isEmpty(loginInfo.getStaffName())){
+          catalog.setCreateStaffNo(loginInfo.getStaffName());
+        }
 		dmGoodsCatalogService.save(catalog);
 		ret.put("me", catalog);
 		return ret;

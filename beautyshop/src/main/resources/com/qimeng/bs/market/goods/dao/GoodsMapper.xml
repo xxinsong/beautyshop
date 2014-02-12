@@ -75,46 +75,50 @@
 		<id column="prop" property="prop" />
 	</resultMap>
 	<select id="searchGoodsPage" resultType="java.util.Map" parameterType="com.qimeng.common.Page">
-	    select distinct
+        select distinct
         <include refid="dm_goods_column_list" />
-               , plan_price, inst_num, comment_num
-               from (select t1.*
-          from (select a.*, concat(b.tag_id, ':', c.item_id) prop
-                        , round(dgp.plan_price, 2) plan_price
-			            ,(select count(*) from dm_goods_inst e where e.goods_id = a.goods_id) inst_num
-			            ,(select count(*) from dm_cust_comment f where f.goods_id = a.goods_id) comment_num
-                  from dm_goods a
-                  left join dm_goods_tag b on a.goods_id = b.goods_id
-                  left join dm_goods_tag_value c on b.tag_group_id = c.tag_group_id
-                  left join dm_goods_plan dgp on a.goods_id = dgp.goods_id
-                 where 1 = 1
+        , plan_price, inst_num, comment_num
+        from (select t1.*
+        from (select a.*, concat(b.tag_id, ':', c.item_id) prop
+        , round(a.price, 2) plan_price
+        ,(select count(*) from dm_goods_inst e where e.goods_id = a.goods_id) inst_num
+        ,(select count(*) from dm_cust_comment f where f.goods_id = a.goods_id) comment_num
+        from (<![CDATA[select * from dm_goods where  EXP_DATE > now() and EFF_DATE < now() and STATE = '00A' ]]>
+        <if test="params.goodsName != null and params.goodsName !=''">
+            and GOODS_NAME like CONCAT('%', #{goodsName}, '%')
+        </if>
+        ) a
+        left join dm_goods_tag b on a.goods_id = b.goods_id
+        left join dm_goods_tag_value c on b.tag_group_id = c.tag_group_id
+
+        where 1 = 1
         <if test="params.catas != null and params.catas.size() > 0">
-			       and a.catalog_id in
-			<foreach item="item" index="index" collection="params.catas" open="(" separator="," close=")">
-			    #{item}
-			</foreach>
-        </if>         
-               ) t1 where 1 = 1
+            and a.catalog_id in
+            <foreach item="item" index="index" collection="params.catas" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ) t1 where 1 = 1
         <if test="params.prop != null and params.prop.size() > 0">
-			and t1.prop in
-			<foreach item="item" index="index" collection="params.prop" open="(" separator="," close=")">
-			    #{item}
-			</foreach>
-        </if> 
-        ) t2      
+            and t1.prop in
+            <foreach item="item" index="index" collection="params.prop" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ) t2
         <if test="params.query_type != null and params.query_type == '001'">
-         order by inst_num desc
-        </if>     
+            order by inst_num desc
+        </if>
         <if test="params.query_type != null and params.query_type == '002'">
-         order by price desc
+            order by base_price desc
         </if>
         <if test="params.query_type != null and params.query_type == '003'">
-         order by comment_num desc
+            order by comment_num desc
         </if>
         <if test="params.query_type != null and params.query_type == '004'">
-         order by putaway_time desc
-        </if>    
-	</select>
+            order by putaway_time desc
+        </if>
+    </select>
 	<select id="searchHotGoods" resultType="java.util.Map" parameterType="java.util.Map">
 		select <include refid="dm_goods_column_list" />
 		       , plan_price, inst_num, comment_num
@@ -136,4 +140,22 @@
 			and up_catalog_id = #{up_catalog_id}
         </if>
 	</select>
+    <select id="searchAdGoods" resultType="java.util.Map" parameterType="java.util.Map">
+        select <include refid="dm_goods_column_list" />
+        , plan_price, inst_num, comment_num,adimageurl,addesc,adorder
+        from (select activitedgoods.*, round(activiteddgp.plan_price, 2) plan_price,
+        (select count(*) from dm_goods_inst b where b.goods_id = activitedgoods.goods_id) inst_num,
+        (select count(*) from dm_cust_comment c where c.goods_id = activitedgoods.goods_id) comment_num,
+        activiteddgp.state planstate ,
+        ad.AD_ORDER adorder,
+        ad.AD_LEVEL adlevel,
+        ad.IMAGE_URL adimageurl,
+        ad.AD_DESC addesc
+        from (<![CDATA[select * from dm_goods where EXP_DATE > now() and EFF_DATE < now() and STATE = '00A']]>)  activitedgoods
+        inner join DM_ADVERTISEMENT ad on activitedgoods.GOODS_ID = ad.GOODS_ID
+        inner join (<![CDATA[select * from dm_goods_plan where EXP_DATE > now() and EFF_DATE < now() and STATE = '00A']]>) activiteddgp
+        on activitedgoods.goods_id = activiteddgp.goods_id ) tt
+        where tt.adlevel = #{adLevel}
+        order by tt.adorder desc limit 0, 5
+    </select>
 </mapper>

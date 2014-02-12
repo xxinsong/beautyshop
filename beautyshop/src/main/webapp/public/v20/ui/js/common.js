@@ -44,19 +44,68 @@ function hideLoading() {
     $("#loading").remove();
     $("#loadingOverlayer").remove();
 }
-
 var Attr = {
+    attrlist: [],
+    init: function () {
+        var self = this;
+        $("select[attr_code]").each(function () {
+            var attr_code = $(this).attr("attr_code");
+            var me = this;
+            self.getAttrData(attr_code, true, function (reply) {
+                self.render($(me), reply);
+            })
+        });
+    },
+    getAttrData: function (attr_code, async, callBack) {
+        for (var i = 0; i < this.attrlist.length; i++) {
+            if (this.attrlist[i].attr_code == attr_code) {
+                callBack && callBack(this.attrlist[i].data);
+                return this.attrlist[i].data;
+            }
+        }
+        return this.loadAttrData(attr_code, async, callBack);
+    },
+    loadAttrData: function (attr_code, async, callBack) {
+        var me = this;
+        if (typeof(async) == "undefined") {
+            async = true;
+        }
+        if (async) {
+            Ajax.getAsy().remoteCall("StaticDataController", "getStaticData", [attr_code], function (reply) {
+                var data = reply.getResult();
+                me.attrlist.push({ attr_code: attr_code, data: data });
+
+                callBack && callBack(me.attrlist[me.attrlist.length - 1].data || []);
+            });
+        } else {
+            Ajax.getSy().remoteCall("StaticDataController", "getStaticData", [attr_code], function (reply) {
+                var data = reply.getResult();
+                me.attrlist.push({ attr_code: attr_code, data: data });
+            });
+            return this.attrlist[this.attrlist.length - 1].data || [];
+        }
+    },
+    render: function ($jq, data) {
+        var html = [];
+        html.push("<option value=''></option>");
+        for (var i = 0; i < data.length; i++) {
+            html.push("<option value='" + data[i].attrValue + "'>" + data[i].attrValueDesc + "</option>");
+        }
+        $jq.html(html.join("")).data("init", 1);
+    }
+}
+/*var Attr = {
     attrlist: [],
     subAttrList:[],
     init: function () {
         var self = this;
         $("select[attr_code]").each(function () {
             var attr_code = $(this).attr("attr_code");
-            /*for (var i = 0; i < self.subAttrList.length; i++) {
+            *//*for (var i = 0; i < self.subAttrList.length; i++) {
                 if (self.subAttrList[i] == attr_code) {
                     return;
                 }
-            }*/
+            }*//*
             self.getAttrData(attr_code,parentVal, true, function (reply) {
                 self.render($(me), reply);
                 if(subList!=null){
@@ -73,12 +122,12 @@ var Attr = {
         });
     },
     getAttrData: function (attr_code,parentAttrValue, async, callBack) {
-        /*for (var i = 0; i < this.attrlist.length; i++) {
+        *//*for (var i = 0; i < this.attrlist.length; i++) {
             if (this.attrlist[i].attr_code == attr_code) {
                 callBack && callBack(this.attrlist[i].data);
                 return this.attrlist[i].data;
             }
-        }*/
+        }*//*
         return this.loadAttrData(attr_code,parentAttrValue, async, callBack);
     },
     loadAttrData: function (attr_code,parentAttrValue, async, callBack) {
@@ -124,7 +173,7 @@ var Attr = {
             subList = $("select[name='"+sublistName+"']");
             subAttrCode = subList.attr("attr_code");
 
-            /*if(subAttrCode){
+            *//*if(subAttrCode){
                 var exists = false;
                 for(var i=0;i<self.subAttrList.length;i++){
                     if(subAttrCode==self.subAttrList[i]){
@@ -135,7 +184,7 @@ var Attr = {
                 if(!exists){
                     self.subAttrList.push(subAttrCode);
                 }
-            }*/
+            }*//*
         }
         if(parentName&&parentName!=''){
             parentList = $("select[name='"+parentName+"']");
@@ -152,18 +201,18 @@ var Attr = {
                     }
                 });
 
-                /*var subListVal = subList.val();
+                *//*var subListVal = subList.val();
                 subList.html("");
                 if(parentVal!=""){
                     self.getAttrData(subAttrCode,parentVal, true, function (reply) {
                         self.render(subList, reply,subListVal);
                     })
                 }
-*/
+*//*
             }
         })
     }
-}
+}*/
 
 var commonJs = {
     getContext: function (context) {

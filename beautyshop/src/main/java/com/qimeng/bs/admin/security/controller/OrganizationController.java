@@ -9,6 +9,7 @@ import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.qimeng.common.Page;
 import com.qimeng.bs.admin.security.bean.DmOrganization;
 import com.qimeng.bs.admin.security.service.DmOrganizationService;
 

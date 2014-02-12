@@ -6,7 +6,7 @@ $(function() {
     });
     //立刻注册事件
     $("#registerRnBtn").click(function() {
-        location = path_prefix + "/register";
+        location = commonJs.getWebPath() + "/register";
     });
     //回车事件
     $("#form_login").keydown(function(event) {

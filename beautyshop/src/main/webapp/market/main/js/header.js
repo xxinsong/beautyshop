@@ -27,6 +27,24 @@ $(function() {
     	location = commonJs.getWebPath() + "/welcome";
 	});
 
+    $("#goodsearch").click(function(){
+        if (typeof(queryGoods) == "function") {
+            queryGoods();
+        }else{
+            var goodsName = "";
+            if($.trim($("#searchField").val())){
+                if("输入搜索关键字"!=$("#searchField").val()){
+                    goodsName = $("#searchField").val();
+                }
+            }
+            if(goodsName){
+                location = commonJs.getWebPath() + "/search?wq="+encodeURI(encodeURI(goodsName));
+            }else{
+                location = commonJs.getWebPath() + "/search";
+            }
+
+        }
+    });
     //初始化商品目录
     initGoodsCataLog();
     //初始化mini购物车

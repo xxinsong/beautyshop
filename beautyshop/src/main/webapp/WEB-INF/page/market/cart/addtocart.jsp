@@ -24,7 +24,7 @@
             <h3>商品已成功加入购物车！</h3>
             <span id="flashBuy" style="display:none">商品数量有限，请您尽快下单并付款！</span>
         </div>
-        <span id="initCart_next_go"><a id="GotoShoppingCart" href="http://cart.jd.com/cart/cart.html?backurl=http://item.jd.com/982040.html&amp;rid=0.22430408280342817" class="btn-pay">去结算</a><a href="http://item.jd.com/982040.html" class="btn-continue">继续购物</a></span></div>
+        <span id="initCart_next_go"><a id="GotoShoppingCart" href="<%=path%>/mycart" class="btn-pay">去结算</a><a href="<%=path%>/welcome" class="btn-continue">继续购物</a></span></div>
 
 </div>
 <jsp:include page="../main/footer.jsp" flush="true"></jsp:include>

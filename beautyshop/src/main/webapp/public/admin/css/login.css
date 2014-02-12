@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* 登陆界面 */
+body,html{ padding:0px; margin:0px; font-size:12px;}
+body{ background:#eff5f8 ;}
+.contaiter{  margin: 0 auto; min-height: 500px; position: relative; }
+.topbg{ background:url(../images/topbg.jpg) top center no-repeat;width:100%; height:180px;}
+.toplogo{ background:url(../images/toplogo.png) no-repeat; width:230px; height:40px; position:absolute;top:10%;left:40%; margin-left:-width/2;  }
+.conbg{ background:url(../images/conbg.jpg) no-repeat;width:100%; height:251px;}
+.loginCon{  width:475px; height:335px; position:absolute;top:-5%;left:32%; margin-left:-width/2; background:url(../images/logincon.png) left top no-repeat; padding-top:85px;}
+.loginConDiv{ width:350px; margin:0 auto;}
+.loginTable{ color:#333;}
+.loginTable a{ color:#333; text-decoration:underline;}
+.loginTable th{ width:60px; text-align:right; font-weight:lighter; font-size:14px;}
+.loginTable td{ padding-top:5px; padding-bottom:5px;}
+.loginipt{  height:35px; line-height:35px; border:1px solid #cad9e5; width:100%; color:#; padding-left:5px;font-size:14px;}
+.loginTable tr td img{ position:relative; left:270px; top:-27px;}
+.loginTable tr td .loginbtn a{ display:block;font-size:16px; color:#FFF; height:42px; line-height:42px; text-align:center;}
+.loginbtn{ background:url(../images/loginbtn.png) no-repeat; height:42px; width:180px;  }
+.loginbtn:hover{background:url(../images/loginbtn_hover.png) no-repeat; height:42px; width:180px;}
+.loginfooter{ background:#e5eef2;height:39px; line-height:39px; border-left:1px solid #d5e1e7; border-right:1px solid #d5e1e7;border-top:1px solid #d5e1e7;border-bottom:1px solid #f9fbfc; border-radius:8px; position:fixed; bottom:0px; left:0px; right:0px; text-align:center; font-size:12px; color:#666;}
+
+

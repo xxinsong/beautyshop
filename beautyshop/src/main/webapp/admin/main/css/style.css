@@ -2,6 +2,12 @@
 /* CSS Document */
 body{font-size:12px;}
 
+.bg{ background:url(../images/mainbg01.jpg) center top no-repeat;margin:0px auto;}
+.content1{ width:500px; height:250px; position:relative; left:30%; margin-left:-width/2;top:20%;}
+.content1 ul li{ display:inline-block;;float:left; margin-right:10px; margin-top:10px; background:url(../images/btn.png) no-repeat; width:111px; height:112px;}
+.content1 ul li a p img{ padding-top:25px;}
+.content1 ul li a p{color:#fefefe;text-align: center; font-family:Tahoma,"微软雅黑"; font-size:10.5px; }
+.content1 ul li a{display: inline-block; width:111px; height:112px; line-height:30px; }
 
 /*头部样式*/
 .topbar{ background:url(../images/topbar.jpg) repeat-x; height:54px; z-index:1000; position:static; left:0px; top:0px; right:0px;}
@@ -150,7 +156,7 @@ body{font-size:12px;}
 .quickMenuCon_div dd a:hover{ color:#0b70a3;}
 
 .menu_tab{ margin-left:120px;}
-.menu_tab li{ float:left; height:26px; margin-right:3px; position:relative; margin-top:1px;}
+.menu_tab li{ float:left; height:26px; margin-right:3px; position:relative; }
 .menu_tab li a.menuCon, .menu_tab li a.menuCon span, .menu_tab li a.menuCon:hover, .menu_tab li a.menuCon:hover span, .menu_tab li.curr a.menuCon, .menu_tab li.curr a.menuCon span{ display:inline-block; height:26px; line-height:26px; background:url(../images/tab.gif) no-repeat; padding:0 0 0 4px; color:#333;}
 .menu_tab li a.menuCon span{ background-position:right -26px; padding:0 30px 0 16px;}
 .menu_tab li a.menuCon:hover, .menu_tab li.curr a.menuCon{ background-position:0 -52px;}

@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="library" content="market"/>
-    <title>数据超市</title>
+    <title>韩塑美-您的美容专柜</title>
     <%--<link rel="stylesheet" href="css/reset.css" type="text/css" />--%>
     <%--<link rel="stylesheet" href="css/style.css" type="text/css" />--%>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
@@ -45,10 +45,21 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <th>昵称：</th>
+                        <td style="width:310px;">
+                            <div class="register_ipt">
+                                <input type="text" name="user_name" value="昵称" onFocus="if(value=='昵称') {value='';}"
+                                       onBlur="if (value=='') {value='昵称';}"  max_length="20"/>
+                                <span class="register_user"></span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <th>请设置密码：</th>
                         <td>
                             <div class="register_ipt">
-                                <input type="password" name="passwd"/>
+                                <input type="password" name="passwd" value=""/>
                                 <span class="register_psw"></span>
                             </div>
                         </td>
@@ -58,14 +69,21 @@
                         <th>请确认密码：</th>
                         <td>
                             <div class="register_ipt">
-                                <input type="password" name="passwdRepeat"/>
+                                <input type="password" name="passwdRepeat" value=""/>
                                 <span class="register_psw"></span>
                             </div>
                         </td>
                         <td><span class="explain" style="display: none;"><i class="wrongico"></i></span></td>
                     </tr>
                     <tr>
-                        <th>短信验证码：</th>
+                        <th>推荐人手机号码：</th>
+                        <td nowrap="nowrap">
+                            <input type="text" name="referrerMobileNo" class="reIpt" value=""/>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <%--<tr>
+                        <th>验证码：</th>
                         <td nowrap="nowrap">
                             <input type="text" name="verificCode" class="reIpt" value=""/>
                             <a href="javascript: void(0);" class="yamBtn" id="yanzBtn">点击发送验证码</a>
@@ -73,7 +91,7 @@
                                id="yanzrBtn">重新发送验证码</a>
                         </td>
                         <td></td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <th>&nbsp;</th>
                         <td>
@@ -88,7 +106,7 @@
                         <td><a id="btn_register_submit" href="javascript: void(0);"
                                            class="registerBtn"><span>立即注册</span></a></td>
                         <td>已有帐号，请<a href="javascript: void(0);" class="blue"
-                                     onclick="openLoginDialog()"><span>登录</span></a></td>
+                                     onclick="gotoLoginPage()"><span>登录</span></a></td>
                     </tr>
                 </table>
             </div>

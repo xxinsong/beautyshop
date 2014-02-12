@@ -57,4 +57,6 @@ public interface DmMerchantActivityMapper {
     int updateByPrimaryKey(DmMerchantActivity record);
 
     List<DmMerchantActivity> selectMerchantActivityList(Page page);
+
+    int selectActivityByMerchantId(Integer merchantId);
 }

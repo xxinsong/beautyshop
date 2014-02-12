@@ -160,6 +160,11 @@
             <artifactId>resteasy-spring</artifactId>
             <version>3.0.6.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>3.0.4.Final</version>
+        </dependency>
         <!--<dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
@@ -208,9 +213,14 @@
     </build>
     <repositories>
         <repository>
+            <id>nexus</id>
+            <name>Ztesoft-GZ Nexus Repository</name>
+            <url>http://10.45.47.168:8081/nexus/content/groups/public</url>
+        </repository>
+        <!--<repository>
             <id>jboss</id>
             <name>jboss repo</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>-->
     </repositories>
 </project>

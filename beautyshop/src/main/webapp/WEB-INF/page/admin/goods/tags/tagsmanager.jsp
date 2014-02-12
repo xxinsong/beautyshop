@@ -16,7 +16,7 @@ String path = request.getContextPath();
 </head>
 
 <body>
-	<div class="formgrid" style="margin-bottom: 10px;">
+	<div class="formgrid" style="margin-bottom: 10px;margin-top:5px;">
 		<div class="formgrid_title">
 			<h2>标签树</h2>
 		</div>

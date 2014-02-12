@@ -23,6 +23,8 @@ public class DmContact {
     private String contactDuty;
 
     private String comments;
+    
+    private String defaultFlag;
 
     public Integer getContactId() {
         return contactId;
@@ -102,5 +104,13 @@ public class DmContact {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getDefaultFlag() {
+      return defaultFlag;
+    }
+
+    public void setDefaultFlag(String defaultFlag) {
+      this.defaultFlag = defaultFlag;
     }
 }

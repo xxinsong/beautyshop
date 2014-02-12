@@ -52,7 +52,7 @@ $(function() {
 			register_tip($jq, "", 3);
 		}
 	});
-	$("[name='verificCode']", ".register_table").focusin(function() {
+	/*$("[name='verificCode']", ".register_table").focusin(function() {
 		register_tip($(this));
 	});
 	$("#yanzBtn").click(function() {
@@ -60,7 +60,7 @@ $(function() {
 	});
 	$("#yanzrBtn").click(function() {
 		getVerificCode();
-	});
+	});*/
 	$("[name='readme']", ".register_table").click(function() {
 		if (this.checked) {
 			register_tip($(this));
@@ -86,20 +86,23 @@ function register() {
 			reg_flag = false;
 			if (result.flag == 1) {
 				register_tip($("[name='logon_name']", ".register_table"), "登录名已存在", 1);
-			} else if (result.flag == 2) {
+			} /*else if (result.flag == 2) {
 				register_tip($("[name='verificCode']", ".register_table"), "验证码不正确", 1);
-			}
+			}*/
+            else if (result.flag == 3) {
+                register_tip($("[name='referrerMobileNo']", ".register_table"), "推荐人号码不正确", 1);
+            }
 		}
 	});
 }
 
-function getVerificCode() {
+/*function getVerificCode() {
 	Ajax.getAsy().remoteCall("DmUserController", "getVerificCode", [], function(reply) {
 		alert("验证码：" + reply.getResult());
 		$("#yanzBtn").hide();
 		$("#yanzrBtn").show();
 	});
-}
+}*/
 
 function register_tip($jq, msg, type) {
 	if (type == 1) {
@@ -120,13 +123,18 @@ function register_tip($jq, msg, type) {
 function register_validate() {
 	var flag = true;
 	var $logon_name = $("[name='logon_name']", ".register_table");
+	var $user_name = $("[name='user_name']", ".register_table");
 	if ($logon_name.data("wrong")) {
 		flag = false;
 	}
 	if ($.trim($logon_name.val()) == "" || $.trim($logon_name.val()) == "手机号") {
-		register_tip($logon_name, "请输入登录名", 1);
-		flag = false;
-	}
+        register_tip($logon_name, "请输入登录名", 1);
+        flag = false;
+    }
+    if ($.trim($user_name.val()) == "" || $.trim($user_name.val()) == "昵称") {
+        register_tip($user_name, "请输入昵称", 1);
+        flag = false;
+    }
 	var $passwd = $("[name='passwd']", ".register_table");
 	if ($passwd.data("wrong")) {
 		flag = false;
@@ -143,11 +151,11 @@ function register_validate() {
 		register_tip($passwdRepeat, "请输入密码", 1);
 		flag = false;
 	}
-	var $verificCode = $("[name='verificCode']", ".register_table");
+	/*var $verificCode = $("[name='verificCode']", ".register_table");
 	if ($.trim($verificCode.val()) == "") {
 		register_tip($verificCode, "请输入验证码", 1);
 		flag = false;
-	}
+	}*/
 	var $readme = $("[name='readme']", ".register_table");
 	if (!$readme.get(0).checked) {
 		register_tip($readme, "请接受服务条款", 1);
@@ -156,3 +164,6 @@ function register_validate() {
 	return flag;
 }
 
+function gotoLoginPage(){
+    window.location.href = commonJs.getWebPath()+"/login"
+}

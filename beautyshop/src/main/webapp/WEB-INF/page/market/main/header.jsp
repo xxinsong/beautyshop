@@ -16,9 +16,9 @@
         <div class="header_search">
    	    	<div class="searchBox">
             	<div class="searchIpt">
-            	  <input name="textfield" type="text" id="textfield" value="输入搜索关键字" onFocus="if(value=='输入搜索关键字') {value='';}" onBlur="if (value=='') {value='输入搜索关键字';}"/>
+            	  <input name="searchField" type="text" id="searchField" value="输入搜索关键字" onFocus="if(value=='输入搜索关键字') {value='';}" onBlur="if (value=='') {value='输入搜索关键字';}"/>
        			</div>
-   		  		<a href="#" class="searchBtn">搜索</a>
+   		  		<a id="goodsearch" class="searchBtn">搜索</a>
        	  	</div>
             <%--<div class="recommendDiv"><span>推荐搜索：</span><a href="#">大屏拼接</a>  <a href="#">数字标牌</a>  <a href="#">PVC</a>  <a href="#">LED</a>  <a href="#">印刷</a></div>--%>
         </div>

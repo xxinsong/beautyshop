@@ -1,9 +1,13 @@
 package com.qimeng.bs.admin.goods.controller;
 
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.qimeng.bs.login.bean.AdminLoginInfo;
+import org.apache.commons.lang3.time.DateUtils;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,15 +52,17 @@ public class DmGoodsController extends GenericController {
     }
 
     @RemoteMethod
-    public Map<String, Object> addAction(DmGoods good) {
+    public Map<String, Object> addAction(DmGoods good) throws Exception {
         Map<String, Object> ret = new HashMap<String, Object>();
         ret.put("success", true);
         ret.put("msg", "添加成功");
-        LoginInfo loginInfo = getCurrentLoginUser();
-        if (loginInfo != null && !StringUtils.isEmpty(loginInfo.getLogonName())) {
-            good.setCreateStaff(loginInfo.getLogonName());
+        AdminLoginInfo loginInfo = getCurrentLoginAdmin();
+        if (loginInfo != null && !StringUtils.isEmpty(loginInfo.getStaffName())) {
+            good.setCreateStaff(loginInfo.getStaffName());
         }
         good.setCreateDate(new Date());
+        good.setEffDate(new Date());
+        good.setExpDate(DateUtils.parseDate("2099-12-31", "yyyy-MM-dd"));
         if ("00A".equals(good.getState())) {//上架时间
             good.setPutawayTime(new Date());
         }
@@ -65,7 +71,7 @@ public class DmGoodsController extends GenericController {
     }
 
     @RemoteMethod
-    public Map<String, Object> updateAction(DmGoods good) {
+    public Map<String, Object> updateAction(DmGoods good) throws Exception {
         Map<String, Object> ret = new HashMap<String, Object>();
         ret.put("success", true);
         ret.put("msg", "更新成功");

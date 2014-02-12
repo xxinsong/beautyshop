@@ -216,7 +216,7 @@
   </select>
   
   <select id="searchMenus" resultMap="BaseResultMap" parameterType="java.util.Map">
-        select * from dm_menu where 1 = 1
+        select * from dm_menu where 1 = 1 and state = '00A'
       <if test="parentMenu != null" >
         and PARENT_MENU = #{parentMenu}
       </if>
@@ -228,6 +228,7 @@
          and a.privilege_id = c.privilege_id
          and a.type = 'MENU'
          and b.parent_menu = #{parentMenu}
+         and b.state = '00A'
       <if test="privIds != null and privIds.size() > 0">
 			and a.privilege_id in
 			<foreach item="item" index="index" collection="privIds" open="(" separator="," close=")">
@@ -243,6 +244,7 @@
          and b.role_id = d.role_id
          and a.type = 'MENU'
          and c.parent_menu = #{parentMenu}
+         and c.state = '00A'
       <if test="privIds != null and privIds.size() > 0">
 			and a.privilege_id in
 			<foreach item="item" index="index" collection="privIds" open="(" separator="," close=")">

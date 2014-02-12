@@ -15,8 +15,8 @@
         <result column="TYPE" jdbcType="VARCHAR" property="type"/>
         <result column="IMAGE_URI" jdbcType="VARCHAR" property="imageUri"/>
         <result column="SALE_WAY" jdbcType="VARCHAR" property="saleWay"/>
-        <result column="PRICE" jdbcType="REAL" property="price"/>
-        <result column="ORI_PRICE" jdbcType="REAL" property="oriPrice"/>
+        <result column="PRICE" jdbcType="FLOAT" property="price"/>
+        <result column="ORI_PRICE" jdbcType="FLOAT" property="oriPrice"/>
         <result column="STATE" jdbcType="VARCHAR" property="state"/>
         <result column="CREATE_STAFF" jdbcType="VARCHAR" property="createStaff"/>
         <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
@@ -73,8 +73,8 @@
         VIEW_COUNT, HINTS)
         values (#{goodsId,jdbcType=INTEGER}, #{catalogId,jdbcType=INTEGER}, #{goodsNo,jdbcType=VARCHAR},
         #{goodsName,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
-        #{imageUri,jdbcType=VARCHAR}, #{saleWay,jdbcType=VARCHAR}, #{price,jdbcType=REAL},
-        #{oriPrice,jdbcType=REAL}, #{state,jdbcType=VARCHAR}, #{createStaff,jdbcType=VARCHAR},
+        #{imageUri,jdbcType=VARCHAR}, #{saleWay,jdbcType=VARCHAR}, #{price,jdbcType=FLOAT},
+        #{oriPrice,jdbcType=FLOAT}, #{state,jdbcType=VARCHAR}, #{createStaff,jdbcType=VARCHAR},
         #{createDate,jdbcType=TIMESTAMP}, #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP},
         #{putawayTime,jdbcType=TIMESTAMP}, #{goodsDesc,jdbcType=VARCHAR}, #{goodsProps,jdbcType=VARCHAR},
         #{viewCount,jdbcType=INTEGER}, #{hints,jdbcType=VARCHAR})
@@ -174,10 +174,10 @@
                 #{saleWay,jdbcType=VARCHAR},
             </if>
             <if test="price != null">
-                #{price,jdbcType=REAL},
+                #{price,jdbcType=FLOAT},
             </if>
             <if test="oriPrice != null">
-                #{oriPrice,jdbcType=REAL},
+                #{oriPrice,jdbcType=FLOAT},
             </if>
             <if test="state != null">
                 #{state,jdbcType=VARCHAR},
@@ -241,10 +241,10 @@
                 SALE_WAY = #{saleWay,jdbcType=VARCHAR},
             </if>
             <if test="price != null">
-                PRICE = #{price,jdbcType=REAL},
+                PRICE = #{price,jdbcType=FLOAT},
             </if>
             <if test="oriPrice != null">
-                ORI_PRICE = #{oriPrice,jdbcType=REAL},
+                ORI_PRICE = #{oriPrice,jdbcType=FLOAT},
             </if>
             <if test="state != null">
                 STATE = #{state,jdbcType=VARCHAR},
@@ -293,8 +293,8 @@
         TYPE = #{type,jdbcType=VARCHAR},
         IMAGE_URI = #{imageUri,jdbcType=VARCHAR},
         SALE_WAY = #{saleWay,jdbcType=VARCHAR},
-        PRICE = #{price,jdbcType=REAL},
-        ORI_PRICE = #{oriPrice,jdbcType=REAL},
+        PRICE = #{price,jdbcType=FLOAT},
+        ORI_PRICE = #{oriPrice,jdbcType=FLOAT},
         STATE = #{state,jdbcType=VARCHAR},
         CREATE_STAFF = #{createStaff,jdbcType=VARCHAR},
         CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
@@ -328,8 +328,34 @@
         from dm_goods good
         <include refid="Where_Clause"/>
     </select>
-    <select id="findAllGoods" resultType="com.qimeng.bs.admin.goods.bean.DmGoods">
-
+    <select id="findAllGoods" parameterType="com.qimeng.common.Page" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from dm_goods good
+        <if test="params.packageId != null and params.packageId != ''">
+            inner join (select * from DM_PACKAGE_DETAIL where PACKAGE_ID=#{packageId}) pac_detail
+            on good.GOODS_ID = pac_detail.GOODS_ID
+        </if>
+        <if test="params.merchantId!= null and params.merchantId!= ''">
+            inner join (select * from  dm_consultation where MERCHANT_ID=#{merchantId}  GROUP BY GOODS_ID) consult
+            on good.GOODS_ID = consult.GOODS_ID
+        </if>
+        <trim prefix="where" prefixOverrides="AND |OR">
+            <if test="params.goodsName != null and params.goodsName != ''">AND good.GOODS_NAME like CONCAT('%', #{goodsName}, '%')</if>
+            <if test="params.type != null and params.type != ''">AND good.TYPE = #{type}</if>
+            <if test="params.goodsId != null and params.goodsId != ''">AND good.GOODS_ID = #{goodsId}</if>
+            <if test="params.catalogId != null and params.catalogId != ''">AND good.CATALOG_ID = #{catalogId}</if>
+            <if test="params.excludePackageId !=null and params.excludePackageId !=''">
+                AND NOT EXISTS (
+                SELECT * FROM DM_PACKAGE_DETAIL
+                WHERE PACKAGE_ID = #{excludePackageId} AND GOODS_ID = good.GOODS_ID)
+            </if>
+            <if test="params.excludeAdExist !=null and params.excludeAdExist !=''">
+                AND NOT EXISTS (
+                SELECT * FROM DM_ADVERTISEMENT
+                WHERE  GOODS_ID = good.GOODS_ID)
+            </if>
+        </trim>
     </select>
 
 </mapper>

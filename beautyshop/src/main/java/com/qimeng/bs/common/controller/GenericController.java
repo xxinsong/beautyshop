@@ -3,6 +3,7 @@ package com.qimeng.bs.common.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import com.qimeng.common.web.ApplicationContextUtil;
 import com.qimeng.bs.common.exception.LoginException;
 import com.qimeng.bs.market.goods.ShoppingCart;
@@ -45,5 +46,9 @@ public class GenericController {
     protected ShoppingCart getShoppingCart()     {
     	 return ApplicationContextUtil.getShoppingCart( );
        
+    }
+
+    protected AdminLoginInfo getCurrentLoginAdmin() throws LoginException {
+        return ApplicationContextUtil.getCurrentLoginAdmin( );
     }
 }

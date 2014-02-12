@@ -20,4 +20,6 @@ public interface GoodsMapper {
 	public List<Map> searchHotGoods(Map params);
 	
 	public List<Map> searchGoodsCatalogs(Map params);
+
+    public List<Map> searchAdGoods(Map params);
 }

@@ -1,7 +1,11 @@
 package com.qimeng.bs.admin.goods.dao;
 
-import com.qimeng.bs.admin.goods.bean.DmGoodsPlan;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import com.qimeng.common.Page;
+import com.qimeng.bs.admin.goods.bean.DmGoodsPlan;
 
 @Repository
 public interface DmGoodsPlanMapper {
@@ -54,4 +58,10 @@ public interface DmGoodsPlanMapper {
     int updateByPrimaryKey(DmGoodsPlan record);
 
     DmGoodsPlan selectActiveGoodsPlan(String goodsId);
+    
+    List<DmGoodsPlan> findGoodsPlan(Object params);
+    
+    void batchUpdateState(DmGoodsPlan record);
+    
+    List<DmGoodsPlan> findAllGoodsPlan(Page<DmGoodsPlan> page);
 }
