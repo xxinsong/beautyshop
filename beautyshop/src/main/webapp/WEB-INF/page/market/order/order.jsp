@@ -11,6 +11,7 @@
     <title></title>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
     <script type="text/javascript" src="<%=path%>/market/order/js/order.js"></script>
+    <script type="text/javascript" src="<%=path%>/public/jquery/jquery.cxselect.min.js"></script>
 </head>
 <body>
 <script>
@@ -19,7 +20,7 @@
 <div class="header">
     <jsp:include page="../main/topnav.jsp" flush="true"/>
     <div class="wrap" style="z-index:1000;">
-        <div class="cart_logo"></div>
+        <div class="cart_logo" style="cursor: pointer;"></div>
         <div class="progress">
             <ul class="progress-2">
                 <li class="step-1"><b></b>1.我的购物车</li>
@@ -46,9 +47,11 @@
     <div class="step_title">
         <div class="step_right"></div>
         <strong>收货人信息</strong>
-        <%--<span class="step_action" style="display: inline;"><a style="color:#005EA7;" href="#none">[保存]</a></span>--%>
+        <span class="step_action" style="display: inline;">
+            <a id="btnAddContact" style="color:#005EA7;">[添加新地址]</a>
+        </span>
     </div>
-    <div class="step_content">
+    <div class="step_content" id="contact_view" style="display: none;">
         <div class="sbox_wrap consignee">
             <div class="sbox">
                 <div class="form">
@@ -58,11 +61,18 @@
 
                             </label>
                         </div>
-                        <div style="display:block" class="invoice_note">备注：此账户订单的发票将邮寄到该地址。</div>
+                        <%--<div style="display:block" class="invoice_note">备注：此账户订单的发票将邮寄到该地址。</div>--%>
 
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="step_content" id="contact_edit">
+        <div class="part_invoice sbox_wrap">
+            <div class="sbox" id="contact_list_div">
+
             </div>
         </div>
     </div>
@@ -83,7 +93,7 @@
                             <label >在线支付</label>
                         </div>
                         <div class="field">
-                            <span class="tip">即时到帐，支持绝大数银行借记卡及部分银行信用卡</span>
+                            <span class="tip">由第三方担保交易。</span>
                         </div>
                         <span class="clr"></span>
                     </div>
@@ -232,8 +242,8 @@
                                         <tr>
                                             <td class="fore1">
                                                 <div class="p_goods">
-                                                    <div class="p_img"><a target="_blank" href="#"><img
-                                                            src="<%=path%>/market/main/images/pic01.jpg" alt=""></a></div>
+                                                    <div class="p_img"><a name="goodsImage" target="_blank" href="javascript:void(0)"><img
+                                                            name="goodsImageUrl" src="" alt=""></a></div>
                                                     <div class="p_detail">
                                                         <div class="p_name">
                                                             <a name="goodsName" target="_blank" href="javascript:void(0)">
@@ -284,11 +294,12 @@
             <input type="hidden" name="mode" value="${mode}"/>
             <input type="hidden" name="orderId" value="${orderId}"/>
             <input type="hidden" name="orderNo" value="${orderNo}"/>
-            <input type="hidden" name="amount" value="${amount}"/>
+            <input type="hidden" id="amount" name="amount" value="${amount}"/>
             <input type="hidden" name="paymentType" value="1"/>
             <input type="hidden" name="invoiceType" value="${invoiceType}"/>
             <input type="hidden" name="invoiceNotes" value="${invoiceNotes}"/>
             <input type="hidden" name="invoiceDetail" value="${invoiceDetail}"/>
+            <input type="hidden" id="contactInfo" name="contactInfo" value="${contactInfo}"/>
             <input type="hidden" name="token" value="${token}"/>
         </form>
         <div class="checkout_buttons group">
@@ -304,6 +315,54 @@
 </div>
 </div>
 </div>
+</div>
+
+<div class="trans_div" style="display: none;"></div>
+<div class="login_pop" style="width:508px;display: none;" id="editAddressDiv">
+    <h2>新增地址<a href="javascript: void(0)" class="pop_close">关闭</a></h2>
+
+    <div class="login_pop_table">
+        <table width="60%" border="0" cellspacing="0" cellpadding="0" class="form_table" style="margin: 0px auto;">
+            <tr>
+                <th style="width: 50px;">收货人：</th>
+                <td><input type="text" name="contactPerson" value="" class="ui_ipt bold" style="width: 200px;"
+                           nullable="false" max_length="40"/></td>
+            </tr>
+            <tr>
+                <th style="width: 50px;">电话：</th>
+                <td><input type="text" name="mobilePhone" value=""  class="ui_ipt bold" style="width: 200px;"
+                           nullable="false" max_length="11" valid_type="mobile"/></td>
+            </tr>
+            <tr>
+                <th style="width: 50px;">地址：</th>
+                <td id="selectaddress">
+                    <select name="province" data-val="${LOGIN_INFO.provinceCode}" class="province">
+                    </select>
+                    <select name="city" data-val="${LOGIN_INFO.cityCode}" class="city">
+                    </select>
+                    <select name="district" data-val="${LOGIN_INFO.districtCode}" class="area">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 80px;">详细地址：</th>
+                <td><input type="text" name="address" value="" class="ui_ipt bold" style="width: 210px;"
+                           nullable="false" max_length="100"/></td>
+            </tr>
+            <tr>
+                <th style="width: 50px;">邮编：</th>
+                <td><input type="text" name="zipCode" value="" class="ui_ipt bold" style="width: 200px;"
+                           nullable="false" max_length="6" valid_type="numOnly"/>
+                    <input type="hidden" name="isDefault" value=""/>
+                    <input type="hidden" name="id" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><a id="btnSubmitAddress" href="javascript: void(0)"
+                                                               class="orangebtn_m"><span>提交</span></a></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <jsp:include page="../main/footer.jsp" flush="true"></jsp:include>
 </body>

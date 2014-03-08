@@ -158,4 +158,22 @@
         where tt.adlevel = #{adLevel}
         order by tt.adorder desc limit 0, 5
     </select>
+    <select id="getAllGoodsList" resultMap="GoodsPageMap">
+      select
+        <include refid="dm_goods_column_list" />
+      from DM_GOODS
+      <![CDATA[
+      WHERE EXP_DATE > now() and EFF_DATE < now() and STATE = "00A"
+      ]]>
+      order by create_date desc
+    </select>
+    <select id="getGoodsById" resultMap="GoodsPageMap" parameterType="java.lang.Integer">
+        select
+        <include refid="dm_goods_column_list" />
+        from DM_GOODS
+        <![CDATA[
+        WHERE EXP_DATE > now() and EFF_DATE < now() and STATE = "00A" and goods_id = #{goodsId}
+        ]]>
+        order by create_date desc
+    </select>
 </mapper>

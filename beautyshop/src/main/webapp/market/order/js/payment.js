@@ -42,6 +42,10 @@ $(function(){
     $("#goShoppingCart").on('click',function(){
         window.location.href=commonJs.getWebPath()+"/market/cart/mycart";
      });
+
+    $(".cart_logo").click(function() {
+        location = commonJs.getWebPath() + "/welcome";
+    });
 });
 
 function goodsInstRowRender(data,context){
@@ -62,12 +66,12 @@ function loadGoodsInstList(){
 }
 
 function submitPay(){
-	var bankId = $("input[name='RadioGroup1']:checked").val();
+	/*var bankId = $("input[name='RadioGroup1']:checked").val();
 	if(bankId == null) {
 		alert("请选择银行！");
 		return;
 	}
-	$("#bankId").val(bankId);
+	$("#bankId").val(bankId);*/
     $("#form_pay").submit();
     $("#pay_result").show();
     $(".trans_div").show();

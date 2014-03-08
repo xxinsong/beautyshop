@@ -59,7 +59,7 @@
             </table>
         </div>
         <div class="proBuy">
-            <ul class="proBuyList">
+            <%--<ul class="proBuyList">
 
                 <li>
                     <div class="dt">购买标签：</div>
@@ -73,10 +73,12 @@
 
             <div class="filer_list" style="height: 50px">
 
-            </div>
+            </div>--%>
 
             <div class="proBuyBtn">
                 <a href="javascript:void(0);" class="tocart">加入购物车</a>
+                <%--<a href="javascript:void(0);" class="colectBtn" id="attention"><i class="addico"></i>加关注</a>--%>
+                <%--<a href="javascript:void(0);" class="colectBtn" id="myconsult"><i class="addico"></i>商品咨询</a>--%>
                 <%--<a href="javascript:void(0);" class="colectBtn"><i class="addico"></i>加关注</a>--%>
 
             </div>
@@ -143,6 +145,35 @@
         </div>
     </div>
 </div>
+    <%--<div class="content_pop" id="addConsult" style="width:508px;display: none;">
+        <h2>商品咨询<a href="#" class="pop_close" onclick="closeMyConsult()">关闭</a></h2>
+        <div class="login_pop_table">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+                <tr>
+                    <th><span name="consultImageUri"></span></th>
+                    <td><p class="pro_name" name="consultGoodsName">中兴手机U819 [陶瓷白]</p></td>
+                    <th>咨询类型：</th>
+                    <td>
+                        <select name="select" id="consultSelect" class="ui_select">
+                            <option value="1">产品相关</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>咨询内容：</th>
+                    <td colspan="3"><textarea name="textarea"  cols="45" rows="7" class="ui_txt" id="consultContent"></textarea></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="3" id="message"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="3"><a href="javascript:void(0);" class="orangebtn_m" onclick="submitMyConsult()"><span>提交我的咨询</span></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>--%>
 <jsp:include page="../comments/goodscomments.jsp"/>
 <jsp:include page="../main/footer.jsp" flush="true"></jsp:include>
 </body>

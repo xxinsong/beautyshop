@@ -3,6 +3,8 @@ package com.qimeng.bs.market.order.dao;
 import com.qimeng.bs.market.order.bean.DmTradeLog;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DmTradeLogMapper {
     /**
@@ -54,4 +56,7 @@ public interface DmTradeLogMapper {
     int updateByPrimaryKey(DmTradeLog record);
     
     DmTradeLog selectTradeLogByOrderId(Integer orderId);
+
+    List<DmTradeLog> getTradeLogByOrderNo(String orderNo);
+
 }

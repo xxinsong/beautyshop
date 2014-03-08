@@ -4,6 +4,7 @@ import com.qimeng.common.Page;
 import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.LoginInfo;
 import com.qimeng.bs.market.point.service.DmPointService;
+import org.apache.commons.collections.MapUtils;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,26 @@ public class DmPointController extends GenericController{
   private DmPointService dmPointService;
   
   @RemoteMethod
-  public Page selectCustPointList(Map params, int pageIndex, int pageSize){
+  public Page queryMyPoints(Map params, int pageIndex, int pageSize){
       LoginInfo currUser = getCurrentLoginUser();
-      params.put("merchantId", currUser.getMerchantId());
+      params.put("merchantId", currUser.getUserId());
       return dmPointService.selectCustPointList(params, pageIndex, pageSize);
   }
-  
+
+  @RemoteMethod
+  public Page queryAllPoints(Map params, int pageIndex, int pageSize){
+//      LoginInfo currUser = getCurrentLoginUser();
+//      params.put("merchantId", currUser.getMerchantId());
+      return dmPointService.queryAllPoints(pageIndex, pageSize);
+  }
+
+    @RemoteMethod
+    public boolean exchangePoints(Map params){
+//      LoginInfo currUser = getCurrentLoginUser();
+//      params.put("merchantId", currUser.getMerchantId());
+        return dmPointService.exchangePoints(MapUtils.getInteger(params,"userId"),MapUtils.getInteger(params,"points"));
+    }
+
   @RequestMapping("mypoint")
   public String listMyPoint(HttpServletRequest request){
       return "/market/point/mypoint.jsp";

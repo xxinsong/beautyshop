@@ -58,13 +58,13 @@ public class ImageUploadController extends GenericController{
 		Image img = ImageIO.read(gfile.getInputStream());
 		Integer uploadImagW = img.getWidth(null);
 		Integer uploadImagH = img.getHeight(null);
-		if(uploadImagW.compareTo(goodImageW)!=0||uploadImagH.compareTo(goodImageH)!=0){
+		/*if(uploadImagW.compareTo(goodImageW)!=0||uploadImagH.compareTo(goodImageH)!=0){
 			retJson.put("success", "false");
 			retJson.put("msg", "上传图片高度/宽度不正确，正确高宽比例 :"+goodImageH+"/"+goodImageW);
-		}else{
+		}else{*/
 			retJson.put("msg", "上传成功");
 			retJson.put("remoteImgPath", dmGoodsService.updateImageUri(good, gfile));
-		}
+//		}
 		return new ResponseEntity<String>(retJson.toString(), headers, HttpStatus.OK);
 	}
 	
@@ -84,13 +84,13 @@ public class ImageUploadController extends GenericController{
 		Image img = ImageIO.read(adfile.getInputStream());
 		Integer uploadImagW = img.getWidth(null);
 		Integer uploadImagH = img.getHeight(null);
-		if(uploadImagW.compareTo(adImageW)!=0||uploadImagH.compareTo(adImageH)!=0){
+		/*if(uploadImagW.compareTo(adImageW)!=0||uploadImagH.compareTo(adImageH)!=0){
 			retJson.put("success", "false");
 			retJson.put("msg", "上传失败-上传图片高度/宽度不正确，正确高宽比例 :"+adImageH+"/"+adImageW);
-		}else{
+		}else{*/
 			retJson.put("msg", "上传成功");
 			retJson.put("remoteImgPath", dmAdvertisementService.updateImageUrl(ad, adfile));
-		}
+//		}
 		headers.set("Content-Type", "text/html; charset=UTF-8");
 		return new ResponseEntity<String>(retJson.toString(), headers, HttpStatus.OK);
 	}
@@ -110,7 +110,7 @@ public class ImageUploadController extends GenericController{
     DmMerchant userMerchant = dmMerchantService.findMerchantByUserId(logon.getUserId());
     if(userMerchant==null){
       retJson.put("success", "false");
-      retJson.put("msg", "上传失败-当前账户不存在商户信息");
+      retJson.put("msg", "上传失败-当前账户不存在用户信息");
     }else{
       retJson.put("remoteImgPath", dmMerchantService.updateLicenseUri(userMerchant, mffile));
     }

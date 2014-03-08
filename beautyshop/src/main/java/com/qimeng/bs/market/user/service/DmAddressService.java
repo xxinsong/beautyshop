@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,11 @@ public class DmAddressService {
         return page;
     }
 
+    public List<DmAddress> selectAllAddressList(Integer merchantId) {
+        List<DmAddress> list = dmAddressMapper.selectAllByMerchantId(merchantId);
+        return list;
+    }
+
     @Transactional
     public void setDefaultAddress(Map params) {
         dmAddressMapper.changeDefaultAddress(params);
@@ -39,14 +45,21 @@ public class DmAddressService {
         dmAddressMapper.deleteByPrimaryKey(id);
         if(isDefault.intValue()==1){
             DmAddress firstAddress = dmAddressMapper.selectFirstAddess(merchantId);
-            firstAddress.setIsDefault("1");
-            dmAddressMapper.updateByPrimaryKeySelective(firstAddress);
+            if(firstAddress!=null){
+                firstAddress.setIsDefault("1");
+                dmAddressMapper.updateByPrimaryKeySelective(firstAddress);
+            }
         }
 
     }
     @Transactional
     public void saveAddress(DmAddress address) {
         Integer id = address.getId();
+        if("1".equals(address.getIsDefault())){
+            Map params = new HashMap();
+            params.put("merchantId", address.getMerchantId());
+            dmAddressMapper.changeDefaultAddress(params);
+        }
         if(id!=null) {
             dmAddressMapper.updateByPrimaryKeySelective(address);
         }else {

@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qimeng.bs.market.user.bean.DmAddress;
+import com.qimeng.bs.market.user.bean.RegisterInfo;
 import org.directwebremoting.annotations.RemoteProxy;
+import org.jboss.resteasy.annotations.Form;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -18,8 +23,14 @@ import com.qimeng.bs.market.user.service.DmUserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 @Controller
 @RemoteProxy
+@Path("/rs")
 @SuppressWarnings("unchecked")
 public class DmUserController extends GenericController {
 
@@ -51,7 +62,27 @@ public class DmUserController extends GenericController {
 		}
 		return result;
 	}
-	
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("register")
+    public String appRegister(@Form RegisterInfo registerInfo) throws JSONException {
+        Map param = new HashMap();
+        param.put("logon_name",registerInfo.getLogon_name());
+        param.put("user_name", registerInfo.getUser_name());
+        param.put("passwd",registerInfo.getPasswd());
+        param.put("referrerMobileNo", registerInfo.getReferrerMobileNo());
+
+        Map retMap = insertUser(param);
+        JSONObject result = new JSONObject();
+        if ("0".equals(Const.getStrValue(retMap, "flag"))) {
+            result.put("success", true);
+        }else{
+            result.put("success", false);
+            result.put("reason",Const.getStrValue(retMap,"reason"));
+        }
+        return result.toString();
+    }
+
 	/*public String getVerificCode() {
 		String verificCode = dmUserService.getVerificCode();
 		setSessionAttribute("s_verificCode", verificCode);
@@ -110,21 +141,21 @@ public class DmUserController extends GenericController {
         LoginInfo loginInfo = getCurrentLoginUser();
         if (loginInfo == null)
             return 0;
-        Integer merchantId = loginInfo.getMerchantId();
-        return dmUserService.queryMyEffPoint(merchantId);
+        Integer userId = loginInfo.getUserId();
+        return dmUserService.queryMyEffPoint(userId);
     }
 
     /**
      * 用户待营销
      */
-    public int queryUserActivity() {
+    /*public int queryUserActivity() {
         LoginInfo loginInfo = getCurrentLoginUser();
         if (loginInfo == null) {
             return 0;
         }
         Integer merchantId = loginInfo.getMerchantId();
         return dmUserService.queryUserActivity(merchantId);
-    }
+    }*/
 
     /**
      * 用户待支付
@@ -137,6 +168,17 @@ public class DmUserController extends GenericController {
         Integer merchantId = loginInfo.getMerchantId();
         return dmUserService.queryBePaid(merchantId);
     }
+    /**
+     * 已发货
+     */
+    public int queryDeliver() {
+        LoginInfo loginInfo = getCurrentLoginUser();
+        if (loginInfo == null) {
+            return 0;
+        }
+        Integer merchantId = loginInfo.getMerchantId();
+        return dmUserService.queryDeliver(merchantId);
+    }
 
     @RequestMapping("/setting/account")
     public ModelAndView userInfoPage(){
@@ -147,8 +189,10 @@ public class DmUserController extends GenericController {
         return new ModelAndView("/market/main/register.jsp");
     }
 
+
+
     //下面涉及的是安全设置
-    @RequestMapping("/security")
+    @RequestMapping("/setting/security")
     public String UserSecurity(){
         return "/market/security/security.jsp";
     }
@@ -164,9 +208,9 @@ public class DmUserController extends GenericController {
 
     @SuppressWarnings("rawtypes")
     public Map updateUserReg(Map param) {
-        if (!(param.get("type").equals("ques_yz"))) {
+        /*if (!(param.get("type").equals("ques_yz"))) {
             param.put("s_yzCode", getSessionAttribute("s_verificCode"));
-        }
+        }*/
         param.put("userId",getCurrentLoginUser().getUserId());
         param.put("logonName",getCurrentLoginUser().getLogonName());
         Map result=dmUserService.updateUserReg(param);

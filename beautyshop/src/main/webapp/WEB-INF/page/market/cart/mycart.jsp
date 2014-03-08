@@ -60,7 +60,7 @@
                             <input type="checkbox" checked="" value="" price="" name="checkItem" class="checkbox">
                         </div>
                         <div class="cell p_goods">
-                            <div class="p_img"><a name="goodsImage" href="#"><img alt="" src=""></a></div>
+                            <div class="p_img"><a name="goodsImage" href="#"><img name="goodsImageUrl" alt="" src=""></a></div>
                             <div class="p_name"><a name="goodsName" href="javascript:void(0)"></a><span class="promise411"></span></div>
                         </div>
                         <div class="cell p_price"><span class="price" name="price">¥0</span></div>

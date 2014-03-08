@@ -5,14 +5,14 @@ $(function() {
     queryUserMsg();
 
     $("#availableGoods").on('click',function(){
-//        window.location.href=commonJs.getWebPath()+"/"
+        window.location.href=commonJs.getWebPath()+"/order?state=processing";
     });
     $("#waitForPay").on('click',function(){
         window.location.href=commonJs.getWebPath()+"/order?state=processing";
     });
-    $("#waitForComment").on('click',function(){
+    /*$("#waitForComment").on('click',function(){
         window.location.href=commonJs.getWebPath()+"/order?state=done";
-    });
+    });*/
 })
 
 var delay = {
@@ -139,18 +139,18 @@ function queryUserMsg(){
         var myPoints = reply.getResult();
         $("[name='userPoint']", "#quick_user_div").html(myPoints);
     });
-    Ajax.getAsy().remoteCall("DmUserController", "queryUserActivity",[], function(reply) {
+    /*Ajax.getAsy().remoteCall("DmUserController", "queryUserActivity",[], function(reply) {
         var myActivity = reply.data;
         $("[name='userActivity']").html(myActivity);
-    });
+    });*/
     Ajax.getAsy().remoteCall("DmUserController", "queryUserBePaid",[], function(reply) {
         var userBePaid = reply.data;
         $("[name='userBePaid']").html(userBePaid);
     });
-//	Ajax.getAsy().remoteCall("DmUserController","queryUser",[],function(repiy){
-//		var userBePaid = reply.data;
-//		$("[name='userBePaid']").html(userBePaid);
-//	});
+	Ajax.getAsy().remoteCall("DmUserController","queryDeliver",[],function(reply){
+		var deliver = reply.data;
+		$("[name='deliver']").html(deliver);
+	});
 }
 
 function getMiniImage(uri){

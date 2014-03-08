@@ -17,11 +17,12 @@
     <!-- 登录拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/order/**"/>
-            <mvc:mapping path="/payment/**"/>
-            <mvc:mapping path="/setting/**"/>
-            <mvc:mapping path="/mycare/**"/>
-            <mvc:mapping path="/message/**"/>
+            <mvc:mapping path="/order/*"/>
+            <mvc:mapping path="/payment/*"/>
+            <mvc:mapping path="/pay/*"/>
+            <mvc:mapping path="/setting/*"/>
+            <mvc:mapping path="/mycare/*"/>
+            <mvc:mapping path="/message/*"/>
             <bean class="com.qimeng.common.interceptor.LoginAnnotationInterceptor"></bean>
         </mvc:interceptor>
         <!-- 配置Token拦截器，防止用户重复提交数据 -->

@@ -177,3 +177,6 @@ body{font-size:12px;}
 .logout { display: inline-block;*display: inline;*zoom: 1;width: 30px;height: 34px;margin-left: 15px;margin-top: 9px;overflow: hidden;position: relative; }
 .logout i { display: inline-block;*display: inline;*zoom: 1;width: 50px;height: 50px;background: url(../images/logout.png) no-repeat;position: absolute;top: -10px;left: -10px; }
 a.logout:hover i { background-image: url(../images/logout_hover.png); }
+.modifypassword { display: inline-block;*display: inline;*zoom: 1;width: 30px;height: 34px;margin-left: 15px;margin-top: 9px;overflow: hidden;position: relative; }
+.modifypassword i { display: inline-block;*display: inline;*zoom: 1;width: 32px;height: 32px;background: url(../images/leftmenuico10_curr.png) no-repeat;position: absolute;top: 0px;left: 0px; }
+a.modifypassword:hover i { background-image: url(../images/leftmenuico10.png); }

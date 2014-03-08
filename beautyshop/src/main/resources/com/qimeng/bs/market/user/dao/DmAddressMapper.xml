@@ -51,6 +51,13 @@
         where merchant_id = #{merchantId,jdbcType=INTEGER}
         limit 1
     </select>
+    <select id="selectAllByMerchantId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from dm_address
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+        order by is_default desc
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

@@ -24,12 +24,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RemoteProxy
+@Path("/rs")
 public class UserLoginController extends GenericController {
     @Autowired
     private UserLoginService userLoginservice;
@@ -52,6 +59,16 @@ public class UserLoginController extends GenericController {
         return "redirect:/welcome";
     }
 
+    @PUT
+    @Path("logout")
+    public void appLogout(){
+        HttpSession session = getSession(false);
+        if (session != null) {
+            session.removeAttribute(Constants.LOGIN_INFO);
+            session.removeAttribute(Constants.CAR_INFO);
+        }
+    }
+
     @RequestMapping("/welcome")
     public String mainpage(HttpServletRequest request) {
         return "/market/main/main.jsp";
@@ -62,6 +79,14 @@ public class UserLoginController extends GenericController {
         return "/market/main/login.jsp";
     }
 
+    @PUT
+    @Path("login/{login_name}:{passwd}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String appLogin(@PathParam("login_name") String logonName, @PathParam("passwd") String pwd){
+        JSONObject result = loginAction(logonName,pwd,"");
+        return result.toString();
+    }
+
     @RequestMapping(value = "/login/doLogin",produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public String doLogin(HttpServletRequest request) {
@@ -70,8 +95,15 @@ public class UserLoginController extends GenericController {
         loginRequest.setLogonName(request.getParameter("logon_name"));
         loginRequest.setPasswd(request.getParameter("passwd"));
 
-        UserLoginRespond loginRespond = userLoginservice.login(loginRequest);
+        JSONObject json = loginAction(request.getParameter("logon_name"),request.getParameter("passwd"),from);
+        return json.toString();
+    }
 
+    private JSONObject loginAction(String logon_name, String passwd,String from) {
+        UserLoginRequest loginRequest = new UserLoginRequest();
+        loginRequest.setLogonName(logon_name);
+        loginRequest.setPasswd(passwd);
+        UserLoginRespond loginRespond = userLoginservice.login(loginRequest);
         if (loginRespond.isSuccess()) {
             //  登录成功，初始化session
             initSession(loginRespond.getDmUser());
@@ -87,7 +119,7 @@ public class UserLoginController extends GenericController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return json.toString();
+        return json;
     }
 
     private void saveLoginFailureLog(UserLoginRespond loginRespond) {

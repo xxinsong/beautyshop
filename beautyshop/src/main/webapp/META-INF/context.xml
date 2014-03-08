@@ -1,4 +1,4 @@
-<Context path="/bs" docBase="beautyshop" debug="99"  reloadable="false"
+<Context path="" docBase="beautyshop" debug="99"  reloadable="false"
          antiJARLocking="false" antiResourceLocking="false" allowLinking="true">
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
 

@@ -84,14 +84,14 @@ function tabShow(menuList){
 		return "";
 	}
 	for ( var i = 0; i < menuList.length; i++) {
-		if( menuList[i].menuName=="咨询管理"||menuList[i].menuName=="标签管理"||menuList[i].menuName=="商品管理"||menuList[i].menuName=="商户管理"||menuList[i].menuName=="广告管理"||menuList[i].menuName=="商品定价管理"|| menuList[i].menuName=="发票管理"||menuList[i].menuName=="消息管理"){
+		if( menuList[i].menuName=="返利管理"/*||menuList[i].menuName=="标签管理"*/||menuList[i].menuName=="商品管理"||menuList[i].menuName=="商户管理"||menuList[i].menuName=="广告管理"|| menuList[i].menuName=="发货管理"||menuList[i].menuName=="消息管理"){
 			var img="";
-			if( menuList[i].menuName=="咨询管理"){
-				img="icon01.png";
+			if( menuList[i].menuName=="返利管理"){
+				img="icon06.png";
 			}
-			if( menuList[i].menuName=="标签管理"){
+			/*if( menuList[i].menuName=="标签管理"){
 				img="icon02.png";
-			}
+			}*/
 			if( menuList[i].menuName=="商品管理"){
 				img="icon03.png";
 			}
@@ -101,10 +101,10 @@ function tabShow(menuList){
 			if( menuList[i].menuName=="广告管理"){
 				img="icon05.png";
 			}
-			if( menuList[i].menuName=="商品定价管理"){
+			/*if( menuList[i].menuName=="商品定价管理"){
 				img="icon06.png";
-			}
-			if( menuList[i].menuName=="发票管理"){
+			}*/
+			if( menuList[i].menuName=="发货管理"){
 				img="icon07.png";
 			}
 			if( menuList[i].menuName=="消息管理"){

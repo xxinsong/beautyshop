@@ -64,4 +64,6 @@ public interface DmAddressMapper {
     void setDefaultAddress(Map params);
 
     DmAddress selectFirstAddess(Integer merchantId);
+
+    List<DmAddress> selectAllByMerchantId(Integer merchantId);
 }

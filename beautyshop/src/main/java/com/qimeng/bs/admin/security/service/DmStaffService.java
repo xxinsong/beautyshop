@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.qimeng.common.tools.PasswordEncoder;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,5 +110,22 @@ public class DmStaffService {
 		params.put("roleId", ADMIN_ROLE_ID);
 		return dmstaffMapper.searchStaffRole(params).size() > 0;
 	}
-	
+
+    public Map<String, Object> modifyPassword(Map params) {
+        String oldPsw = MapUtils.getString(params,"pass_old");
+        String newPsw = MapUtils.getString(params,"pass_new");
+        Integer staffId = MapUtils.getInteger(params, "staffId");
+        String staffCode = MapUtils.getString(params, "staffCode");
+
+        Map ret = new HashMap();
+        DmStaff dbStaff = dmstaffMapper.selectByPrimaryKey(staffId);
+        if(StringUtils.equals(dbStaff.getPassword(), PasswordEncoder.encode(oldPsw, staffCode))){
+            dbStaff.setPassword(PasswordEncoder.encode(newPsw, staffCode));
+            dmstaffMapper.updateByPrimaryKeySelective(dbStaff);
+            ret.put("flag", 0);
+        }else {
+            ret.put("flag", 3);
+        }
+        return ret;
+    }
 }

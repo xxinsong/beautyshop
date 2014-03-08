@@ -8,8 +8,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="library" content="easyui,internet,WdatePicker" />
 		<title></title>
-		<script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
-		<script type="text/javascript" src="js/payresult.js"></script>
+		<script type="text/javascript" src="<%=path%>/market/order/js/payresult.js"></script>
 	</head>
 	
 	<body>

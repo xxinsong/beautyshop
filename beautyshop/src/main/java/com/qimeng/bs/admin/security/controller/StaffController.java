@@ -3,6 +3,8 @@ package com.qimeng.bs.admin.security.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.qimeng.bs.common.controller.GenericController;
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import com.qimeng.bs.admin.security.service.DmStaffService;
 @Controller
 @RemoteProxy
 @SuppressWarnings("unchecked")
-public class StaffController {
+public class StaffController extends GenericController{
 
 	@Autowired
 	private DmStaffService dmStaffService;
@@ -71,5 +73,14 @@ public class StaffController {
 		ret.put("msg", "角色分配成功");
 		dmStaffService.attachRole(staff);
 		return ret;
-	} 
+	}
+
+    @RemoteMethod
+    public Map<String,Object> modifyPassword(Map params){
+        AdminLoginInfo currAdmin = getCurrentLoginAdmin();
+        params.put("staffId", currAdmin.getStaffId());
+        params.put("staffCode", currAdmin.getStaffCode());
+        Map<String,Object> ret = dmStaffService.modifyPassword(params);
+        return ret;
+    }
 }

@@ -91,10 +91,17 @@ function loadGoodsInstList(params) {
 function goodsInstRowRender(data, context) {
     $("[name='checkItem']", context).val(data.goodsId);
     $("[name='checkItem']", context).attr("amount", data.amount);
+    /*$("[name='goodsImage']", context).attr("src",data.goodsName).on('click', function () {
+        window.location.href = commonJs.getWebPath() + "/product?id=" + data.goodsId;
+    });*/
+    $("[name='goodsImageUrl']",context).attr("src",data.goodsImage);
+    $("[name='goodsImage']",context).on('click', function () {
+        window.location.href = commonJs.getWebPath() + "/product?id=" + data.goodsId;
+    });
     $("[name='goodsName']", context).text(data.goodsName).on('click', function () {
         window.location.href = commonJs.getWebPath() + "/product?id=" + data.goodsId;
     });
-    ;
+
     $("[name='price']", context).text("￥" + data.price);
     $("[name='itemNo']", context).val(data.itemNo);
     $("[name='subtotal']", context).text("￥" + data.amount);
@@ -239,3 +246,13 @@ function loadTotalPrice(){
         }
     })
 }
+
+/*
+
+function getMiniImage(uri){
+    if(uri&&uri!=''){
+        var filePath = uri.substring(0,uri.lastIndexOf("."));
+        var subfix = uri.substring(uri.lastIndexOf("."));
+        return commonJs.getWebPath()+filePath+"_mini"+subfix;
+    }
+}*/

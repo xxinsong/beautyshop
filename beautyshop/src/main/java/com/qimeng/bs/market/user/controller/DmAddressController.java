@@ -8,6 +8,8 @@ import com.qimeng.common.Page;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.jboss.resteasy.annotations.Form;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +43,30 @@ public class DmAddressController extends GenericController {
         return null;
     }
 
+    @Path("address/default")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public DmAddress getDefaultAddress(){
+        LoginInfo currUser = getCurrentLoginUser();
+        if(currUser!=null) {
+            List<DmAddress> addresses = dmAddressService.selectAllAddressList(currUser.getMerchantId());
+            if(addresses!=null&&!addresses.isEmpty()) {
+                return addresses.get(0);
+            }
+        }
+        return null;
+    }
+
+    @Path("address/list")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<DmAddress> selectAllAddressList(){
+        LoginInfo currUser = getCurrentLoginUser();
+        if(currUser!=null) {
+            return dmAddressService.selectAllAddressList(currUser.getMerchantId());
+        }
+        return null;
+    }
 
     @Path("address/{id}")
     @GET
@@ -52,7 +79,7 @@ public class DmAddressController extends GenericController {
     @Path("address/default:{id}")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
-    public String setDefaultAddress(@PathParam("id") Integer id) {
+    public String setDefaultAddress(@PathParam("id") Integer id) throws JSONException {
         LoginInfo currUser = getCurrentLoginUser();
         if(currUser!=null) {
             Map params = new HashMap();
@@ -60,43 +87,53 @@ public class DmAddressController extends GenericController {
             params.put("id", id);
             dmAddressService.setDefaultAddress(params);
         }
-        return String.valueOf(true);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        return result.toString();
     }
 
     @Path("address/{id}:{isDefault}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
-    public String deleteAddress(@PathParam("id") Integer id,@PathParam("isDefault") Integer isDefault){
+    public String deleteAddress(@PathParam("id") Integer id,@PathParam("isDefault") Integer isDefault) throws JSONException {
         LoginInfo currUser = getCurrentLoginUser();
         if(currUser!=null) {
             dmAddressService.deleteAddress(currUser.getMerchantId(),id,isDefault);
         }
-        return String.valueOf(true);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        return result.toString();
     }
 
     @Path("address/add")
     @POST
     @Produces({MediaType.APPLICATION_JSON})
-    public String addAddress(@Form DmAddress address) {
+    public String addAddress(@Form DmAddress address) throws JSONException {
         if(address!=null){
             LoginInfo currUser = getCurrentLoginUser();
             address.setMerchantId(currUser.getMerchantId());
-            address.setIsDefault("0");
+            if("".equals(address.getIsDefault())){
+                address.setIsDefault("0");
+            }
             dmAddressService.saveAddress(address);
         }
-        return String.valueOf(true);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        return result.toString();
     }
     @Path("address/edit/{id}")
     @POST
     @Produces({MediaType.APPLICATION_JSON})
-    public String editAddress(@PathParam("id") Integer id,@Form DmAddress address) {
+    public String editAddress(@PathParam("id") Integer id,@Form DmAddress address) throws JSONException {
         if(address!=null){
             LoginInfo currUser = getCurrentLoginUser();
             address.setId(id);
             address.setMerchantId(currUser.getMerchantId());
             dmAddressService.saveAddress(address);
         }
-        return String.valueOf(true);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        return result.toString();
     }
 
 

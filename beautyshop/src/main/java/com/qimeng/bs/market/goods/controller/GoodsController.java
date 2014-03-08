@@ -1,5 +1,6 @@
 package com.qimeng.bs.market.goods.controller;
 
+import com.qimeng.bs.admin.goods.bean.DmGoods;
 import com.qimeng.common.Page;
 import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.LoginInfo;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -22,6 +28,7 @@ import java.util.Set;
 
 @Controller
 @RemoteProxy
+@Path("/rs/goods")
 @SuppressWarnings("unchecked")
 public class GoodsController extends GenericController{
 
@@ -102,4 +109,21 @@ public class GoodsController extends GenericController{
         }
         return new ModelAndView("/market/goods/search_product.jsp");
     }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("list")
+    public List<DmGoods> getGoodsList(){
+        List<DmGoods> goodsList = goodsService.getAllGoodsList();
+        return goodsList;
+    }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("{goodsId}")
+    public Map getGoodsById(@PathParam("goodsId") Integer goodsId){
+        Map goods = goodsService.getGoodsById(goodsId);
+        return goods;
+    }
+
 }

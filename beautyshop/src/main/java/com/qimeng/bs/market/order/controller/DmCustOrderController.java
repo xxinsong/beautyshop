@@ -2,6 +2,8 @@ package com.qimeng.bs.market.order.controller;
 
 import com.qimeng.bs.market.goods.bean.DmShoppingCartItem;
 import com.qimeng.bs.market.goods.service.DmShoppingCartService;
+import com.qimeng.bs.market.user.bean.DmAddress;
+import com.qimeng.bs.market.user.service.DmAddressService;
 import com.qimeng.common.Page;
 import com.qimeng.bs.market.goods.ShoppingCart;
 import com.qimeng.bs.common.controller.GenericController;
@@ -22,10 +24,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.*;
 
@@ -37,6 +37,8 @@ import java.util.*;
 @Controller
 @Path("/order")
 public class DmCustOrderController extends GenericController{
+    @Autowired
+    DmAddressService dmAddressService;
     @Autowired
     DmCustOrderService dmCustOrderService;
     @Autowired
@@ -73,63 +75,98 @@ public class DmCustOrderController extends GenericController{
         return dmCustOrderService.selectOrderGoodsInstList(params, pageIndex, pageSize);
     }
 
+    @POST
+    @Path("save")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String submitOrderFromApp(@Context HttpServletRequest request) throws JSONException {
+        DmCustOrder dmCustOrder = saveOrder(request);
+        JSONObject result = new JSONObject();
+        result.put("success", true);
+        result.put("orderNo", dmCustOrder.getOrderNo());
+        return result.toString();
+    }
+
     @SubmissionToken(remove = true)
     @RequestMapping("/order/submit")
     public String submitOrder(HttpServletRequest request){
+        DmCustOrder order = saveOrder(request);
+
+        request.setAttribute("orderId",order.getOrderId());
+        request.setAttribute("orderNo",order.getOrderNo());
+        request.setAttribute("amount",order.getAmount());
+        request.setAttribute("contactPerson",order.getRelaMan());
+        request.setAttribute("mobilePhone",order.getRelaTel());
+        request.setAttribute("address",order.getRelaProvince()+order.getRelaCity()+order.getRelaDistrict()+order.getRelaAddr());
+        request.setAttribute("zipCode",order.getZipCode());
+        return "forward:/payment";
+    }
+
+    private DmCustOrder saveOrder(HttpServletRequest request) {
         String mode = request.getParameter("mode");
         String orderId = request.getParameter("orderId");
         String paymentType = request.getParameter("paymentType");
         String invoiceType = request.getParameter("invoiceType");
         String invoiceNotes = request.getParameter("invoiceNotes");
         String invoiceDetail = request.getParameter("invoiceDetail");
+        String contactInfo = request.getParameter("contactInfo");
         String orderNo = request.getParameter("orderNo");
-
         LoginInfo currUser = getCurrentLoginUser();
+        if(StringUtils.isEmpty(orderNo)) {
+            orderNo = orderNoGenerator.genCode(OrderNoGenerator.OrderType.NORMAL, currUser.getMerchantId());
+        }
+        DmCustOrder order = null;
+
+        DmAddress address = dmAddressService.selectAddressById(Integer.valueOf(contactInfo));
 
         ShoppingCart cart = getShoppingCart();
+        if(StringUtils.equals(mode, "CREATE")){
+            order = new DmCustOrder();
+            order.setMerchantId(currUser.getMerchantId());
+            order.setAmount(cart.getBuyingAmount());
+            order.setRelaMan(address.getContactPerson());
+            order.setRelaTel(address.getMobilePhone());
+            order.setRelaProvince(address.getProvince());
+            order.setRelaCity(address.getCity());
+            order.setRelaDistrict(address.getDistrict());
+            order.setRelaAddr(address.getAddress());
+            order.setZipCode(address.getZipCode());
+            order.setCardType(currUser.getCardType());
+            order.setCardNo(currUser.getCardNo());
+            order.setCreateTime(new Date());
 
-        DmCustOrder order = new DmCustOrder();
+            List<DmShoppingCartItem> buying = cart.getBuying();
+            for (DmShoppingCartItem item : buying) {
+                DmSubCustOrder subOrder = new DmSubCustOrder();
+//            subOrder.setGoodsInstId(inst.getInstId());
+                subOrder.setGoodsId(item.getGoodsId());
+                subOrder.setGoodsName(item.getGoodsName());
+                subOrder.setItemNo(item.getItemNo());
+                subOrder.setPrice(item.getAmount());
+                subOrder.setCreateDate(new Date());
+                subOrder.setCommentated("0");
+                subOrder.setState("10A");
+
+                order.getSubCustOrderList().add(subOrder);
+            }
+            cart.removeGoods(buying);
+        }else {
+            Map param = new HashMap();
+            param.put("orderId",orderId);
+            param.put("merchantId",currUser.getMerchantId());
+            order = dmCustOrderService.selectCustOrder(param);
+        }
         order.setPaymentType(paymentType);
         order.setInvoiceType(invoiceType);
         order.setInvoiceNotes(invoiceNotes);
         order.setInvoiceDetail(invoiceDetail);
         order.setOrderId(StringUtils.isEmpty(orderId)?null:Integer.valueOf(orderId));
         order.setOrderNo(orderNo);
-        order.setMerchantId(currUser.getMerchantId());
-        order.setAmount(cart.getBuyingAmount());
-        order.setRelaMan(currUser.getContactName());
-        order.setRelaTel(currUser.getContactPhone());
-        order.setRelaProvince(currUser.getProvinceCode());
-        order.setRelaCity(currUser.getCityCode());
-        order.setRelaDistrict(currUser.getDistrictCode());
-        order.setRelaAddr(currUser.getAddress());
-        order.setCardType(currUser.getCardType());
-        order.setCardNo(currUser.getCardNo());
-        order.setCreateTime(new Date());
+
         order.setState("10A");//待确认
 
-        List<DmShoppingCartItem> buying = cart.getBuying();
-        for (DmShoppingCartItem item : buying) {
-            DmSubCustOrder subOrder = new DmSubCustOrder();
-//            subOrder.setGoodsInstId(inst.getInstId());
-            subOrder.setGoodsId(item.getGoodsId());
-            subOrder.setGoodsName(item.getGoodsName());
-            subOrder.setItemNo(item.getItemNo());
-            subOrder.setPrice(item.getAmount());
-            subOrder.setCreateDate(new Date());
-            subOrder.setCommentated("0");
-            subOrder.setState("10A");
-
-            order.getSubCustOrderList().add(subOrder);
-        }
 
         dmCustOrderService.submitOrder(order,mode);
-        cart.removeGoods(buying);
-
-        request.setAttribute("orderId",order.getOrderId());
-        request.setAttribute("orderNo",order.getOrderNo());
-        request.setAttribute("amount",order.getAmount());
-        return "forward:/payment";
+        return order;
     }
 
     @SubmissionToken(save = true)
@@ -193,6 +230,11 @@ public class DmCustOrderController extends GenericController{
         return "/market/order/payment.jsp";
     }
 
+    @RequestMapping("/order/alipay")
+    public String alipay(HttpServletRequest request){
+        return "/alipay/alipayapi.jsp";
+    }
+
     @GET
     @Path("{orderId}/calc")
     @Produces({MediaType.APPLICATION_JSON})
@@ -207,8 +249,31 @@ public class DmCustOrderController extends GenericController{
         result.put("totalCount", order.getItemNo());
         return result.toString();
     }
+    @GET
+    @Path("list")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<DmCustOrder> getOrderList() throws JSONException {
+        LoginInfo currUser = getCurrentLoginUser();
+        Map params = new HashMap();
+        params.put("merchantId",currUser.getMerchantId());
+
+        List<DmCustOrder> result = dmCustOrderService.selectCustOrderList(currUser.getMerchantId());
 
 
+        return result;
+    }
+    @GET
+    @Path("{orderId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public DmCustOrder getOrderByOrderId(@PathParam("orderId") Integer orderId) throws JSONException {
+        LoginInfo currUser = getCurrentLoginUser();
+        Map params = new HashMap();
+        params.put("merchantId",currUser.getMerchantId());
+        params.put("orderId",orderId);
+
+        DmCustOrder result = dmCustOrderService.selectCustOrder(params);
+        return result;
+    }
     @RemoteMethod
     public Page getBuyingGoodsList(Map params, int pageIndex, int pageSize) {
         LoginInfo currUser = getCurrentLoginUser();
@@ -232,5 +297,15 @@ public class DmCustOrderController extends GenericController{
             page.setRows(subOrderList.subList(startIndex,endIndex));
         }
         return page;
+    }
+
+    @RemoteMethod
+    public Page<DmCustOrder> queryAllOrder(Map params, int pageIndex, int pageSize) {
+        Page<DmCustOrder> orderList = dmCustOrderService.queryAllOrder(params, pageIndex, pageSize);
+        return orderList;
+    }
+    @RemoteMethod
+    public boolean deliverGoods(Integer orderId) {
+        return dmCustOrderService.deliverGoods(orderId);
     }
 }

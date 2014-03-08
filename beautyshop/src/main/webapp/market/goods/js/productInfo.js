@@ -3,9 +3,12 @@ $(function () {
 //    var orderId = commonJs.getUrlParam("cmt");
     $("#goodsId").val(goodsId);
     loadGoodsInfo(goodsId);
-    findGoodsTag(goodsId);
-    $(".proBuyBtn .tocart").bind("click", sumitGoods);
-    $("#mapTag").on("mouseenter", showMapSelect);
+//    findGoodsTag(goodsId);
+    $(".proBuyBtn .tocart").bind("click", function(){putIntoCart(goodsId)});
+//    $(".proBuyBtn .tocart").bind("click", sumitGoods);
+//    $("#mapTag").on("mouseenter", showMapSelect);
+//    $("#myconsult").on("click", showMyConsult);
+//    $("#attention").on("click",addMyAttention);
     initTab("rel_tab", "curr", $(".pro_info_tab"));
 //    $("#commentsTab").click();
 });
@@ -18,7 +21,7 @@ function loadGoodsInfo(goodsId) {
 
         $("#goodsName").html(goods.goodsName);
 
-        $("#basePrice").append(goods.planPrice || "未知");
+        $("#basePrice").append(goods.price || "未知");
         //$("#preBasePrice").html(goods.basePrice);
         $("#goodsDesc").html(goods.goodsDesc);
 //        alert(goods.putawayTime);
@@ -46,7 +49,7 @@ function loadGoodsInfo(goodsId) {
 
 }
 //动态显示商品标签
-function findGoodsTag(goodsId) {
+/*function findGoodsTag(goodsId) {
 
     var callback = function (reply) {
         var goods = reply.getResult();
@@ -108,9 +111,22 @@ function findGoodsTag(goodsId) {
         {"goodsId": goodsId}
     ], callback);
 
+}*/
+
+function putIntoCart(goodsId){
+    $.ajax({
+        type:"PUT",
+        url:commonJs.getWebPath()+"/mycart/add/"+goodsId,
+        success:function(retval){
+            initMiniCart();
+            window.location.href = commonJs.getWebPath()+"/mycart/success";
+        },
+        error:function(){
+
+        }
+    });
 }
-
-
+/*
 function sumitGoods() {
     var goodsId = $("#goodsId").val();
     var tags = [];
@@ -122,7 +138,7 @@ function sumitGoods() {
 
     })
     
-    /*if(tags.length == 0 ){
+    *//*if(tags.length == 0 ){
     	  alert("请选择标签!");
     	  return;
     }
@@ -132,7 +148,7 @@ function sumitGoods() {
     	  alert("请选择营销区域!");
     	    $("#mapTag").trigger("mouseenter" );
     	    return;
-    }*/
+    }*//*
     var callback = function (reply) {
         var result = reply.getResult();
         if (result) {
@@ -144,7 +160,7 @@ function sumitGoods() {
         {"goodsId": goodsId, "tags": tags,"circle_id":circle_id}
     ], callback);
 
-}
+}*/
 
 //显示地图选择
 function showMapSelect() {
@@ -180,3 +196,66 @@ function clearCircle(){
 	return $("#circle_id").val("" );
 }
 
+/*
+
+function showMyConsult(){
+    Ajax.getAsy().remoteCall("DmMyConsultController","userMes",[],function(reply){
+        var result = reply.getResult();
+        if(result=="noUser"){
+            openLoginDialog();
+            return;
+        }
+        $(".trans_div").show();
+        $("#addConsult").show();
+    });
+}
+
+function closeMyConsult(){
+    $(".trans_div").hide();
+    $("#addConsult").hide();
+}
+
+function submitMyConsult(){
+    var consultContent=$("#consultContent").text();
+    if(consultContent.length==0){
+        $("#message").text("请输入咨询内容");
+        return;
+    }
+    if(consultContent.length>200){
+        $("#message").text("咨询内容不能超过200字符！");
+        return;
+    }
+    var params = {};
+    params.goodsId = $("#goodsId").val();
+    params.consultType=$("#consultSelect").val();
+    params.content=$("#consultContent").text();
+    Ajax.getAsy().remoteCall("DmMyConsultController","inserMyConsult",[params],function(reply){
+        var result = reply.getResult();
+        if(result!=""){
+            alert("咨询信息已发送，您可在我的咨询中查看具体回复信息！");
+            $("#consultContent").text("");
+            $(".trans_div").hide();
+            $("#addConsult").hide();
+        }
+    });
+}
+
+function addMyAttention(){
+    var params = {};
+    params.goodsId = $("#goodsId").val();
+    Ajax.getAsy().remoteCall("DmMyAttentionController","inserMyAttention",[params],function(reply){
+        var result = reply.getResult();
+        if(result=="error"){
+            alert("您已关注过该商品！");
+            return;
+        }
+        if(result=="noUser"){
+            openLoginDialog();
+            return;
+        }
+        if(result!=""){
+            alert("收藏商品信息成功！");
+            return;
+        }
+    });
+}*/

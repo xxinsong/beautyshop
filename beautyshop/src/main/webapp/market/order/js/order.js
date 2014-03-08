@@ -5,6 +5,10 @@ var totalPrice = 0;
 var cashBack = 0.00;
 var state = "OK";
 $(function(){
+    $.cxSelect.defaults.url=commonJs.getWebPath()+"/public/jquery/city.min.js";
+    $("#selectaddress").cxSelect({
+        selects:["province","city","area"]
+    });
     orderId = $("input[name='orderId']").val();
 
     goodsInstList = new QryPager({
@@ -23,6 +27,15 @@ $(function(){
     loadGoodsInstList();
 
 
+    $("#btnAddContact").on('click',function(){
+        showContactEditContent();
+    });
+    $(".pop_close", "#editAddressDiv").click(function() {
+        closeEditAddressDiv();
+    });
+    $("#btnSubmitAddress").on('click',function(){
+        submitAddress();
+    });
     $("#btnEditInvoice").on('click',function(){
         showInvoiceEditContent();
         state = "EDIT";
@@ -43,10 +56,20 @@ $(function(){
     if(mode != "CREATE"){
         $("#goShoppingCart").hide();
     }
+
+    $(".cart_logo").click(function() {
+        location = commonJs.getWebPath() + "/welcome";
+    });
 });
 
 function goodsInstRowRender(data,context){
-    $("[name='goodsName']",context).text(data.goodsName);
+    $("[name='goodsImage']",context).on('click',function(){
+        window.location.href = commonJs.getWebPath()+"/product?id="+data.goodsId;
+    });
+    $("[name='goodsImageUrl']",context).attr('src',getMiniImage(data.goodsImage));
+    $("[name='goodsName']",context).text(data.goodsName).on('click',function(){
+        window.location.href = commonJs.getWebPath()+"/product?id="+data.goodsId;
+    });
     $("[name='goodsNo']",context).text("商品编号："+data.goodsNo);
     $("[name='price']",context).text("￥"+data.price);
     $("[name='itemNo']",context).text("x "+data.itemNo);
@@ -91,6 +114,16 @@ function loadGoodsInstList(params){
     }
     goodsInstList.loadData(params);
     loadTotalPrice();
+}
+function showContactEditContent(){
+    openOverlay();
+    var top = document.documentElement.clientHeight - $("#editAddressDiv").height();
+    $("#editAddressDiv").css( {
+        "top" :  top / 4 + document.documentElement.scrollTop
+    }).show();
+//    $("#contact_div").addClass('step_current');
+//    $("#old_invoice").click();
+//    $("#defaultInvoice").html($("#invoiceContentDisplay").html());
 }
 function showInvoiceEditContent(){
     $("#invoice_view").hide();
@@ -161,21 +194,57 @@ function submitOrder(){
         return;
     }
     $("#amount").val(totalPrice);
+    var contactInfo = $("input[name='address']:checked").val();
+    if(contactInfo!=''){
+        $("#contactInfo").val(contactInfo);
+    }else{
+        msg.alert("提示", "请选择收货人信息！");
+        return;
+    }
     $("#form_order").submit();
 }
 
-function loadContactInfo(){
-    Ajax.getAsy().remoteCall("DmShoppingCartController","loadContactInfo",[],function(reply){
-        var result = reply.getResult();
-        if(result){
+/*function loadContactInfo(){
+    $.ajax({
+        method:'GET',
+        url:commonJs.getWebPath()+"/setting/address/default",
+        success:function(data){
             var html=[];
-            html.push("<b>"+result.contactName+"</b>");
-            html.push(result.contactPhone);
-            var fullAddress = result.provinceName + result.cityName + result.districtName + result.address;
+            html.push("<b>"+data.contactPerson+"</b>");
+            html.push(data.mobilePhone);
+            var fullAddress = data.province + data.city + data.district + data.address;
             html.push(fullAddress);
+            html.push(data.zipCode);
             $("#contact_info").html(html.join("&nbsp;&nbsp;"));
         }
     });
+
+}*/
+
+function loadContactInfo(){
+    var contactInfo = $("form input[name='contactInfo']").val();
+    $.ajax({
+        method:'GET',
+        url:commonJs.getWebPath()+"/setting/address/list",
+        success:function(data){
+            $("#contact_list_div").html("");
+            for(var i=0;i<data.length;i++){
+            var html=[];
+                var fullAddress = data[i].province + data[i].city + data[i].district + data[i].address;
+                html.push("<input type='radio' name='address' value='"+data[i].id+"' id='address"+i+"' "+(contactInfo==data[i].id||i==0?"checked='true'":" ")+"/>");
+                html.push("<label for='address"+i+"'>");
+                html.push("<b>"+data[i].contactPerson+"</b>");
+                html.push(data[i].mobilePhone);
+                html.push(fullAddress);
+                html.push(data[i].zipCode);
+                html.push("</label>");
+                html.push("<br/>");
+                $("#contact_list_div").append(html.join("&nbsp;&nbsp;"));
+//                $("#address"+i).on('click',function(){checkContactAddress(data[i].contactPerson,fullAddress,data[i].zipCode)});
+            }
+        }
+    });
+
 }
 
 function loadInvoiceInfo(){
@@ -195,4 +264,46 @@ function loadInvoiceInfo(){
         $("#btnEditInvoice").show();
         $("#btn_submit").show();
     }
+}
+function getMiniImage(uri){
+    if(uri&&uri!=''){
+        var filePath = uri.substring(0,uri.lastIndexOf("."));
+        var subfix = uri.substring(uri.lastIndexOf("."));
+        return commonJs.getWebPath()+filePath+"_mini"+subfix;
+    }
+}
+
+function openOverlay() {
+    if ($(".trans_div").size() == 0) {
+        $("body").append("<div class='trans_div' style='display: none;'></div>");
+    }
+    $(".trans_div").show();
+}
+
+function closeOverlay() {
+    $(".trans_div").hide();
+}
+function submitAddress(){
+    if (!commonJs.validate($("#editAddressDiv"))) {
+        return;
+    }
+    var params = commonJs.getData($("#editAddressDiv"));
+    var url = commonJs.getWebPath()+"/setting/address/add";
+    if(params.id!=""){
+        url = commonJs.getWebPath()+"/setting/address/edit/"+params.id;
+    }
+    $.ajax({
+        method:'POST',
+        url:url,
+        data:params,
+        success:function(){
+            closeEditAddressDiv();
+            loadContactInfo();
+        }
+    });
+}
+function closeEditAddressDiv(){
+    $("#editAddressDiv").hide();
+    closeOverlay();
+    commonJs.clear($("#editAddressDiv"));
 }

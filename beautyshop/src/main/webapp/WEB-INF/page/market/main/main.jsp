@@ -112,22 +112,22 @@ String path = request.getContextPath();
                     	<div class="user_msg_pic"><img src="<%=path%>/market/main/images/user_pic.gif" width="50" height="50" /></div>
                         <div class="user_msg_txt">
                         	<p>Hi,<span class="userName" name="userName"></span><a href="javascript: void(0)" class="login_out" name="btn_logout">登出</a></p>
-                            <p>当前积分: <span class="integral">0</span></p>
+                            <p>当前积分: <span class="integral" name="userPoint">0</span></p>
                         </div>
                     </div>
                     <div class="user_login">
                     	<a id="availableGoods" href="javascript: void(0)">
-                        	<p class="number">0</p>
-                            <p class="nameCurr">待收货</p>
+                        	<p class="number" name="deliver">0</p>
+                            <p class="nameCurr">已发货</p>
                         </a>
                         <a id="waitForPay" href="javascript: void(0)">
-                        	<p class="number">0</p>
+                        	<p class="number" name="userBePaid">0</p>
                             <p class="nameCurr">待支付</p>
                         </a>
-                        <a id="waitForComment" href="javascript: void(0)" class="last">
+                        <%--<a id="waitForComment" href="javascript: void(0)" class="last">
                         	<p class="number">0</p>
                             <p class="nameCurr">待评价</p>
-                        </a>
+                        </a>--%>
                     </div>
                 </div>
           	</div>  

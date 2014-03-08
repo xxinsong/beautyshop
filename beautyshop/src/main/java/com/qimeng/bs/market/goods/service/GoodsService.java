@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qimeng.bs.admin.goods.bean.DmGoods;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,14 @@ public class GoodsService {
     /*sqlParams.put("num", num);
     sqlParams.put("adLevel", adLevel);*/
         return goodsMapper.searchAdGoods(sqlParams);
+    }
+
+    public List<DmGoods> getAllGoodsList() {
+        List<DmGoods> goodsList = goodsMapper.getAllGoodsList();
+        return goodsList;
+    }
+
+    public Map getGoodsById(Integer goodsId) {
+        return goodsMapper.getGoodsById(goodsId);  //To change body of created methods use File | Settings | File Templates.
     }
 }

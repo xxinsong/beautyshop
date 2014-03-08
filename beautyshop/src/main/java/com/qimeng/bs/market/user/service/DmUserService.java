@@ -1,32 +1,30 @@
 package com.qimeng.bs.market.user.service;
 
-import java.util.*;
-
+import com.qimeng.bs.admin.merchant.bean.DmContact;
+import com.qimeng.bs.admin.merchant.bean.DmMerchant;
+import com.qimeng.bs.admin.merchant.dao.DmContactMapper;
+import com.qimeng.bs.admin.merchant.dao.DmMerchantMapper;
 import com.qimeng.bs.common.service.DcSystemConfigService;
-import com.qimeng.bs.market.activity.dao.DmMerchantActivityMapper;
 import com.qimeng.bs.market.order.dao.DmCustOrderMapper;
+import com.qimeng.bs.market.point.bean.DmPoints;
 import com.qimeng.bs.market.point.dao.DmPointsMapper;
+import com.qimeng.bs.market.user.bean.DmUser;
 import com.qimeng.bs.market.user.bean.ReferrerInfo;
+import com.qimeng.bs.market.user.dao.DmUserMapper;
 import com.qimeng.bs.market.user.dao.ReferrerInfoMapper;
+import com.qimeng.common.Constants;
+import com.qimeng.common.tools.Const;
+import com.qimeng.common.tools.DateFormatUtils;
 import com.qimeng.common.tools.PKUtils;
+import com.qimeng.common.tools.PasswordEncoder;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.qimeng.common.Constants;
-import com.qimeng.common.tools.Const;
-import com.qimeng.common.tools.DateFormatUtils;
-import com.qimeng.common.tools.PasswordEncoder;
-import com.qimeng.bs.admin.merchant.bean.DmContact;
-import com.qimeng.bs.admin.merchant.bean.DmMerchant;
-import com.qimeng.bs.admin.merchant.dao.DmContactMapper;
-import com.qimeng.bs.admin.merchant.dao.DmMerchantMapper;
-import com.qimeng.bs.market.user.bean.DmUser;
-import com.qimeng.bs.market.user.dao.DmUserMapper;
-
 import javax.annotation.PostConstruct;
+import java.util.*;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -43,8 +41,8 @@ public class DmUserService {
     @Autowired
     private DmContactMapper dmContactMapper;
 
-    @Autowired
-    private DmMerchantActivityMapper dmMerchantActivityMapper;
+//    @Autowired
+//    private DmMerchantActivityMapper dmMerchantActivityMapper;
 
     @Autowired
     private DmCustOrderMapper dmCustOrderMapper;
@@ -83,6 +81,7 @@ public class DmUserService {
 		List<DmUser> dmUsers = dmUserMapper.searchUser(sqlParams);
 		if (dmUsers.size() > 0) {
 			result.put("flag", 1);
+			result.put("reason", "已存在的登录名！");
 			return result;
 		}
 		
@@ -98,6 +97,7 @@ public class DmUserService {
             referrerUser = dmUserMapper.selectByLogonName(referrerMobileNo);
             if(referrerUser==null){
                 result.put("flag",3);
+                result.put("reason", "推荐人不存在！");
                 return result;
             }
         }
@@ -276,18 +276,26 @@ public class DmUserService {
 		return result;
 	}
 
-    public int queryMyEffPoint(Integer merchantId){
-        Integer ret = dmPointsMapper.selectEffPointByMerchantId(merchantId);
-        return ret;
+    public int queryMyEffPoint(Integer userId){
+        int point = 0;
+        DmPoints points = dmPointsMapper.selectPointsByUserId(userId);
+        if (points != null) {
+            point = points.getRemainderPoints();
+        }
+        return point;
     }
 
-    public int queryUserActivity(Integer merchantId){
+   /* public int queryUserActivity(Integer merchantId){
         Integer ret = dmMerchantActivityMapper.selectActivityByMerchantId(merchantId);
         return ret;
-    }
+    }*/
 
     public int queryBePaid(Integer merchantId) {
         Integer ret = dmCustOrderMapper.selectBePaidByMerchantId(merchantId);
+        return ret;
+    }
+    public int queryDeliver(Integer merchantId) {
+        Integer ret = dmCustOrderMapper.selectDeliverByMerchantId(merchantId);
         return ret;
     }
 

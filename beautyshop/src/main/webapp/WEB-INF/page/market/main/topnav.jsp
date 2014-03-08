@@ -13,6 +13,7 @@
 		</div>
 		<div class="top_r">
             <div class="top_ul">
+                <a href="<%=request.getContextPath()%>/app/download">手机客户端</a><span>|</span>
                 <a href="<%=request.getContextPath()%>/order">我的订单</a><span>|</span>
                 <a href="javascript: void(0)" class="" id="user_center" rel_div="user_center_list">个人中心<i class="arrow"></i></a>
                 <div class="top_ul_selected" style="display: none;" id="user_center_list" rel_a="user_center">

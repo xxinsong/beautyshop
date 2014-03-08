@@ -14,6 +14,7 @@ public class DmGoods {
      *
      * @mbggenerated Mon Dec 16 14:14:23 CST 2013
      */
+
     private Integer goodsId;
 
     /**

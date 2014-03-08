@@ -12,4 +12,16 @@ $(function() {
 			window.close();
 		});
 	});
+
+//    $("#updUserPass").on('click',function(){updUserPas(); });
+
 })
+
+
+
+//修改密码显示
+function modifyPassword() {
+    window.showModalDialog("../security/staff/modifypassword.jsp",{},
+        "dialogWidth=480px;dialogHeight=200px;status=no;scroll=no");
+
+}

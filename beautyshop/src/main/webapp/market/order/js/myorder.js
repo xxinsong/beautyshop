@@ -123,13 +123,13 @@ function orderRowRender(data,context){
         var state = data.state;
         var $state = $("[name='state']", $clone);
         if(state=='10A'){
-            $state.text('待确认');
+            $state.text('待付款');
         }else if(state=='10B'){
-            $state.text('已确认');
+            $state.text('已付款');
         }else if(state=='10C'){
             $state.text('已取消');
         }else if(state=='10D'){
-            $state.text('已完成');
+            $state.text('已发货');
         }
         var $btnView = $("[name='btn_view']",$clone);
         var $btnCancel = $("[name='btn_cancel']",$clone);

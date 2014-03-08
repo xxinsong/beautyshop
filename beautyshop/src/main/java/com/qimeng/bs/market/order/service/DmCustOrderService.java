@@ -1,5 +1,6 @@
 package com.qimeng.bs.market.order.service;
 
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import com.qimeng.bs.market.goods.bean.DmGoodsInst;
 import com.qimeng.bs.market.goods.dao.DmGoodsInstMapper;
 import com.qimeng.common.Page;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: Simon
@@ -59,6 +57,7 @@ public class DmCustOrderService {
     }
 
 
+    @Transactional
     public boolean cancelOrder(int orderId) {
         DmCustOrder order = new DmCustOrder();
         order.setOrderId(orderId);
@@ -154,5 +153,42 @@ public class DmCustOrderService {
     public List<DmSubCustOrder> selectSubCustOrder(int orderId) {
         List<DmSubCustOrder> subCustOrderList = dmSubCustOrderMapper.selectSubOrderByOrderId(orderId);
         return subCustOrderList;
+    }
+
+    public List<DmCustOrder> selectCustOrderList(int merchantId) {
+        List<DmCustOrder> list = dmCustOrderMapper.selectOrderByMerchantId(merchantId);
+        for (DmCustOrder order : list) {
+            List<DmSubCustOrder> subCustOrderList = dmSubCustOrderMapper.selectSubOrderByOrderId(order.getOrderId());
+            order.setSubCustOrderList(subCustOrderList);
+        }
+        return list;
+    }
+
+    @Transactional
+    public void updateOrderStateByOrderNo(String orderNo, String state) {
+        Map param = new HashMap();
+        param.put("orderNo", orderNo);
+        param.put("state", state);
+        dmCustOrderMapper.updateStateByOrderNo(param);
+    }
+
+    public Page<DmCustOrder> queryAllOrder(Map params, int pageIndex, int pageSize) {
+        Page page = new Page(pageIndex, pageSize);
+        page.setParams(params);
+        List<DmCustOrder> list = dmCustOrderMapper.selectAllOrderByPage(page);
+        /*for (DmCustOrder order : list) {
+            List<DmSubCustOrder> subCustOrderList = dmSubCustOrderMapper.selectSubOrderByOrderId(order.getOrderId());
+            order.setSubCustOrderList(subCustOrderList);
+        }*/
+        page.setRows(list);
+        return page;
+    }
+
+    public boolean deliverGoods(Integer orderId) {
+        DmCustOrder dmCustOrder = dmCustOrderMapper.selectByPrimaryKey(orderId);
+        dmCustOrder.setOperDate(new Date());
+        dmCustOrder.setState("10D");
+        dmCustOrderMapper.updateByPrimaryKeySelective(dmCustOrder);
+        return true;
     }
 }

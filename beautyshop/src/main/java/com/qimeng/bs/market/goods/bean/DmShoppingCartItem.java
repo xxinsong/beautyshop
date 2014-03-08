@@ -3,6 +3,7 @@ package com.qimeng.bs.market.goods.bean;
 import org.directwebremoting.annotations.DataTransferObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 @DataTransferObject
@@ -286,8 +287,10 @@ public class DmShoppingCartItem {
     }
 
     private void calcAmount() {
-        BigDecimal price = new BigDecimal(String.valueOf(this.price));
-        amount = price.multiply(new BigDecimal(itemNo)).floatValue();
+        BigDecimal price = new BigDecimal(Float.toString(this.price));
+        DecimalFormat format = new DecimalFormat("#.00");
+        format.format(price.multiply(new BigDecimal(itemNo)));
+        amount = new Float(price.multiply(new BigDecimal(itemNo)).floatValue());
     }
 
     public boolean isSameGoods(DmShoppingCartItem sessionItem) {

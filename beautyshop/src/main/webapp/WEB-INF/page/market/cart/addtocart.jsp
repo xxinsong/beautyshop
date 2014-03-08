@@ -9,7 +9,7 @@
     <meta http-equiv="library" content="market"/>
     <title></title>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
-    <script type="text/javascript" src="<%=path%>/market/cart/js/mycart.js"></script>
+    <%--<script type="text/javascript" src="<%=path%>/market/cart/js/mycart.js"></script>--%>
 </head>
 <body>
 <jsp:include page="../main/header.jsp" flush="true"></jsp:include>

@@ -1,12 +1,13 @@
 package com.qimeng.bs.admin.goods.controller;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.qimeng.bs.admin.goods.bean.DmGoods;
+import com.qimeng.bs.admin.goods.bean.DmTags;
+import com.qimeng.bs.admin.goods.service.DmGoodsService;
+import com.qimeng.bs.admin.goods.service.DmGoodsTagService;
+import com.qimeng.bs.admin.goods.service.DmGoodsTagValueService;
+import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.AdminLoginInfo;
+import com.qimeng.common.Page;
 import org.apache.commons.lang3.time.DateUtils;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
@@ -15,14 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import com.qimeng.common.Page;
-import com.qimeng.bs.admin.goods.bean.DmGoods;
-import com.qimeng.bs.admin.goods.bean.DmTags;
-import com.qimeng.bs.admin.goods.service.DmGoodsService;
-import com.qimeng.bs.admin.goods.service.DmGoodsTagService;
-import com.qimeng.bs.admin.goods.service.DmGoodsTagValueService;
-import com.qimeng.bs.common.controller.GenericController;
-import com.qimeng.bs.login.bean.LoginInfo;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RemoteProxy

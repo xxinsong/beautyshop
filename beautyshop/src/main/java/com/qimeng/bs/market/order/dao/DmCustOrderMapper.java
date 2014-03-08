@@ -59,7 +59,15 @@ public interface DmCustOrderMapper {
 
     List<DmCustOrder> selectOrderByPage(Page page);
 
+    List<DmCustOrder> selectAllOrderByPage(Page page);
+
     DmCustOrder selectCustOrderByMerchantId(Map params);
 
     int selectBePaidByMerchantId(Integer merchantId);
+
+    int selectDeliverByMerchantId(Integer merchantId);
+
+    List<DmCustOrder> selectOrderByMerchantId(int merchantId);
+
+    void updateStateByOrderNo(Map param);
 }

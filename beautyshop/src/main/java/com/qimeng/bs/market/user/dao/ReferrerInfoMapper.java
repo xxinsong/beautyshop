@@ -59,4 +59,8 @@ public interface ReferrerInfoMapper {
     List<ReferrerInfo> findPresentee(Integer referrerId);
 
     List<ReferrerInfo> queryMyReferrers(Page page);
+
+    List<ReferrerInfo> getNextLevel(Integer userId);
+
+    ReferrerInfo queryUpLevel(Integer userId);
 }

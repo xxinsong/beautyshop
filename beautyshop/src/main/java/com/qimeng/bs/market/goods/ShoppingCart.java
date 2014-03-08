@@ -180,6 +180,22 @@ public class ShoppingCart {
         return item;
     }
 
+    public DmShoppingCartItem saveGoodsInCart(DmGoods goods,int num) {
+        int goodsId = goods.getGoodsId();
+        for(DmShoppingCartItem item:items){
+            if(item.getGoodsId().intValue()==goodsId){
+                item.setItemNo(num);
+                return item;
+            }
+        }
+        DmShoppingCartItem item = new DmShoppingCartItem(goodsId,num);
+        item.setGoodsName(goods.getGoodsName());
+        item.setGoodsImage(goods.getSmallImageUri());
+        item.setPrice(goods.getPrice());
+        items.add(item);
+        return item;
+    }
+
     /**
      * 批量将商品移出购物车
      * @param goodsIds
