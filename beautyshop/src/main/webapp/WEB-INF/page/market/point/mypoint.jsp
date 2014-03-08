@@ -22,27 +22,27 @@
             <h3 id="myEffPoint">我的积分</h3><!--有效积分:0 -->
         </div>
         <div class="pers_cen_con">
-            <div class="my_point_div">
-                <div class="my_point_list clearfix">
+            <div class="my_order_div">
+                <div class="my_order_list clearfix">
                     <table id="point_list" width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr class="th_title">
-                            <th>订单编号</th>
-                            <th>积分值</th>
-                            <th>状态</th>
-                            <th>时间</th>
+                            <th>总积分</th>
+                            <th>可兑换积分</th>
+                            <th>上次兑换积分</th>
+                            <th>上次兑换时间</th>
                         </tr>
                         <tr id="point_tpl" style="display:none;" >
                             <td style="width:30%;">
-                                <a name="orderNo" href="javascript:void(0)">867247012</a>
+                                <p name="totalPoints"></p>
                             </td>
                             <td>
-                                <p name="point">积分值</p>
+                                <p name="remainderPoints"></p>
                             </td>
                             <td>
-                                <p><a class="green_font" name="state">状态</a></p>
+                                <p><span class="green_font" name="lastExchangePoints"></span></p>
                             </td>
                             <td>
-                                <p><span class="gray_font" name="gainTime"></span></p>
+                                <p><span class="gray_font" name="lastExchangeTime"></span></p>
                             </td>
                         </tr>
                         <!-- <tr id="row_tpl" class="td_first" style="display: none;">

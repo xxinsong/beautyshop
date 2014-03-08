@@ -102,10 +102,13 @@ String path = request.getContextPath();
 								<th><label class="ltxtc">*</label>员工名称：</th>
 								<td>
 									<input type="text" id="staffName" name="staffName" class="ipttxt" nullable="false" max_length="50" />
+									<input type="hidden" id="password" value="123456" name="password" max_length="50" />
 								</td>
-								<th><label class="ltxtc">*</label>密码：</th>
-								<td>
-									<input type="text" id="password" name="password" class="ipttxt" nullable="false" max_length="50" />
+                                <th><label class="ltxtc">*</label>性别：</th>
+                                <td>
+                                    <select name="gender" id="gender" attr_code="ADMIN_STAFF_GENDER" class="searchipt" nullable="false">
+                                    </select>
+                                </td>
 								</td>
 							</tr>
 							<tr>
@@ -114,25 +117,21 @@ String path = request.getContextPath();
 								<td>
 									<input type="text" id="orgName" name="orgName" readonly="readonly" onClick="selectOrg()" class="ipttxt" />
 								</td>
-								<th><label class="ltxtc">*</label>性别：</th>
-								<td>
-									<select name="gender" id="gender" attr_code="ADMIN_STAFF_GENDER" class="searchipt" nullable="false">
-									</select>
-								</td>
+
 								<th>生效时间：</th>
 								<td>
 									<input type="text" id="effDate" name="effDate" class="ipttxt" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" />
 								</td>
-
+                                <th><label class="ltxtc">*</label>状态：</th>
+                                <td>
+                                    <select name="state" id="state" attr_code="ADMIN_STAFF_STATE" class="searchipt" nullable="false">
+                                    </select>
+                                </td>
 							</tr>
 							<tr>
-								<th><label class="ltxtc">*</label>状态：</th>
-								<td>
-									<select name="state" id="state" attr_code="ADMIN_STAFF_STATE" class="searchipt" nullable="false">
-									</select>
-								</td>
+
 								<th>描述：</th>
-								<td colspan="3">
+								<td colspan="5">
 									<textarea id="staffDesc" name="staffDesc" style="width:550px;" max_length="550">
 								</textarea>
 								</td>

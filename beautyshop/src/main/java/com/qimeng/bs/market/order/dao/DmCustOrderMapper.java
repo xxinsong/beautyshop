@@ -70,4 +70,6 @@ public interface DmCustOrderMapper {
     List<DmCustOrder> selectOrderByMerchantId(int merchantId);
 
     void updateStateByOrderNo(Map param);
+
+    int cancelMyOrder(Map param);
 }

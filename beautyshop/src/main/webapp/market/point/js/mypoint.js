@@ -6,13 +6,13 @@ $(function () {
         $tpl_ele:$("#point_tpl"),
         $pager:$("#point_page"),
         service:"DmPointController",
-        method:"selectCustPointList",
+        method:"queryMyPoints",
         pageIndex:1,
         pageSize:5,
         record_event:function(data,context){pointRowRender(data,context)}
     });
     loadPointList();
-    getMyEffPoint();
+//    getMyEffPoint();
 });
 
 
@@ -35,22 +35,11 @@ function loadPointList(params){
 }
 
 function pointRowRender(data,context){
-    $("[name='orderNo']",context).text(data.orderNo).on('click',function(){
-        window.location.href = commonJs.getWebPath()+"/order/edit?id="+data.orderId;
-    });
-    $("[name='point']",context).text(data.point);
-    var state = data.state;
-    if("00A"==state){
-    	state = "有效";
-    }else if("00D"==state){
-    	state = "已消费";
-    }else if("00E"==state){
-    	state = "已过期";
-    }else{
-    	state = "未知";
-    }
-    $("[name='state']",context).text(state);
-    $("[name='gainTime']",context).text($.format.date(data.gainTime,'yyyy-MM-dd HH:mm:ss'));
+    $("[name='totalPoints']",context).text(data.totalPoints);
+    $("[name='remainderPoints']",context).text(data.remainderPoints);
+    $("[name='lastExchangePoints']",context).text(data.lastExchangePoints);
+    $("[name='lastExchangeTime']",context).text($.format.date(data.lastExchangeTime,'yyyy-MM-dd HH:mm:ss'));
+    $("#myEffPoint").html("我的积分-有效积分:"+data.remainderPoints);
 }
 
 function getMyEffPoint(){

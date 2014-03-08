@@ -58,15 +58,18 @@ public class DmCustOrderService {
 
 
     @Transactional
-    public boolean cancelOrder(int orderId) {
-        DmCustOrder order = new DmCustOrder();
+    public boolean cancelMyOrder(int merchantId, int orderId) {
+       /* DmCustOrder order = new DmCustOrder();
         order.setOrderId(orderId);
-        order.setState("10C");
-        int ret = dmCustOrderMapper.updateByPrimaryKeySelective(order);
-        Map params = new HashMap();
-        params.put("orderId",orderId);
-        params.put("state","10C");
-        dmSubCustOrderMapper.updateOrderState(params);
+        order.setState("10C");*/
+        Map param = new HashMap();
+        param.put("merchantId", merchantId);
+        param.put("orderId", orderId);
+        int ret = dmCustOrderMapper.cancelMyOrder(param);
+        if(ret>0){
+            param.put("state","10C");
+            dmSubCustOrderMapper.updateOrderState(param);
+        }
         return ret > 0;
     }
     

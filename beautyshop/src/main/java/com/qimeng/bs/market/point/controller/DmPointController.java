@@ -1,5 +1,6 @@
 package com.qimeng.bs.market.point.controller;
 
+import com.qimeng.bs.market.point.bean.DmPoints;
 import com.qimeng.common.Page;
 import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.LoginInfo;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RemoteProxy
@@ -25,8 +28,15 @@ public class DmPointController extends GenericController{
   @RemoteMethod
   public Page queryMyPoints(Map params, int pageIndex, int pageSize){
       LoginInfo currUser = getCurrentLoginUser();
-      params.put("merchantId", currUser.getUserId());
-      return dmPointService.selectCustPointList(params, pageIndex, pageSize);
+//      params.put("merchantId", currUser.getUserId());
+      Page page = new Page();
+      page.setPageCount(1);
+      page.setTotal(1);
+      DmPoints points = dmPointService.selectPointsByUserId(currUser.getUserId());
+      List list = new ArrayList();
+      list.add(points);
+      page.setRows(list);
+      return page;
   }
 
   @RemoteMethod

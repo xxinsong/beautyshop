@@ -67,7 +67,18 @@ public class DmCustOrderController extends GenericController{
 
     @RemoteMethod
     public boolean cancelOrder(int orderId){
-        return dmCustOrderService.cancelOrder(orderId);
+        LoginInfo currUser = getCurrentLoginUser();
+        return dmCustOrderService.cancelMyOrder(currUser.getMerchantId(),orderId);
+    }
+
+    @PUT
+    @Path("cancel/{orderId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String cancelOrderFromApp(@PathParam("orderId")Integer orderId) throws JSONException {
+        boolean result = cancelOrder(orderId);
+        JSONObject ret = new JSONObject();
+        ret.put("success", result);
+        return ret.toString();
     }
 
     @RemoteMethod

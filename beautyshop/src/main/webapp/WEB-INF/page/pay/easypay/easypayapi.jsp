@@ -82,9 +82,9 @@
 </head>
 <body>
 
-<div style="display: '';">
-    <a target="_blank" href="<%=requestUrl %>">易票联支付</a>
-    <form id="easypayForm1" name="easypayForm1" action="<%=requestUrl %>" method="POST">
+<div style="display: 'none';">
+    <%--<a target="_blank" href="<%=requestUrl %>">易票联支付</a>--%>
+    <form id="easypayForm" name="easypayForm" action="<%=requestUrl %>" method="POST">
         <input type="hidden" name="partner" value="<%=partner%>">
         <input type="hidden" name="total_fee" value="<%=total_fee%>">
         <input type="hidden" name="out_trade_no" value="<%=out_trade_no%>">
