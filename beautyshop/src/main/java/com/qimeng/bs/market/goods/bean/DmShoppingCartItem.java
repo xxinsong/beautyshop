@@ -1,5 +1,6 @@
 package com.qimeng.bs.market.goods.bean;
 
+import org.apache.commons.lang3.StringUtils;
 import org.directwebremoting.annotations.DataTransferObject;
 
 import java.math.BigDecimal;
@@ -265,7 +266,7 @@ public class DmShoppingCartItem {
     }
 
     public String getGoodsImage() {
-        return goodsImage;
+        return getSmallImageUri(goodsImage);
     }
 
     public void setGoodsImage(String goodsImage) {
@@ -300,5 +301,15 @@ public class DmShoppingCartItem {
     public void increase(Integer goodsItemNo) {
         this.itemNo += goodsItemNo;
         calcAmount();
+    }
+
+    private String getSmallImageUri(String imageUri) {
+        if(StringUtils.isNotEmpty(imageUri)){
+            int subfixPos = imageUri.lastIndexOf(".");
+            if(!imageUri.contains("_mini")){
+                return imageUri.substring(0,subfixPos)+"_mini"+imageUri.substring(subfixPos);
+            }
+        }
+        return imageUri;
     }
 }

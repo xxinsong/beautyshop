@@ -1,5 +1,6 @@
 package com.qimeng.bs.market.order.bean;
 
+import org.apache.commons.lang3.StringUtils;
 import org.directwebremoting.annotations.DataTransferObject;
 
 import java.math.BigDecimal;
@@ -477,7 +478,7 @@ public class DmSubCustOrder {
     }
 
     public String getGoodsImage() {
-        return goodsImage;
+        return getSmallImageUri(goodsImage);
     }
 
     public void setGoodsImage(String goodsImage) {
@@ -496,5 +497,14 @@ public class DmSubCustOrder {
     private void calcAmount() {
         BigDecimal goodsPrice = new BigDecimal(String.valueOf(price));
         amount = goodsPrice.multiply(new BigDecimal(itemNo)).floatValue();
+    }
+    private String getSmallImageUri(String imageUri) {
+        if(StringUtils.isNotEmpty(imageUri)){
+            int subfixPos = imageUri.lastIndexOf(".");
+            if(!imageUri.contains("_mini")){
+                return imageUri.substring(0,subfixPos)+"_mini"+imageUri.substring(subfixPos);
+            }
+        }
+        return imageUri;
     }
 }

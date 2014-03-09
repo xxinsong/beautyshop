@@ -66,7 +66,7 @@ function goodsInstRowRender(data,context){
     $("[name='goodsImage']",context).on('click',function(){
         window.location.href = commonJs.getWebPath()+"/product?id="+data.goodsId;
     });
-    $("[name='goodsImageUrl']",context).attr('src',getMiniImage(data.goodsImage));
+    $("[name='goodsImageUrl']",context).attr('src',data.goodsImage);
     $("[name='goodsName']",context).text(data.goodsName).on('click',function(){
         window.location.href = commonJs.getWebPath()+"/product?id="+data.goodsId;
     });
@@ -195,7 +195,7 @@ function submitOrder(){
     }
     $("#amount").val(totalPrice);
     var contactInfo = $("input[name='address']:checked").val();
-    if(contactInfo!=''){
+    if(contactInfo && contactInfo!=''){
         $("#contactInfo").val(contactInfo);
     }else{
         msg.alert("提示", "请选择收货人信息！");

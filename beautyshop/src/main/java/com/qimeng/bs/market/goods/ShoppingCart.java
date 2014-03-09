@@ -172,6 +172,7 @@ public class ShoppingCart {
         }
 //        if(!exist){
         DmShoppingCartItem item = new DmShoppingCartItem(goodsId,num);
+        item.setGoodsNo(goods.getGoodsNo());
         item.setGoodsName(goods.getGoodsName());
         item.setGoodsImage(goods.getSmallImageUri());
         item.setPrice(goods.getPrice());
@@ -189,6 +190,7 @@ public class ShoppingCart {
             }
         }
         DmShoppingCartItem item = new DmShoppingCartItem(goodsId,num);
+        item.setGoodsNo(goods.getGoodsNo());
         item.setGoodsName(goods.getGoodsName());
         item.setGoodsImage(goods.getSmallImageUri());
         item.setPrice(goods.getPrice());

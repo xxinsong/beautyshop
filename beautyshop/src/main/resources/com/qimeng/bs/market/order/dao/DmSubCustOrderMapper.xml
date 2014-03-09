@@ -321,4 +321,7 @@
         where SUB_ORDER_ID = #{subOrderId,jdbcType=INTEGER}
           and b.merchant_id = #{merchantId,jdbcType=INTEGER}
     </select>
+    <select id="querySubOrderByPage" resultType="com.qimeng.bs.market.order.bean.DmSubCustOrder">
+
+    </select>
 </mapper>

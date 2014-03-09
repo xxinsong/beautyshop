@@ -126,7 +126,7 @@ ul.allsort li.brand h3 a:hover, ul.allsort li.brand.cur h3 a {
     border-color: #990000 #990000 #FFF9E6;
 }
 .show_sort {
-    background: url("../images/show_sort_bg.png?683398") repeat-y scroll right 0 #FFFFFF;
+    background: url("") repeat-y scroll right 0 #FFFFFF;
     border: 1px solid #990000;
     display: none;
     height: auto !important;

@@ -192,6 +192,6 @@
         select
         <include refid="Base_Column_List" />
         from dm_trade_log
-        where ORDER_NO = #{orderNo})
+        where ORDER_NO = #{orderNo}
     </select>
 </mapper>

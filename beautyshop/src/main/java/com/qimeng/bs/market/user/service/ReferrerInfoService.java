@@ -30,12 +30,35 @@ public class ReferrerInfoService {
         return page;
     }
 
-    public List<Integer> getUpReferrers(String userId) {
+    public List<Integer> getUp5LevelsReferrers(String userId) {
         List<Integer> allList = new ArrayList<Integer>();
-        DmUser dmUser = dmUserMapper.selectByPrimaryKey(Integer.valueOf(userId));
-        if(dmUser!=null){
+//        DmUser dmUser = dmUserMapper.selectByPrimaryKey(Integer.valueOf(userId));
+        ReferrerInfo up1 = referrerInfoMapper.queryUpLevel(Integer.valueOf(userId));
+        ReferrerInfo up2 = null;
+        ReferrerInfo up3 = null;
+        ReferrerInfo up4 = null;
+        ReferrerInfo up5 = null;
+        if(up1!=null) {
+            allList.add(up1.getReferrerId());
+            up2 = referrerInfoMapper.queryUpLevel(up1.getReferrerId());
+        }
+        if(up2!=null) {
+            allList.add(up2.getReferrerId());
+            up3 = referrerInfoMapper.queryUpLevel(up2.getReferrerId());
+        }
+        if(up3!=null) {
+            allList.add(up3.getReferrerId());
+            up4 = referrerInfoMapper.queryUpLevel(up3.getReferrerId());
+        }
+        if(up4!=null) {
+            allList.add(up4.getReferrerId());
+            up5 = referrerInfoMapper.queryUpLevel(up4.getReferrerId());
+        }
+        if(up5!=null) {
+            allList.add(up5.getReferrerId());
+        }
+        /*if(dmUser!=null){
             for (int i = 0; i < 5; i++) {
-                ReferrerInfo referrerInfo = referrerInfoMapper.queryUpLevel(Integer.valueOf(userId));
                 Integer referrerId = referrerInfo.getReferrerId();
                 if (referrerId == null) {
                     break;
@@ -43,7 +66,7 @@ public class ReferrerInfoService {
                 allList.add(referrerId);
 
             }
-        }
+        }*/
 
         return allList;
     }

@@ -5,6 +5,7 @@ import com.qimeng.bs.market.order.service.DmCustOrderService;
 import com.qimeng.bs.market.order.service.DmTradeLogService;
 import com.qimeng.bs.market.point.bean.DmPoints;
 import com.qimeng.bs.market.point.bean.DmPointsDetail;
+import com.qimeng.bs.market.point.dao.DmPointsDetailMapper;
 import com.qimeng.bs.market.point.service.DmPointService;
 import com.qimeng.bs.market.user.service.ReferrerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class PaymentService {
     @Autowired
     private DmPointService dmPointService;
     @Autowired
+    private DmPointsDetailMapper dmPointsDetailMapper;
+    @Autowired
     private ReferrerInfoService referrerInfoService;
 
     public boolean responseAccepted(String orderNo) {
@@ -38,18 +41,20 @@ public class PaymentService {
     public void paymentOK(String userId,String orderNo, DmTradeLog log) {
         dmCustOrderService.updateOrderStateByOrderNo(orderNo, "10B");
 
-        List<Integer> upReferrers = referrerInfoService.getUpReferrers(userId);
+        List<Integer> upReferrers = referrerInfoService.getUp5LevelsReferrers(userId);
         for (Integer referrer : upReferrers) {
-            DmPoints dmPoints = new DmPoints();
+
+            dmPointService.increaseTotalPoint(referrer);
+
             DmPointsDetail dmPointsDetail = new DmPointsDetail();
             dmPointsDetail.setOrderNo(orderNo);
-            dmPointsDetail.setMerchantId(referrer);
+            dmPointsDetail.setUserId(referrer);
+            dmPointsDetail.setPresenteeId(Integer.valueOf(userId));
             dmPointsDetail.setPoint(1);
             dmPointsDetail.setGainTime(new Date());
             dmPointsDetail.setState("00A");
 
-            dmPointService.insertPoint(dmPoints);
-            dmPointService.increaseTotalPoint(referrer);
+            dmPointsDetailMapper.insert(dmPointsDetail);
         }
         dmTradeLogService.insertTradeLog(log);
     }

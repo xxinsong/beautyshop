@@ -265,12 +265,13 @@ public class PaymentController extends GenericController {
 
     @RequestMapping("/netpay/return")
     public ModelAndView netpayReturnPage(HttpServletRequest request) {
-        return new ModelAndView("/order");
+        return new ModelAndView("redirect:/order");
     }
 
     @RequestMapping("/easypay/return")
-    public ModelAndView easypayReturnPage(HttpServletRequest request) {
-        return new ModelAndView("/order");
+    public ModelAndView easypayReturnPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        easypayNotify(request,response);
+        return new ModelAndView("redirect:/order");
     }
 
     @RequestMapping("/easypay/notify")

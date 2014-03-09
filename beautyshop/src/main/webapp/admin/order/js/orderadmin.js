@@ -1,8 +1,9 @@
 var testgrid;
+var detailgrid;
 
 $(function() {
 	testgrid = new TableGrid( {
-		$table : $(".grid").find("table"),
+		$table : $("#orderList"),
 		service : "DmCustOrderController",
 		method : "queryAllOrder",
 		pageIndex : 1,
@@ -13,12 +14,17 @@ $(function() {
             }else{
                 $("#deliver").show();
             }
+
+            loadOrderDetail(data);
 		},
 		onClickCell : function(field, value) {
 		},
 		onDblClickRow : function(data) {
 		},
 		renderColumn : function(field, value) {
+            /*if ("orderNo" == field) {
+                return "<a onclick='javascript:showOrderDetail("+value+")'>"+value+"</a>";
+            }*/
 			if ("createTime" == field) {
 				return $.format.date(value,'yyyy-MM-dd HH:mm:ss');
 			}
@@ -28,6 +34,23 @@ $(function() {
 			return value;
 		}
 	});
+
+    detailgrid = new TableGrid( {
+        $table : $("#detailList"),
+        service : "DmCustOrderController",
+        method : "querySubOrder",
+        pageIndex : 1,
+        pageSize : 10,
+        onClickRow : function(data) {
+        },
+        onClickCell : function(field, value) {
+        },
+        onDblClickRow : function(data) {
+        },
+        renderColumn : function(field, value) {
+            return value;
+        }
+    });
 //    $('#qryOrderState').val("10B");
 	queryData();
 });
@@ -97,5 +120,21 @@ function issueInvoice() {
 		}
 	});
 }
+
+function loadOrderDetail(row){
+    $("[name='order_no']").text(row.orderNo);
+    $("[name='amount']").text("￥"+row.amount);
+    $("[name='rel_man']").text(row.relaMan);
+    $("[name='rel_phone']").text(row.relaTel);
+    $("[name='rel_address']").text(row.fullAddress);
+    $("[name='rel_zipcode']").text(row.zipCode);
+    $("[name='create_time']").text($.format.date(row.createTime,'yyyy-MM-dd HH:mm:ss'));
+
+    var params = {}
+    params.orderId = row.orderId;
+    detailgrid.params = params;
+    detailgrid.loadData();
+}
+
 
 

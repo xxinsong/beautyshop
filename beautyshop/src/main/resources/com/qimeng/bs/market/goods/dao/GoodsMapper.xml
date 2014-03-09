@@ -122,10 +122,10 @@
 	<select id="searchHotGoods" resultType="java.util.Map" parameterType="java.util.Map">
 		select <include refid="dm_goods_column_list" />
 		       , plan_price, inst_num, comment_num
-          from (select a.*, round(dgp.plan_price, 2) plan_price,
+          from (select a.*, round(a.price, 2) plan_price,
                        (select count(*) from dm_goods_inst b where b.goods_id = a.goods_id) inst_num,
                        (select count(*) from dm_cust_comment c where c.goods_id = a.goods_id) comment_num
-                  from dm_goods a left join dm_goods_plan dgp on a.goods_id = dgp.goods_id) tt
+                  from dm_goods a  where a.STATE = "00A") tt
          order by tt.inst_num desc limit 0, #{num}
 	</select>
 	<select id="searchGoodsCatalogs" resultType="java.util.Map" parameterType="java.util.Map">
@@ -143,18 +143,16 @@
     <select id="searchAdGoods" resultType="java.util.Map" parameterType="java.util.Map">
         select <include refid="dm_goods_column_list" />
         , plan_price, inst_num, comment_num,adimageurl,addesc,adorder
-        from (select activitedgoods.*, round(activiteddgp.plan_price, 2) plan_price,
+        from (select activitedgoods.*, round(activitedgoods.price, 2) plan_price,
         (select count(*) from dm_goods_inst b where b.goods_id = activitedgoods.goods_id) inst_num,
         (select count(*) from dm_cust_comment c where c.goods_id = activitedgoods.goods_id) comment_num,
-        activiteddgp.state planstate ,
         ad.AD_ORDER adorder,
         ad.AD_LEVEL adlevel,
         ad.IMAGE_URL adimageurl,
         ad.AD_DESC addesc
         from (<![CDATA[select * from dm_goods where EXP_DATE > now() and EFF_DATE < now() and STATE = '00A']]>)  activitedgoods
         inner join DM_ADVERTISEMENT ad on activitedgoods.GOODS_ID = ad.GOODS_ID
-        inner join (<![CDATA[select * from dm_goods_plan where EXP_DATE > now() and EFF_DATE < now() and STATE = '00A']]>) activiteddgp
-        on activitedgoods.goods_id = activiteddgp.goods_id ) tt
+        ) tt
         where tt.adlevel = #{adLevel}
         order by tt.adorder desc limit 0, 5
     </select>

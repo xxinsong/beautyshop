@@ -194,4 +194,12 @@ public class DmCustOrderService {
         dmCustOrderMapper.updateByPrimaryKeySelective(dmCustOrder);
         return true;
     }
+
+    public Page<DmSubCustOrder> querySubOrder(Map params, int pageIndex, int pageSize) {
+        Page<DmSubCustOrder> page = new Page<DmSubCustOrder>(pageIndex, pageSize);
+        page.setParams(params);
+        List<DmSubCustOrder > list = dmSubCustOrderMapper.selectSubOrderByOrderIdPage(page);
+        page.setRows(list);
+        return page;
+    }
 }

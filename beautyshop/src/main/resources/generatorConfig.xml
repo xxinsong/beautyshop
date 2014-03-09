@@ -24,7 +24,7 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>-->
-        <table schema="beautyshop" tableName="DM_POINTS"
+        <table schema="beautyshop" tableName="DM_POINTS_DETAIL"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

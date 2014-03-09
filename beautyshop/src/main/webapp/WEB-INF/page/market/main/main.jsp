@@ -32,11 +32,11 @@ String path = request.getContextPath();
                             <div class="mini_promo clearfix">
                             </div>
                             <a id ="templSecondeId" target="_blank" href="#" class="templClass" style="display: none;">
-                                <img src="#" alt="1号店-生活电器中心-夏降到底3折起">
+                                <img src="#" alt="">
                                 <div class="transCon"></div>
                                 <div class="open_pop">
-                                    <p class="p_title">鼠标停留后滑出，商品标题名称</p>
-                                    <p class="p_info"><span class="price">折扣价:￥998</span><span class="comment">评论(99999)</span></p>
+                                    <p class="p_title"></p>
+                                    <p class="p_info"><span class="price"></span><span class="comment"></span></p>
                                 </div>
                             </a>
                             <%--<div class="mini_promo clearfix">
@@ -82,7 +82,7 @@ String path = request.getContextPath();
             <div class="right_info news_div">--%>
             <div class="right_info" id="right_info"></div>
             <div class="right_info news_div">
-                <h2>特百公告</h2>
+                <h2>韩塑美网站公告</h2>
                 <div class="news_content" style="display: none;">
                     <ul class="news_list">
                         <li><a href="javascript: void(0)">·这里是公告的标题</a></li>

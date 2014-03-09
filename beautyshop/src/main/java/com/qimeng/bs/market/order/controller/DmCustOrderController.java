@@ -152,7 +152,7 @@ public class DmCustOrderController extends GenericController{
                 subOrder.setGoodsId(item.getGoodsId());
                 subOrder.setGoodsName(item.getGoodsName());
                 subOrder.setItemNo(item.getItemNo());
-                subOrder.setPrice(item.getAmount());
+                subOrder.setPrice(item.getPrice());
                 subOrder.setCreateDate(new Date());
                 subOrder.setCommentated("0");
                 subOrder.setState("10A");
@@ -318,5 +318,10 @@ public class DmCustOrderController extends GenericController{
     @RemoteMethod
     public boolean deliverGoods(Integer orderId) {
         return dmCustOrderService.deliverGoods(orderId);
+    }
+    @RemoteMethod
+    public Page<DmSubCustOrder> querySubOrder(Map params, int pageIndex, int pageSize) {
+        Page<DmSubCustOrder> orderList = dmCustOrderService.querySubOrder(params, pageIndex, pageSize);
+        return orderList;
     }
 }
