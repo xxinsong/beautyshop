@@ -2,13 +2,12 @@
 <%
 String path = request.getContextPath();
 %>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="library" content="market" />
-<title>数据超市</title>
+<title>韩塑美-您的美容专柜</title>
 <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
 <script type="text/javascript" src="<%=path%>/market/news/js/news.js"></script>
 <style>

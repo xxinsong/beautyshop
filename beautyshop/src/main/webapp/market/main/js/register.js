@@ -151,6 +151,11 @@ function register_validate() {
 		register_tip($passwdRepeat, "请输入密码", 1);
 		flag = false;
 	}
+    var $referrerNo = $("[name='referrerMobileNo']",".register_table");
+    if ($.trim($referrerNo.val()) == "") {
+        register_tip($referrerNo, "请输入推荐人手机号码", 1);
+        flag = false;
+    }
 	/*var $verificCode = $("[name='verificCode']", ".register_table");
 	if ($.trim($verificCode.val()) == "") {
 		register_tip($verificCode, "请输入验证码", 1);

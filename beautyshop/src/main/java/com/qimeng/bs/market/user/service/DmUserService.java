@@ -137,7 +137,7 @@ public class DmUserService {
         List<ReferrerInfo> presenteeList = referrerInfoMapper.findPresentee(referrerId);
         int size = presenteeList.size();
 
-        if(size >= maxPresentee) {
+        if(size >= maxPresentee && -1!=referrerId.intValue()) {
             int currIndex = 0;
             for (ReferrerInfo info : presenteeList) {
                 currIndex++;

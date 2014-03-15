@@ -8,7 +8,7 @@ String path = request.getContextPath();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="library" content="market" />
-<title>数据超市</title>
+<title>韩塑美-您的美容专柜</title>
 <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
 <script type="text/javascript" src="<%=path%>/market/notice/js/dmnotice.js"></script>
 </head>

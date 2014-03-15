@@ -1,31 +1,27 @@
 package com.qimeng.bs.market.user.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.qimeng.bs.admin.merchant.bean.DmMerchant;
-import com.qimeng.bs.market.user.bean.DmAddress;
+import com.qimeng.bs.common.controller.GenericController;
+import com.qimeng.bs.login.bean.LoginInfo;
+import com.qimeng.bs.login.service.UserLoginService;
+import com.qimeng.bs.market.user.bean.DmUser;
 import com.qimeng.bs.market.user.bean.RegisterInfo;
+import com.qimeng.bs.market.user.service.DmUserService;
+import com.qimeng.common.Constants;
+import com.qimeng.common.tools.Const;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.jboss.resteasy.annotations.Form;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import com.qimeng.common.Constants;
-import com.qimeng.common.tools.Const;
-import com.qimeng.bs.common.controller.GenericController;
-import com.qimeng.bs.login.bean.LoginInfo;
-import com.qimeng.bs.login.service.UserLoginService;
-import com.qimeng.bs.market.user.bean.DmUser;
-import com.qimeng.bs.market.user.service.DmUserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RemoteProxy
@@ -105,11 +101,12 @@ public class DmUserController extends GenericController {
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Path("card")
-    public String modifyMerchant(@FormParam("cardType")String cardType,@FormParam("cardNo")String cardNo) throws JSONException {
+    public String modifyMerchant(@FormParam("realName")String realName,@FormParam("cardType")String cardType,@FormParam("cardNo")String cardNo) throws JSONException {
         JSONObject result = new JSONObject();
         LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
         if(loginInfo!=null){
             Map param = new HashMap();
+            param.put("merchantName",realName);
             param.put("cardType",cardType);
             param.put("cardNo", cardNo);
 
@@ -134,6 +131,7 @@ public class DmUserController extends GenericController {
         LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
         if(loginInfo!=null){
             result.put("success", true);
+            result.put("realName",loginInfo.getMerchantName());
             result.put("cardType",loginInfo.getCardType());
             result.put("cardNo",loginInfo.getCardNo());
         }else{
