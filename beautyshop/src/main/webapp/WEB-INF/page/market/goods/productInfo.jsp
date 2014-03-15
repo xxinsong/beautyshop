@@ -18,8 +18,8 @@
 
 <jsp:include page="../main/header.jsp" flush="true"></jsp:include>
 <div class="contaiter">
-<div class="positionDiv"><a href="javascript:void(0);">全部分类</a> <span>></span> <a href="javascript:void(0);">手机通讯</a> <span>></span> <a href="javascript:void(0);">手机</a>
-</div>
+<%--<div class="positionDiv"><a href="javascript:void(0);">全部分类</a> <span>></span> <a href="javascript:void(0);">手机通讯</a> <span>></span> <a href="javascript:void(0);">手机</a>
+</div>--%>
 <div class="wrap">
 <div class="pro_detail">
     <div class="left_img" id="goods_img">
