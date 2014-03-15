@@ -33,15 +33,22 @@ function searchAdGoods(){
         if (adgoodsList && adgoodsList.length > 0) {
             for ( var i = 0; i < adgoodsList.length; i++) {
                 var adgood = adgoodsList[i];
-                html.push("<a href='"+commonJs.getWebPath() + "/product?id=" + adgood.goods_id+"' target='_blank'><img src='"+commonJs.getWebPath()+adgood.adimageurl+"' alt='"+adgood.addesc+"' width='600' height='250' /></a>");
+                html.push("<a href='"+commonJs.getWebPath() + "/product?id=" + adgood.goods_id+"' target='_blank'><img src='"+commonJs.getWebPath()+adgood.adimageurl+"' alt='"+adgood.addesc+"' width='1000' height='362' /></a>");
             }
             var $html = $(html.join(""));
             $("#KinSlideshow").append($html);
         }
-        $("#KinSlideshow").KinSlideshow();
+        $("#KinSlideshow").KinSlideshow({
+            moveStyle:"right",
+            titleBar:{titleBar_height:30,titleBar_bgColor:"#6a6a6a",titleBar_alpha:0.5},
+            titleFont:{TitleFont_size:12,TitleFont_color:"#FFFFFF",TitleFont_weight:"normal"},
+            btn:{btn_bgColor:"#FFFFFF",btn_bgHoverColor:"#ff72a0",btn_fontColor:"#000000",
+                btn_fontHoverColor:"#FFFFFF",btn_borderColor:"#e21482",
+                btn_borderHoverColor:"#1188c0",btn_borderWidth:1}
+        });
     });
 
-    var secondParams = {"num":5,"adLevel":"2"};
+    /*var secondParams = {"num":5,"adLevel":"2"};
     Ajax.getAsy().remoteCall("GoodsController", "searchAdGoods", [secondParams ], function(reply) {
         var adgoodsList = reply.getResult();
         var secondeCount = 0;
@@ -72,11 +79,11 @@ function searchAdGoods(){
 
             }
         }
-    });
+    });*/
 }
 
 function searchHotGoods() {
-    Ajax.getAsy().remoteCall("GoodsController", "searchHotGoods", [ 5 ], function(reply) {
+    Ajax.getAsy().remoteCall("GoodsController", "searchHotGoods", [ 10 ], function(reply) {
         var goodsList = reply.getResult();
         if (goodsList && goodsList.length > 0) {
             var html = [];

@@ -2,7 +2,7 @@
 <%
 String path = request.getContextPath();
 %>
-
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,12 +10,12 @@ String path = request.getContextPath();
 <meta http-equiv="library" content="market" />
 <title>数据超市</title>
 <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
-<script type="text/javascript" src="<%=path%>/market/notice/js/dmnotice.js"></script>
+<script type="text/javascript" src="<%=path%>/market/news/js/news.js"></script>
 <style>
 	.ntc_title
 	{
-	margin:auto;
-	width:80%;
+	/*margin:auto;*/
+	width:90%;
 	width:900px;
 	height:30px;
 	padding-top: 18px;	
@@ -23,10 +23,12 @@ String path = request.getContextPath();
 	line-height: 200%
 	}
 	.article_context {
-	margin:auto;
+	margin-left:25px;
 	width:85%;
 	width:920px;
-	line-height: 150%
+	line-height: 150%;
+    color: #333333;
+    font-size: 14px;
 	}
 	.article_bd {
 	border-top: #E8E8E8 solid 1px;
@@ -36,6 +38,7 @@ String path = request.getContextPath();
 	}
 	.article_tit {
 	font-size: 18px;
+    font-weight: bold;
 	font-family: \5FAE\8F6F\96C5\9ED1;
 	text-align: center;
 	}
@@ -49,8 +52,8 @@ String path = request.getContextPath();
 <body>
 <jsp:include page="../main/header.jsp" flush="true"></jsp:include>
 <div class="contaiter">
-	<div class="positionDiv"><a href="javascript: void(0)">首页</a> <span>></span> <a href="javascript: void(0)">新闻中心</a>
-	</div>
+	<%--<div class="positionDiv"><a href="javascript: void(0)">首页</a> <span>></span> <a href="javascript: void(0)">新闻中心</a>
+	</div>--%>
 
     <div class="wrap">
         <div class="detailL">
@@ -60,7 +63,8 @@ String path = request.getContextPath();
                         <h2><i class="userico02"></i><img src="<%=request.getContextPath()%>/market/main/images/news.png" width="24" height="24" class="menuic" />新闻中心</h2>
                     </div>
                     <div class="user_content">
-                        <ul class="user_list">
+                        <ul class="user_list" id="newsCatg">
+                            <%--<li class="curr"><a href="<%=request.getContextPath()%>/news/list/${item.value}">${item.name}</a></li>
                             <li id="mnu_invoice" class="curr"><a href="<%=request.getContextPath()%>/help/invoice">发票制度</a></li>
                             <li id="mnu_problems"><a href="<%=request.getContextPath()%>/help/problems">常见问题</a></li>
                             <li id="mnu_consuOrcomp"><a href="<%=request.getContextPath()%>/help/consuOrcomp">投诉咨询</a></li>
@@ -68,7 +72,7 @@ String path = request.getContextPath();
                             <li id="mnu_contact"><a href="<%=request.getContextPath()%>/help/contact">联系我们</a></li>
                             <li id="mnu_talente"><a href="<%=request.getContextPath()%>/help/talente">诚聘英才</a></li>
                             <li id="mnu_LegalNotices"><a href="<%=request.getContextPath()%>/help/legalNotices">法律声明</a></li>
-                            <li id="mnu_friendConnection"><a href="<%=request.getContextPath()%>/help/links">友情链接</a></li>
+                            <li id="mnu_friendConnection"><a href="<%=request.getContextPath()%>/help/links">友情链接</a></li>--%>
                         </ul>
                     </div>
                     <div class="user_content">
@@ -81,44 +85,46 @@ String path = request.getContextPath();
         </div>
     </div>
     <div class="detailR">
-        <div class="pers_cen_div mt">
+        <div class="pers_cen_div mt" id="newsListDiv">
             <div class="pers_cen_title">
-                <h3>联系我们</h3>
+                <h3 id="catg_name"></h3>
             </div>
             <div class="pers_cen_con">
-                <div class="announce_content">
-                    <h2>电话服务中心联系方式 </h2>
-                    <p>如果您对韩塑美的产品有任何疑问，或对我们的服务有任何意见或建议，欢迎您直接与我们联络，我们将竭诚为您服务。</p>
-                    <p>电话服务中心工作时间：周一至周日8时—21时（春节法定假日期间如有工作时间的调整，以网站公告时间为准）</p>
-                    <p>全国免费咨询热线：400-0282-113</p>
-                    <p>客服邮箱：249309847@qq.com</p>
-
-                    <h2>公司地址</h2>
-                    <p>联系方式：0755-22675837</p>
-                    <p>深圳市南山区南海大道海王大厦A座23B韩塑美科技公司</p>
+                <div width="100%" height="500px">
+                    <table id="news_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr id="row_tpl" style="display:none;line-height: 22px" >
+                            <td width="18px" style="vertical-align:middle">
+                                <%--<div class="favs_content">--%>
+                                    <img align="bottom" src="<%=request.getContextPath()%>/market/main/images/sanjiao.png" width="16" height="16" />
+                                <%--</div>--%>
+                            </td>
+                            <td width="580px" style="font-size: 14px">
+                                <a href="javascript:void(0);" name="news_title"></a>
+                            </td>
+                            <td style="font-size: 14px">
+                                <p><span class="gray_font" name="publish_time">ss</span></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="news_page" style="display: block;" class="turnPageBottom">
                 </div>
                 <div class="clear"></div>
+
+            </div>
+        </div>
+        <div id="newsDetailDiv" class="checkout" style="display:none ;margin-top: 10px;background-color: #fff; ">
+            <div class="ntc_title">
+                <h3 class="article_tit" id="news_title">标题标题标题标题标题标题</h3>
+                <p class="article_info" ><span id="publisher">作者:管理员</span><span id="publish_time" style="margin-left: 10px">发布时间:2014-03-15</span></p>
+            </div>
+            <div class = "article_bd" >
+                <div class="article_context" id="news_context">
+                </div>
             </div>
         </div>
     </div>
-		<div class="checkout" sytle="margin-top: 10px;background-color: #fff;">
-			<div class="ntc_title">
-				<h3 class="article_tit" id="notice_title"></h3> 
-				<p class="article_info" id="title_time">时间</p>
-			</div>
-			<div class = "article_bd" id="notice_context">
-				<div class="article_context" id="nt_dest"></div>
-				<div>
-					<br/>
-				</div>
-		     	<div class="article_context" id="nt_context">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-		     	<div>
-					<br/>
-				</div>
-				<div class="article_context" id="nt_publisher"></div>
-				<div class="article_context" id="nt_publishtime"></div>
-			</div>
-		</div>
+
 </div>
 <jsp:include page="../main/footer.jsp" flush="true"></jsp:include>
 </body>

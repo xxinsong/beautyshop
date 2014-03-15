@@ -195,11 +195,13 @@ public class DmUserService {
 		DmMerchant dmMerchant = new DmMerchant();
 		dmMerchant.setMerchantName(Const.getStrValue(params, "merchantName"));
 		dmMerchant.setGender(Const.getStrValue(params, "gender"));
+        dmMerchant.setLegalCertType(Const.getStrValue(params,"cardType"));
 		dmMerchant.setLegalCertNo(Const.getStrValue(params, "cardNo"));
 		dmMerchant.setProvince(Const.getStrValue(params, "provinceCode"));
 		dmMerchant.setCity(Const.getStrValue(params, "cityCode"));
 		dmMerchant.setDistrict(Const.getStrValue(params, "districtCode"));
 		dmMerchant.setAddress(Const.getStrValue(params, "address"));
+//        dmMerchant.setLegalCertNo(Const.getStrValue(params,"legalCertNo"));
 		if (!"0".equals(Const.getStrValue(params, "merchantId"))) {
 			dmMerchant.setMerchantId(Integer.valueOf(Const.getStrValue(params, "merchantId")));
 			dmMerchantMapper.updateByPrimaryKeySelective(dmMerchant);

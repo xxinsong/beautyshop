@@ -46,9 +46,9 @@ $(function() {
         }
     });
     //初始化商品目录
-    initGoodsCataLog();
+//    initGoodsCataLog();
     //初始化mini购物车
-    initMiniCart();
+//    initMiniCart();
 })
 
 function initGoodsCataLog() {
@@ -158,4 +158,30 @@ function goodsInstRowRender(data,context){
     $("#m_totalPrice").text("￥"+m_totalPrice);
     $("#m_total").text(++m_total);
     $("#noneTips").hide();
+}
+
+function contactUs(){
+
+    window.location.href = commonJs.getWebPath()+"/help/contact";
+}
+
+function switchMainMenu(item){
+    $(".headerNavMain .cur").removeClass('cur');
+    item.addClass('cur');
+}
+
+function AddFavorite() {
+    var title ="韩塑美";
+    var url = location.href;
+    try {
+        window.external.addFavorite(url, title);
+    }
+    catch (e) {
+        try {
+            window.sidebar.addPanel(title, url, "");
+        }
+        catch (e) {
+            alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
+        }
+    }
 }

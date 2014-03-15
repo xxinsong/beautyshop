@@ -3,8 +3,8 @@
 .announce_content p {
 	color: #333333;
 	font-size: 14px;
-	line-height: 30px;
-	padding: 0 40px;
+	line-height: 32px;
+	padding: 0 40px 0 40px;
 }
 
 .announce_content h2 {

@@ -14,11 +14,12 @@ String path = request.getContextPath();
 <script type="text/javascript" src="<%=path%>/market/main/js/jquery.KinSlideshow-1.2.1.min.js"></script>
 </head>
 <body>
-<jsp:include page="header.jsp" flush="true">
-     <jsp:param name="from_page" value="main"/>
-</jsp:include>
+<jsp:include page="header.jsp" flush="true"/>
+     <%--<jsp:param name="from_page" value="main"/>--%>
+<%--</jsp:include>--%>
 <div class="content">
 	<div class="wrap clearfix">
+        <%--<img src="<%=request.getContextPath()%>/market/main/images/mainad.jpg"/>--%>
 		<div class="left_side">
 			<div class="promo_show">
 				<div class="promo_wrapper">
@@ -28,17 +29,18 @@ String path = request.getContextPath();
                                 <img src="<%=path%>/market/main/images/flash_pic01.jpg" alt="1号店-生活电器中心-夏降到底3折起">
                             </a>--%>
                             <div id="KinSlideshow"  style="visibility:hidden;">
+                                
                             </div>
-                            <div class="mini_promo clearfix">
-                            </div>
-                            <a id ="templSecondeId" target="_blank" href="#" class="templClass" style="display: none;">
+                            <%--<div class="mini_promo clearfix">
+                            </div>--%>
+                            <%--<a id ="templSecondeId" target="_blank" href="#" class="templClass" style="display: none;">
                                 <img src="#" alt="">
                                 <div class="transCon"></div>
                                 <div class="open_pop">
                                     <p class="p_title"></p>
                                     <p class="p_info"><span class="price"></span><span class="comment"></span></p>
                                 </div>
-                            </a>
+                            </a>--%>
                             <%--<div class="mini_promo clearfix">
                                 <a target="_blank" href="#">
                                     <img src="<%=path%>/market/main/images/flash_mini_01.jpg" alt="1号店-生活电器中心-夏降到底3折起">
@@ -68,8 +70,8 @@ String path = request.getContextPath();
 						</li>						
 					</ol>
 				</div>
-				<div class="show_num_bg"></div>
-                <%--<ul>
+				<%--<div class="show_num_bg"></div>
+                <ul>
                     <li class="cur"></li>
                     <li class=""></li>
                     <li class=""></li>
@@ -77,9 +79,9 @@ String path = request.getContextPath();
                 </ul>--%>
             </div>
 		</div>
- 		<div class="right_side">
-        	<%--<div class="right_info"><img src="<%=path%>/market/main/images/right_gg_01.jpg" width="218" height="90" /></div>
-            <div class="right_info news_div">--%>
+ 		<%--<div class="right_side">
+        	&lt;%&ndash;<div class="right_info"><img src="<%=path%>/market/main/images/right_gg_01.jpg" width="218" height="90" /></div>
+            <div class="right_info news_div">&ndash;%&gt;
             <div class="right_info" id="right_info"></div>
             <div class="right_info news_div">
                 <h2>韩塑美网站公告</h2>
@@ -124,17 +126,17 @@ String path = request.getContextPath();
                         	<p class="number" name="userBePaid">0</p>
                             <p class="nameCurr">待支付</p>
                         </a>
-                        <%--<a id="waitForComment" href="javascript: void(0)" class="last">
+                        &lt;%&ndash;<a id="waitForComment" href="javascript: void(0)" class="last">
                         	<p class="number">0</p>
                             <p class="nameCurr">待评价</p>
-                        </a>--%>
+                        </a>&ndash;%&gt;
                     </div>
                 </div>
           	</div>  
-   	  	</div>
+   	  	</div>--%>
 	</div>
 </div>
-<div class="wrap index_floor floor1 floor_height" style="display: none;">
+<%--<div class="wrap index_floor floor1 floor_height" style="display: none;">
 	<div class="clearfix floor_wrap">
         <div class="middle_module">
         	<ul class="tab_li">
@@ -187,7 +189,7 @@ String path = request.getContextPath();
             </div>
         </div>
     </div>
-</div>
+</div>--%>
 <div class="wrap index_floor floor1 floor_height">
 	<div class="clearfix floor_wrap">
         <div class="middle_module" id="hot_goods_div">
@@ -200,7 +202,7 @@ String path = request.getContextPath();
         </div>
     </div>
 </div>
-<div class="wrap index_floor floor1 floor_height" style="display: none;">
+<%--<div class="wrap index_floor floor1 floor_height" style="display: none;">
 	<div class="clearfix floor_wrap">
         <div class="middle_module">
         	<ul class="tab_li">
@@ -253,8 +255,8 @@ String path = request.getContextPath();
             </div>
         </div>
     </div>
-</div>
-<div class="wrap index_floor floor1 floor_height" style="display: none;">
+</div>--%>
+<%--<div class="wrap index_floor floor1 floor_height" style="display: none;">
 	<div class="clearfix floor_wrap">
         <div class="middle_module">
         	<div class="pro_title">
@@ -301,7 +303,7 @@ String path = request.getContextPath();
             </div>
         </div>
     </div>
-</div>
+</div>--%>
 <jsp:include page="footer.jsp" flush="true"></jsp:include>
 </body>
 </html>

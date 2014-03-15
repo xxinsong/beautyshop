@@ -3,59 +3,58 @@
 <div class="bottom_service_link clearfix clear">
     <div class="help_link_list">
         <dl class="bottom_help_1">
-            <dt>新手上路</dt>
-            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/invoice">发票制度</a></dd>
-            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">常见问题</a></dd>
-            <!--             <dd><a target="_blank" href="#">在线客服</a></dd> -->
+            <dt>服务保障</dt>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/invoice">真品联盟</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">100%正品保证</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">30天无条件退货</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">7x24小时客服服务</a></dd>
         </dl>
-        <!--         <dl class="bottom_help_2"> -->
-        <!--             <dt>支付方式</dt> -->
-        <!--             <dd><a target="_blank" href="#">网银支付</a></dd> -->
-        <!--         </dl> -->
-        <!--         <dl class="bottom_help_3"> -->
-        <!--             <dt>物流配送</dt> -->
-        <!--             <dd><a target="_blank" href="#">配送范围及时间</a></dd> -->
-        <!--             <dd><a target="_blank" href="#">配送状态查询</a></dd> -->
-        <!--         </dl> -->
+        <dl class="bottom_help_1">
+            <dt>使用帮助</dt>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/invoice">新手指南</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">常见问题</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">帮助中心</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">用户协议</a></dd>
+        </dl>
+        <dl class="bottom_help_1">
+            <dt>支付方式</dt>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/invoice">货到付款</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">在线支付</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">余额支付</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">现金劵支付</a></dd>
+        </dl>
+        <dl class="bottom_help_1">
+            <dt>配送方式</dt>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/invoice">买二包邮</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">配送说明</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">运费说明</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/problems">验货签收</a></dd>
+        </dl>
         <dl class="bottom_help_4">
             <dt>售后服务</dt>
-            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/consuOrcomp">咨询与投诉</a></dd>
-            <!--             <dd><a target="_blank" href="#">维修与安装</a></dd> -->
-            <!--             <dd><a target="_blank" href="#">购买延保服务</a></dd> -->
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/consuOrcomp">正品承诺</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/consuOrcomp">售后咨询</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/consuOrcomp">退货政策</a></dd>
+            <dd><a target="_blank" href="<%=request.getContextPath()%>/help/consuOrcomp">退货办理</a></dd>
         </dl>
-        <!--         <dl class="bottom_help_5"> -->
-        <!--             <dt>关注我们</dt> -->
-        <!--             <dd class="attention"> -->
-        <!--             <div> -->
-        <!--             	<i class="sinaico"></i>微博名称<a href="#" class="attentionBtn">+&nbsp;关注</a> -->
-        <!--             </div> -->
-        <!--             <div> -->
-        <!--               <table width="100%" border="0" cellspacing="0" cellpadding="0" class="attenTalbe"> -->
-        <!--                 <tr> -->
-        <!--                   <td>关注 <span>481</span></td> -->
-        <!--                   <td>微博 <span>3378</span></td> -->
-        <!--                 </tr> -->
-        <!--                 <tr> -->
-        <!--                   <td>粉丝<span> 1257</span></td> -->
-        <!--                   <td>&nbsp;</td> -->
-        <!--                 </tr> -->
-        <!--               </table> -->
-        <!--             </div> -->
-        <!--             </dd> -->
-        <!--         </dl> -->
+
         <div class="footer_logo"></div>
     </div>
     <div class="footer_link">
         <a target="_blank" href="<%=request.getContextPath()%>/help/about">关于我们</a>|
-        <a target="_blank" href="<%=request.getContextPath()%>/help/contact">联系我们</a>|
-        <a target="_blank" href="<%=request.getContextPath()%>/help/talente">诚聘英才</a>|
-        <a target="_blank" href="<%=request.getContextPath()%>/help/links">友情链接</a>|
-        <a target="_blank" href="<%=request.getContextPath()%>/help/legalNotices">法律声明</a>
+        <a target="_blank" href="<%=request.getContextPath()%>/help/contact">About us</a>|
+        <a target="_blank" href="<%=request.getContextPath()%>/help/talente">媒体报道</a>|
+        <a target="_blank" href="<%=request.getContextPath()%>/help/links">品牌招商</a>|
+        <a target="_blank" href="<%=request.getContextPath()%>/help/legalNotices">隐私条款</a>
+        <a target="_blank" href="<%=request.getContextPath()%>/help/legalNotices">友情链接</a>
+        <a target="_blank" href="<%=request.getContextPath()%>/help/legalNotices">招贤纳士</a>
+        <a target="_blank" href="<%=request.getContextPath()%>/help/legalNotices">合作伙伴</a>
     </div>
 </div>
 <div class="footer">
     <p class="copyright">
-        Copyright© 2013 ，版权所有 粤ICP备10207551号 粤B2-20100316 出版物经营许可证新出发粤批字第A-243号
+        Copyright© 2008-2014 ，版权所有 ：深圳市韩塑美科技有限公司 粤ICP备14007064号-1 使用本站即表示接受韩塑美会员用户协议。
     </p>
+    <%--<p class="copyright">联系方式：深圳市南山区南海大道海王大厦A座23B韩塑美科技公司   电话：0755-22675837</p>--%>
     <p class="kexin"><img src="<%=request.getContextPath()%>/market/main/images/kexinimg01.jpg" width="112" height="35" /><img src="<%=request.getContextPath()%>/market/main/images/kexinimg02.jpg" width="112" height="35" /><img src="<%=request.getContextPath()%>/market/main/images/kexinimg03.jpg" width="112" height="35" /></p>
 </div>

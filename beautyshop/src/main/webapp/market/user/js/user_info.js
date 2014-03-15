@@ -78,6 +78,8 @@ function initPage() {
 			$("[name='logonName']", "#userInfoDiv").html(loginInfo.logonName);
 			$("[name='email']", "#userInfoDiv").html(loginInfo.email);
 			$("[name='address']", "#userInfoDiv").val(loginInfo.address);
+			$("[name='cardType']", "#userInfoDiv").val(loginInfo.cardType);
+			$("[name='cardNo']", "#userInfoDiv").val(loginInfo.cardNo);
             if(loginInfo.headImage&&loginInfo.headImage!=null){
 			    $("#headImage").attr("src", path_prefix.substring(0, path_prefix.lastIndexOf("/")) + loginInfo.headImage);
             }

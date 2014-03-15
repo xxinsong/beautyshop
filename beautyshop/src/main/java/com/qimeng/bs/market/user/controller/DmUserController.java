@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qimeng.bs.admin.merchant.bean.DmMerchant;
 import com.qimeng.bs.market.user.bean.DmAddress;
 import com.qimeng.bs.market.user.bean.RegisterInfo;
 import org.directwebremoting.annotations.RemoteProxy;
@@ -23,9 +24,7 @@ import com.qimeng.bs.market.user.service.DmUserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Controller
@@ -102,7 +101,48 @@ public class DmUserController extends GenericController {
 		userLoginService.refreshLoginInfo(loginInfo.getUserId());
 		return result;
 	}
-	
+
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("card")
+    public String modifyMerchant(@FormParam("cardType")String cardType,@FormParam("cardNo")String cardNo) throws JSONException {
+        JSONObject result = new JSONObject();
+        LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
+        if(loginInfo!=null){
+            Map param = new HashMap();
+            param.put("cardType",cardType);
+            param.put("cardNo", cardNo);
+
+            boolean ret = modifyBaseInfo(param);
+            if (ret) {
+                result.put("success", true);
+            }else{
+                result.put("success", false);
+            }
+        }else{
+            result.put("success", false);
+            result.put("reason", "未登录！");
+        }
+
+        return result.toString();
+    }
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("card")
+    public String getMerchantCard() throws JSONException {
+        JSONObject result = new JSONObject();
+        LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
+        if(loginInfo!=null){
+            result.put("success", true);
+            result.put("cardType",loginInfo.getCardType());
+            result.put("cardNo",loginInfo.getCardNo());
+        }else{
+            result.put("success", false);
+            result.put("reason", "未登录！");
+        }
+
+        return result.toString();
+    }
 	public Map modifyLogonName(Map params) {
 		Map result = new HashMap();
 		LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);

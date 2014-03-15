@@ -207,6 +207,7 @@ public class DmShoppingCartController extends GenericController {
         for (DmShoppingCartItem item : allGoodsInCart) {
             JSONObject jobj = new JSONObject();
             jobj.put("goodsId", item.getGoodsId());
+            jobj.put("goodsNo", item.getGoodsNo());
             jobj.put("amount",String.valueOf(item.getAmount()));
             jobj.put("goodsImage", item.getGoodsImage());
             jobj.put("goodsName", item.getGoodsName());

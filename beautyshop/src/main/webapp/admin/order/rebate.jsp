@@ -64,6 +64,8 @@ String path = request.getContextPath();
 							<th field="logonName">登录名</th>
 							<th field="userName">用户姓名</th>
 							<th field="level">用户等级</th>
+							<th field="cardType">开户银行</th>
+							<th field="cardNo">银行卡号</th>
 							<th field="totalPoints">总积分</th>
 							<%--<th field="merchantCode" attr_code="MERCHANT_LEVEL">商户编码</th>
 							<th field="merchantName">商户名称</th>--%>

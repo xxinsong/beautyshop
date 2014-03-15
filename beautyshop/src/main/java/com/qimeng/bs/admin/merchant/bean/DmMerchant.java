@@ -3,6 +3,9 @@ package com.qimeng.bs.admin.merchant.bean;
 import java.util.Date;
 
 import org.directwebremoting.annotations.DataTransferObject;
+
+import javax.ws.rs.FormParam;
+
 @DataTransferObject
 public class DmMerchant {
     /**
@@ -115,6 +118,7 @@ public class DmMerchant {
      *
      * @mbggenerated Mon Dec 09 09:37:24 CST 2013
      */
+    @FormParam("cardType")
     private String legalCertType;
 
     /**
@@ -123,6 +127,7 @@ public class DmMerchant {
      *
      * @mbggenerated Mon Dec 09 09:37:24 CST 2013
      */
+    @FormParam("cardNo")
     private String legalCertNo;
 
     /**

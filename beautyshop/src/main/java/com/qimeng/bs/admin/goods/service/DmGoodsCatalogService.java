@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,10 @@ public class DmGoodsCatalogService {
 	}
 	
 	public String queryFullCataName(String catalog_id) {
-		String result = dmGoodsCatalogMapper.queryFullCataName(Integer.valueOf(catalog_id));
+		String result = "";
+        if (StringUtils.isNotEmpty(catalog_id)) {
+            result = dmGoodsCatalogMapper.queryFullCataName(Integer.valueOf(catalog_id));
+        }
 		return result;
 	}
 	

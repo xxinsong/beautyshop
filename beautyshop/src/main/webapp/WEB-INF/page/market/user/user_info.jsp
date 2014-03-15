@@ -92,6 +92,18 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <th>开户行：</th>
+                            <td><input type="text" name="cardType" value="" class="ui_ipt bold" max_length="40"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>银行卡号：</th>
+                            <td><input type="text" name="cardNo" value="" class="ui_ipt bold" valid_type="numOnly" max_length="40" style="width: 250px;"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <th>手机号码：</th>
                             <td><span class="bold" name="logonName"></span><%--<a href="javascript: void(0)" class="blue"
                                                                               id="modify_logon_name_btn">修改</a>--%><span

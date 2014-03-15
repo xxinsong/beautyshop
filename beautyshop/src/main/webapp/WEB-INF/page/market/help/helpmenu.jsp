@@ -22,6 +22,11 @@
                             <li id="mnu_friendConnection"><a href="<%=request.getContextPath()%>/help/links">友情链接</a></li>
                         </ul>
                     </div>
+                    <div class="user_content">
+                        <ul class="user_list">
+                            <li><img src="<%=request.getContextPath()%>/market/main/images/contactus.jpg"></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
