@@ -26,7 +26,7 @@
                             <li id="mnu_myaccount"><a href="<%=request.getContextPath()%>/setting/account">账户信息</a></li>
                             <li id="mnu_security"><a href="<%=request.getContextPath()%>/setting/security">安全设置</a></li>
                             <li id="mnu_myaddress"><a href="<%=request.getContextPath()%>/setting/address">我的收货地址</a></li>
-                            <li id="mnu_myreferrer"><a href="<%=request.getContextPath()%>/setting/myreferrer">我的推荐</a></li>
+                            <li id="mnu_myreferrer"><a href="<%=request.getContextPath()%>/setting/myreferrer">我的余额</a></li>
                             <li id="mnu_mymessage" class="last"><a href="<%=request.getContextPath()%>/msg/mymessage">我的消息</a></li>
                         </ul>
                     </div>

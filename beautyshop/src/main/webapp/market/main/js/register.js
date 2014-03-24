@@ -91,6 +91,8 @@ function register() {
 			}*/
             else if (result.flag == 3) {
                 register_tip($("[name='referrerMobileNo']", ".register_table"), "推荐人号码不正确", 1);
+            }else if (result.flag == 4) {
+                register_tip($("[name='referrerMobileNo']", ".register_table"), "推荐人没有支付过订单，不符合推荐人资格！", 1);
             }
 		}
 	});

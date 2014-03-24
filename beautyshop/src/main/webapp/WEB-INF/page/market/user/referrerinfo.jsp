@@ -22,7 +22,12 @@
 <div class="detailR">
     <div class="pers_cen_div mt">
         <div class="pers_cen_title">
-            <h3>我推荐的人</h3>
+            <h3><span>我的余额（</span>
+                <span style="padding-left: 15px;" id="totalReferrer"></span>
+                <span style="padding-left: 15px;" id="totalGain"></span>
+                <span style="padding-left: 15px;" id="blance"></span>
+                <span>）</span>
+            </h3>
         </div>
         <div class="pers_cen_con">
             <div class="my_order_div">

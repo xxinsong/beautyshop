@@ -96,7 +96,7 @@
                         <th>&nbsp;</th>
                         <td>
                             <input type="checkbox" name="readme" checked="checked"/>
-                            我已阅读并同意<a href="javascript: void(0);" class="blue">《用户注册协议》</a>
+                            我已阅读并同意<a href="<%=path%>/help/agreement" class="blue">《用户注册协议》</a>
 
                         </td>
                         <td></td>

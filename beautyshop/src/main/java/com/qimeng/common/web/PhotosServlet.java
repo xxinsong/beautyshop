@@ -31,6 +31,10 @@ public class PhotosServlet extends HttpServlet {
 
 	private final Logger logger = Logger.getLogger(PhotosServlet.class);
 	SFTPClient sftpClient = new SFTPClient();
+    private String host;
+    private String login;
+    private String password;
+    private int port;
 
 	@Override
 	public void init() throws ServletException {
@@ -46,12 +50,12 @@ public class PhotosServlet extends HttpServlet {
 		DcSystemConfigService dcSystemConfigService = (DcSystemConfigService) wac
 				.getBean("dcSystemConfigService");
 
-		String host = dcSystemConfigService.getSystemParamValue("FTP_HOSTNAME");
-		String login = dcSystemConfigService
+		host = dcSystemConfigService.getSystemParamValue("FTP_HOSTNAME");
+		login = dcSystemConfigService
 				.getSystemParamValue("FTP_USERNAME");
-		String password = dcSystemConfigService
+		password = dcSystemConfigService
 				.getSystemParamValue("FTP_PASSWORD");
-		int port = Integer.parseInt(dcSystemConfigService
+		port = Integer.parseInt(dcSystemConfigService
 				.getSystemParamValue("FTP_PORT"));
 		try {
 			sftpClient.connect(host, login, password, port);
@@ -94,6 +98,7 @@ public class PhotosServlet extends HttpServlet {
 		try {
 			resp.setContentType("image/*");
 			outputStream = resp.getOutputStream();
+            sftpClient.connect(host, login, password, port);
 			sftpClient.downloadFile(remotePath, outputStream);
 
 		} catch (Exception e) {

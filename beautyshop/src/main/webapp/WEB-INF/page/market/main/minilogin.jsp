@@ -36,7 +36,7 @@
       </table>
     </div>
     </form>
-	<div class="you_can">
+	<div class="you_can" style="display: none;">
         <p>可以使用以下方式登录</p>
         <ul class="acount_list">
             <li><a href="javascript: void(0)" class="qqico"></a></li>

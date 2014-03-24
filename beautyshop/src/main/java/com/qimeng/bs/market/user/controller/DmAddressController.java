@@ -52,9 +52,11 @@ public class DmAddressController extends GenericController {
             List<DmAddress> addresses = dmAddressService.selectAllAddressList(currUser.getMerchantId());
             if(addresses!=null&&!addresses.isEmpty()) {
                 return addresses.get(0);
+            }else{
+                return new DmAddress();
             }
         }
-        return null;
+        return new DmAddress();
     }
 
     @Path("address/list")

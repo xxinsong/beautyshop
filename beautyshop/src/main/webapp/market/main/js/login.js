@@ -42,3 +42,7 @@ function userLogin() {
         }
     });
 }
+
+function goHome(){
+    location.href=commonJs.getWebPath()+"/welcome";
+}

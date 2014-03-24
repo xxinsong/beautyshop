@@ -15,6 +15,7 @@ $(function(){
 
     loadAddressList();
 
+    loadTotalGain();
 
 });
 
@@ -28,4 +29,23 @@ function loadAddressList(params){
 function referrerRowRender(data,context){
     $("[name='presenteeName']",context).text(data.presenteeName);
     $("[name='createTime']",context).text($.format.date(data.createTime,'yyyy-MM-dd HH:mm:ss'));
+}
+
+function loadTotalGain(){
+    $.ajax({
+        method:'GET',
+        url:commonJs.getWebPath()+"/setting/referrer/total",
+        success:function(data){
+            $("#totalReferrer").text("共有会员数："+data.total);
+        }
+    });
+    $.ajax({
+        method:'GET',
+        url:commonJs.getWebPath()+"/setting/referrer/earnings",
+        success:function(data){
+            $("#totalGain").text("共获得余额：￥"+data.total);
+            $("#gain").text("已支付余额：￥"+data.total - data.remainder);
+            $("#blance").text("未支付余额：￥"+data.remainder);
+        }
+    });
 }

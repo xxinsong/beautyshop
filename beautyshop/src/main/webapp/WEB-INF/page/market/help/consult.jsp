@@ -13,7 +13,7 @@
     	<script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
     	<script type="text/javascript">
             $(function () {
-                switchMenu($("#mnu_problems"));
+                switchMenu($("#mnu_consult"));
             });
     	</script>
 	</head>
@@ -29,7 +29,7 @@
         <div class="detailR"<%-- style="padding-left:225px;width:775px; float:left;"--%>>
             <div class="pers_cen_div mt">
                 <div class="pers_cen_title">
-                    <h3>常见问题</h3>
+                    <h3>售后咨询</h3>
                 </div>
                 <div class="pers_cen_con">
                     <div class="announce_content">
@@ -55,7 +55,6 @@
                             一般情况下，收费标准为：快递5元， EMS邮费15元。以下情况可以免邮哟~
                             对于同一个由韩塑美发出的订单，我们实行买两件商品（无论是否同一款）即快递包邮的政策。如果您选择的是EMS发货，则减免5元运费；（第三方发货不适用）
                         </p>
-
                     </div>
                     <div class="clear"></div>
                 </div>

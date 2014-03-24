@@ -79,6 +79,27 @@ public class UserLoginController extends GenericController {
         return "/market/main/login.jsp";
     }
 
+    @RequestMapping("/identify")
+    public String identifypage(HttpServletRequest request) {
+        return "/market/help/identify.jsp";
+    }
+
+    @RequestMapping("/kind")
+    public String kindpage(HttpServletRequest request) {
+        return "/market/help/kind.jsp";
+    }
+
+    @RequestMapping("/ensure")
+    public String ensurepage(HttpServletRequest request) {
+        return "/market/help/ensure.jsp";
+    }
+
+    @RequestMapping("/service")
+    public String servicepage(HttpServletRequest request) {
+        return "/market/help/service.jsp";
+    }
+
+
     @PUT
     @Path("login/{login_name}:{passwd}")
     @Produces({MediaType.APPLICATION_JSON})

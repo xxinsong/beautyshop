@@ -72,4 +72,6 @@ public interface DmCustOrderMapper {
     void updateStateByOrderNo(Map param);
 
     int cancelMyOrder(Map param);
+
+    int countDealOrderByUserId(Integer userId);
 }

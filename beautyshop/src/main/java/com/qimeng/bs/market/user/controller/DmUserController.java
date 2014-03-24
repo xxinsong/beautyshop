@@ -255,4 +255,30 @@ public class DmUserController extends GenericController {
         userLoginService.refreshLoginInfo(getCurrentLoginUser().getUserId());
         return result;
     }
+
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("mdypwd")
+    public String modifyPassword(@FormParam("oldPwd")String oldPwd,@FormParam("newPwd")String newPwd) throws JSONException {
+        JSONObject result = new JSONObject();
+        LoginInfo currUser = getCurrentLoginUser();
+        if (currUser == null) {
+            result.put("success", false);
+            result.put("reason","用户未登录");
+        }else{
+            Map param = new HashMap();
+            param.put("type", "pass_yz");
+            param.put("logonName", currUser.getLogonName());
+            param.put("pass_old", oldPwd);
+            param.put("pass_new", newPwd);
+            Map ret = updateUserReg(param);
+            if(Const.getStrValue(ret,"flag").equals("3")) {
+                result.put("success", false);
+                result.put("reason","原密码错误");
+            }else {
+                result.put("success", true);
+            }
+        }
+        return result.toString();
+    }
 }

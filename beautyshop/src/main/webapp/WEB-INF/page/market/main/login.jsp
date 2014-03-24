@@ -16,7 +16,7 @@
 <body>
 <div class="login_bar">
     <div class="wrap">
-        <div class="login_logo"></div>
+        <div class="login_logo" style="cursor: pointer;" onclick="javascript:goHome();"></div>
     </div>
 </div>
 <div class="contaiter">

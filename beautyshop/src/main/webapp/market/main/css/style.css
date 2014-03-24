@@ -1499,8 +1499,9 @@ a.new_register{ margin-left:10px;}
 	margin:20px auto 0;
 	position:relative;
 	border-bottom:1px dashed #e8e8e8;
+    background-color: #e8e8e8;
 }
-.footer_logo{ background:url(../images/footer_logo.jpg) no-repeat; width:180px; height:90px; position:absolute; right:10px; top:20px;}
+.footer_logo{ background:url(../images/footer_logo.jpg) no-repeat; width:180px; height:180px; position:absolute; right:10px; }
 .sinaico{ background:url(../images/sina.jpg) no-repeat; width:30px; height:30px; vertical-align:middle; display:inline-block;}
 .bottom_service_link dl dd a.attentionBtn{ background:#3b87ee; border:1px solid #2a78e3; display:inline-block; width:66px; height:20px; line-height:20px; text-align:center; color:#fff; margin-left:10px;}
 .bottom_service_link dl dd a.attentionBtn:hover{ color:#fff;}
@@ -1524,13 +1525,14 @@ a.new_register{ margin-left:10px;}
 }
 .bottom_service_link dl dt {
     color: #6a6a6a;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
-    height: 32px;
-    line-height: 32px;
+    height: 36px;
+    line-height: 36px;
     overflow: hidden;
     padding-left: 40px;
     width: 102px;
+    vertical-align:top;
 }
 .bottom_service_link dl.bottom_help_1 dt {
     background-position: -48px -132px;
@@ -1632,13 +1634,14 @@ a.new_register{ margin-left:10px;}
     background-position: -130px -807px;
 }
 .footer_link{
-	color:#6a6a6a;
+    /*background:url(../images/menubar.jpg) repeat-x; margin:0 auto;*/
+	color:#ffffff;
     line-height: 100%;
     padding: 12px 0;
     text-align: center;
     text-indent: 0;}
 .footer_link a {
-    color: #666666;
+    color: #ffffff;
     margin: 0 10px;
 }
 .footer_link a:hover {

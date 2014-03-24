@@ -20,7 +20,7 @@
     	<div class="header_logo" style="cursor: pointer;"></div>
         <div class="header_search">
             <div>
-                <span style="font-weight: bold;font-family: 楷体;font-size: 24px;color: #ff4200;">实现百万富翁梦想   你敢不敢来？</span>
+                <span style="font-weight: bold;font-family: 楷体;font-size: 24px;color: #ff4200;">分享美丽   实现财富百万年薪梦想！</span>
             </div>
    	    	<div class="searchBox" style="display:none; ">
             	<div class="searchIpt">
@@ -97,11 +97,11 @@
             <div class="headerNavWrap">
                 <ul class="headerNavMain clearfix">
                     <li id="home" style="z-index:798;" class="cur"><a href="<%=request.getContextPath()%>/welcome">首页</a></li>
-                    <li id="kind" style="z-index:797;"><a href="javascript: void(0)">正品分类</a></li>
-                    <li id="ensure" style="z-index:796;"><a href="javascript: void(0)">正品保证</a></li>
-                    <li id="indentfy" style="z-index:796;"><a href="javascript: void(0)">正品鉴定</a></li>
-                    <li id="service" style="z-index:796;"><a href="javascript: void(0)">客户服务</a></li>
-                    <li id="help" style="z-index:796;"><a href="javascript: void(0)">帮助中心</a></li>
+                    <li id="kind" style="z-index:797;"><a href="<%=request.getContextPath()%>/kind">正品分类</a></li>
+                    <li id="ensure" style="z-index:796;"><a href="<%=request.getContextPath()%>/ensure">正品保证</a></li>
+                    <li id="identify" style="z-index:796;"><a href="<%=request.getContextPath()%>/identify">正品鉴定</a></li>
+                    <li id="service" style="z-index:796;"><a href="<%=request.getContextPath()%>/service">客户服务</a></li>
+                    <li id="helpcenter" style="z-index:796;"><a href="<%=request.getContextPath()%>/help/helpcenter">帮助中心</a></li>
                     <li id="contact" style="z-index:796;"><a href="javascript: contactUs()">联系我们</a></li>
                 </ul>
             </div>

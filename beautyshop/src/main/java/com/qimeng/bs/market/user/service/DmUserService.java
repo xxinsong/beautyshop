@@ -99,7 +99,15 @@ public class DmUserService {
                 result.put("flag",3);
                 result.put("reason", "推荐人不存在！");
                 return result;
+            }else if(referrerUser.getUserId()!=-1){
+                int count = dmCustOrderMapper.countDealOrderByUserId(referrerUser.getUserId());
+                if (count <= 0) {
+                    result.put("flag",4);
+                    result.put("reason", "推荐人没有支付过订单，不符合推荐人资格！");
+                    return result;
+                }
             }
+
         }
 		sqlParams.put("passwd", PasswordEncoder.encode(Const.getStrValue(params, "passwd"), 
 				Const.getStrValue(params, "logon_name")));
@@ -320,12 +328,14 @@ public class DmUserService {
             return result;
         }
         Map sqlParams = new HashMap();
-        sqlParams.put("userId", Const.getStrValue(params, "userId"));
+        String userId = Const.getStrValue(params, "userId");
+        sqlParams.put("userId", userId);
         if (insertType.equals("email_yz")) {
             sqlParams.put("email", Const.getStrValue(params, "email_new"));
         }
         if (insertType.equals("pass_yz")) {
-            boolean validFlag = PasswordEncoder.validate(Const.getStrValue(params,"pass_old"),Const.getStrValue(params,"logonName"), Const.getStrValue(params,"oldPassword"));
+            DmUser dmUser = dmUserMapper.selectByPrimaryKey(Integer.valueOf(userId));
+            boolean validFlag = PasswordEncoder.validate(Const.getStrValue(params,"pass_old"),Const.getStrValue(params,"logonName"), dmUser.getPasswd());
             if (!validFlag) {
                 result.put("flag", 3);
                 return result;

@@ -431,4 +431,9 @@
         from dm_cust_order
         where merchant_id = #{merchantId}
     </select>
+    <select id="countDealOrderByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(1) from dm_cust_order
+          where STATE = '10D'
+          and MERCHANT_ID = (select MERCHANT_ID from dm_merchant where user_id = #{userId})
+    </select>
 </mapper>
