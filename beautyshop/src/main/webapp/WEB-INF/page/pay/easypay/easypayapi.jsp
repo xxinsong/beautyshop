@@ -46,7 +46,7 @@
     epaySubmit.setKey(key);
     String gatewayUrl = (String) request.getAttribute("gatewayUrl");
 //epaySubmit.setGatewayUrl("https://www.epaylinks.cn/paycenter/v2.0/getoi.do");  //生产服务器
-    epaySubmit.setGatewayUrl("http://219.136.207.190:80/paycenter/v2.0/getoi.do");   //测试服务器
+    epaySubmit.setGatewayUrl(gatewayUrl);   //测试服务器 "http://219.136.207.190:80/paycenter/v2.0/getoi.do"
 
 //设置支付请求参数
     epaySubmit.setParameter("partner", partner);		        //商户号
