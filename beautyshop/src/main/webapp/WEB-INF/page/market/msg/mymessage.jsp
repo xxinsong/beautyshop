@@ -7,7 +7,7 @@
 	<head>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     	<meta http-equiv="library" content="market"/>
-    	<title></title>
+    	<title>深圳市韩塑美生物医学科技有限公司是一家化妆品面膜垂直电商为一体的分享平台互联网公司</title>
     	<script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
     	<script type="text/javascript" src="<%=path%>/market/msg/js/mymessage.js"></script>
 	</head>

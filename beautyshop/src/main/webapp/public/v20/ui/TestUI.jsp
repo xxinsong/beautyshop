@@ -8,7 +8,7 @@ String path = request.getContextPath();
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="library" content="internet,WdatePicker" />
-		<title></title>
+		<title>深圳市韩塑美生物医学科技有限公司是一家化妆品面膜垂直电商为一体的分享平台互联网公司</title>
 		<script type="text/javascript" src="../../core/EasyuiZX.js"></script>
 		<script type="text/javascript" src="js/TestUI.js"></script>
 		<script type="text/javascript">
