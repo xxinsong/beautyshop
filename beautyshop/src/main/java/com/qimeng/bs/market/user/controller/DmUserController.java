@@ -142,6 +142,9 @@ public class DmUserController extends GenericController {
             result.put("realName",loginInfo.getMerchantName());
             result.put("cardType",loginInfo.getCardType());
             result.put("cardNo",loginInfo.getCardNo());
+
+            // 修改成功刷新登录信息
+            userLoginService.refreshLoginInfo(loginInfo.getUserId());
         }else{
             result.put("success", false);
             result.put("reason", "未登录！");
