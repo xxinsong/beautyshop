@@ -196,42 +196,42 @@ public class DmUserService {
 	@Transactional
 	public boolean modifyBaseInfo(Map params) {
 		Map sqlParams = new HashMap();
-		sqlParams.put("userId", Const.getStrValue(params, "userId"));
-		sqlParams.put("userName", Const.getStrValue(params, "userName"));
-		dmUserMapper.updateUser(sqlParams);
+//		sqlParams.put("userId", MapUtils.getString(params, "userId"));
+//		sqlParams.put("userName", MapUtils.getString(params, "userName"));
+//		dmUserMapper.updateUser(sqlParams);
 		
 		//商户
 		DmMerchant dmMerchant = new DmMerchant();
-		dmMerchant.setMerchantName(Const.getStrValue(params, "merchantName"));
-		dmMerchant.setGender(Const.getStrValue(params, "gender"));
-        dmMerchant.setLegalCertType(Const.getStrValue(params,"cardType"));
-		dmMerchant.setLegalCertNo(Const.getStrValue(params, "cardNo"));
-		dmMerchant.setProvince(Const.getStrValue(params, "provinceCode"));
-		dmMerchant.setCity(Const.getStrValue(params, "cityCode"));
-		dmMerchant.setDistrict(Const.getStrValue(params, "districtCode"));
-		dmMerchant.setAddress(Const.getStrValue(params, "address"));
+		dmMerchant.setMerchantName(MapUtils.getString(params, "merchantName"));
+		dmMerchant.setGender(MapUtils.getString(params, "gender"));
+        dmMerchant.setLegalCertType(MapUtils.getString(params,"cardType"));
+		dmMerchant.setLegalCertNo(MapUtils.getString(params, "cardNo"));
+		dmMerchant.setProvince(MapUtils.getString(params, "provinceCode"));
+		dmMerchant.setCity(MapUtils.getString(params, "cityCode"));
+		dmMerchant.setDistrict(MapUtils.getString(params, "districtCode"));
+		dmMerchant.setAddress(MapUtils.getString(params, "address"));
 //        dmMerchant.setLegalCertNo(Const.getStrValue(params,"legalCertNo"));
-		if (!"0".equals(Const.getStrValue(params, "merchantId"))) {
-			dmMerchant.setMerchantId(Integer.valueOf(Const.getStrValue(params, "merchantId")));
+		if (!"0".equals(MapUtils.getString(params, "merchantId"))) {
+			dmMerchant.setMerchantId(Integer.valueOf(MapUtils.getString(params, "merchantId")));
 			dmMerchantMapper.updateByPrimaryKeySelective(dmMerchant);
 		} else {
-			dmMerchant.setUserId(Integer.valueOf(Const.getStrValue(params, "userId")));
+			dmMerchant.setUserId(Integer.valueOf(MapUtils.getString(params, "userId")));
 			dmMerchant.setState(Constants.USER_STATE_00X);
 			dmMerchantMapper.insertSelective(dmMerchant);
 		}
 		
 		//联系人
-		sqlParams.clear();
+		/*sqlParams.clear();
 		sqlParams.put("merchantId", dmMerchant.getMerchantId());
 		List<DmContact> contacts = dmContactMapper.searchContacts(sqlParams);
 		DmContact dmContact = new DmContact();
 		dmContact.setMerchantId(dmMerchant.getMerchantId());
-		dmContact.setContactName(Const.getStrValue(params, "contactName"));
+		dmContact.setContactName(MapUtils.getString(params, "contactName"));
 		if (contacts.size() > 0) {
 			dmContactMapper.updateByMerchantId(dmContact);
 		} else {
 			dmContactMapper.insertSelective(dmContact);
-		}
+		}*/
 
 		return true;
 	}
