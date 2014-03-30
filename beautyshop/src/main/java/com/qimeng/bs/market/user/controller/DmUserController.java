@@ -104,16 +104,16 @@ public class DmUserController extends GenericController {
 		return result;
 	}
 
-    @PUT
+    @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Path("card")
-    public String modifyMerchant(@FormParam("realName")String realName,@FormParam("cardType")String cardType,@FormParam("cardNo")String cardNo) throws JSONException {
+    public String modifyCardInfo(@FormParam("realName")String realName,@FormParam("cardType")String cardType,@FormParam("cardNo")String cardNo) throws JSONException {
         JSONObject result = new JSONObject();
         LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
-//        if(loginInfo!=null){
+        if(loginInfo!=null){
             Map param = new HashMap();
-            param.put("userId", 18/*loginInfo.getUserId()*/);
-            param.put("merchantId", 11/*loginInfo.getMerchantId()*/);
+            param.put("userId", loginInfo.getUserId());
+            param.put("merchantId", loginInfo.getMerchantId());
             param.put("merchantName",realName);
             param.put("cardType",cardType);
             param.put("cardNo", cardNo);
@@ -124,10 +124,10 @@ public class DmUserController extends GenericController {
             }else{
                 result.put("success", false);
             }
-        /*}else{
+        }else{
             result.put("success", false);
             result.put("reason", "未登录！");
-        }*/
+        }
 
         return result.toString();
     }
@@ -270,7 +270,7 @@ public class DmUserController extends GenericController {
         return result;
     }
 
-    @PUT
+    @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Path("mdypwd")
     public String modifyPassword(@FormParam("oldPwd")String oldPwd,@FormParam("newPwd")String newPwd) throws JSONException {
