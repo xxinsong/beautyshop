@@ -122,10 +122,10 @@
                                         <span id="comment_hint" class="explain"></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>验证码：</th>
-                                    <td><input type="text" id="verification_code" name="verification_code" nullable="false" class="resig_ipt" style="width:80px;" />&nbsp;<img id="img_verf_code" alt="验证码" title="看不清？点击换另一张" onclick="" src="../../public/verificode.jsp"></td>
-                                </tr>
+                                <%--<tr>--%>
+                                    <%--<th>验证码：</th>--%>
+                                    <%--<td><input type="text" id="verification_code" name="verification_code" nullable="false" class="resig_ipt" style="width:80px;" />&nbsp;<img id="img_verf_code" alt="验证码" title="看不清？点击换另一张" onclick="" src="<%=path%>/public/verificode.jsp"></td>--%>
+                                <%--</tr>--%>
                                 <tr>
                                     <th>&nbsp;</th>
                                     <td><a id="btn_submit" href="javascript:void(0)" class="greenBtn" style="width:60px;">提交</a></td>

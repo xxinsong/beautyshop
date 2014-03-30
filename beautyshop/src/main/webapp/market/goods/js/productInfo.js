@@ -22,7 +22,7 @@ function loadGoodsInfo(goodsId) {
         $("#goodsName").html(goods.goodsName);
 
         $("#basePrice").append(goods.price || "未知");
-        //$("#preBasePrice").html(goods.basePrice);
+        $("#preBasePrice").html(goods.oriPrice);
         $("#goodsDesc").html(goods.goodsDesc);
 //        alert(goods.putawayTime);
         var putawayTime = $.format.date(goods.putawayTime, 'yyyy-MM-dd HH:mm:ss');
@@ -118,7 +118,7 @@ function putIntoCart(goodsId){
         type:"PUT",
         url:commonJs.getWebPath()+"/mycart/add/"+goodsId,
         success:function(retval){
-            initMiniCart();
+//            initMiniCart();
             window.location.href = commonJs.getWebPath()+"/mycart/success";
         },
         error:function(){

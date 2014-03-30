@@ -64,7 +64,7 @@ public class DmGoodsService {
 	
 	@Transactional
 	public DmGoods getGoodsById(Integer goodsId){
-		DmGoods dmGoods= dmGoodsMapper.selectByPrimaryKey(goodsId);
+		DmGoods dmGoods= dmGoodsMapper.selectGoodsById(goodsId);
 		return dmGoods ;
 	}
 	

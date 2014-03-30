@@ -172,6 +172,9 @@ public class UserLoginController extends GenericController {
         List<DmShoppingCartItem> items = shoppingCartService.selectShoppingCartItemsByMerchantId(merchantId);
         ShoppingCart cart = getShoppingCart();
         cart.putGoodsInCart(items);
+        for (DmShoppingCartItem item : items) {
+            cart.addBuyingGoods(item.getGoodsId());
+        }
         List<DmShoppingCartItem> allItems = cart.getAllGoodsInCart();
         shoppingCartService.saveShoppingCart(allItems);
 //        cart.putGoodsInCart(dmGoodsInsts);

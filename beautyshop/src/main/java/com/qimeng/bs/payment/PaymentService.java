@@ -41,7 +41,7 @@ public class PaymentService {
     public void paymentOK(String userId,String orderNo, DmTradeLog log) {
         dmCustOrderService.updateOrderStateByOrderNo(orderNo, "10B");
 
-        List<Integer> upReferrers = referrerInfoService.getUp5LevelsReferrers(userId);
+        List<Integer> upReferrers = referrerInfoService.getUp5LevelsReferrers(Integer.valueOf(userId));
         for (Integer referrer : upReferrers) {
 
             dmPointService.increaseTotalPoint(referrer);

@@ -1,6 +1,7 @@
 package com.qimeng.bs.market.user.controller;
 
 import com.qimeng.bs.common.controller.GenericController;
+import com.qimeng.bs.login.bean.AdminLoginInfo;
 import com.qimeng.bs.login.bean.LoginInfo;
 import com.qimeng.bs.market.point.bean.DmPoints;
 import com.qimeng.bs.market.point.service.DmPointService;
@@ -21,6 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,19 @@ public class ReferrerInfoController extends GenericController{
             return referrerInfoService.queryMyReferrers(params,pageIndex,pageSize);
         }
         return null;
+    }
+    @RemoteMethod
+    public Map modifyReferrer(Map params) {
+        Map result = new HashMap();
+        AdminLoginInfo currUser = getCurrentLoginAdmin();
+        if(currUser!=null) {
+            result = referrerInfoService.modifyReferrer(params);
+        }else{
+            result.put("success",false);
+            result.put("reason", "用户未登录！");
+        }
+        return result;
+
     }
 
     @GET

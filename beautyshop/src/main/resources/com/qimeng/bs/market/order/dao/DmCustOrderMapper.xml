@@ -378,7 +378,7 @@
                 </if>
                 <choose>
                     <when test="params.state!=null and params.state=='10E'">
-                        and state in ('10A','10B')
+                        and state in ('10A','10B','10E')
                     </when>
                     <when test="params.state!=null">
                         and state = #{state}
@@ -433,7 +433,7 @@
     </select>
     <select id="countDealOrderByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         select count(1) from dm_cust_order
-          where STATE = '10D'
+          where STATE in ('10B','10D','10E')
           and MERCHANT_ID = (select MERCHANT_ID from dm_merchant where user_id = #{userId})
     </select>
 </mapper>

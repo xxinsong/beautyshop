@@ -43,9 +43,9 @@ function initLogin() {
 			$("#loginBtn").hide();
 			$("#registerBtn").hide();
 			$("#logoutBtn").show();
-			$("#welcome_msg").html("您好，" + (loginInfo.userName || loginInfo.logonName) + "！");
+			$("#welcome_msg").html("您好，" + (/*loginInfo.userName || */loginInfo.logonName) + "！");
 			
-			$("[name='userName']", "#quick_user_div").html(loginInfo.userName || loginInfo.logonName);
+			$("[name='userName']", "#quick_user_div").html(/*loginInfo.userName || */loginInfo.logonName);
 			$("#quick_user_div").children().hide().eq(1).show();
 		}
 	});

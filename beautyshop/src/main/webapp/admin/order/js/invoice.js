@@ -62,7 +62,7 @@ function noIssue() {
 		return;
     }
 //	var params = new Object();
-//	params.id = testgrid.getSelected().id;
+//	params.id = memberGrid.getSelected().id;
 	var params = testgrid.getSelected();
 	var isDrawup = testgrid.getSelected().isDrawup;
 	if("N" == isDrawup) {

@@ -59,18 +59,13 @@
                 <div id="userInfoDiv">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="user_msg_table">
                         <input type="hidden" id="userId" name="userId"></input>
-                        <tr>
+                        <%--<tr>
                             <th>昵称：</th>
                             <td><input type="text" name="userName" value="" class="ui_ipt bold" max_length="40"
                                        nullable="false"/></td>
                             <td></td>
-                        </tr>
-                        <tr>
-                            <th>真实姓名：</th>
-                            <td><input type="text" name="merchantName" value="" class="ui_ipt bold" max_length="40"/>
-                            </td>
-                            <td></td>
-                        </tr>
+                        </tr>--%>
+
                         <tr>
                             <th>性别：</th>
                             <td>
@@ -88,6 +83,12 @@
                                         女
                                     </label>
                                 </form>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>真实姓名：</th>
+                            <td><input type="text" name="merchantName" value="" class="ui_ipt bold" max_length="40"/>
                             </td>
                             <td></td>
                         </tr>
@@ -110,13 +111,13 @@
                                     style="display: none;">已验证</span></td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <%--<tr>
                             <th>邮箱：</th>
                             <td><span class="bold" name="email"></span><a href="javascript: void(0)" class="blue"
                                                                           id="modify_email_btn">修改</a><span
                                     style="display: none;">已验证</span></td>
                             <td></td>
-                        </tr>
+                        </tr>--%>
                         <%--<tr>
                           <th>联系人姓名：</th>
                           <td><input type="text" name="contactName" value="" class="ui_ipt bold" max_length="40"/></td>

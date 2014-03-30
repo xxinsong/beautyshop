@@ -10,6 +10,7 @@
     <meta http-equiv="library" content="market,WdatePicker"/>
     <script type="text/javascript" src="<%=path%>/public/core/EasyuiZX.js"></script>
     <script type="text/javascript" src="<%=path%>/market/goods/js/productInfo.js"></script>
+    <title>深圳市韩塑美生物医学科技有限公司是一家化妆品面膜垂直电商为一体的分享平台互联网公司</title>
 </head>
 
 <body>
@@ -30,14 +31,14 @@
             <h3 id="goodsName"></h3>
             <input type="hidden" id="goodsId"/>
 
-            <p class="p_price">价格:<strong id="basePrice">￥</strong><span style="display: none;">原价：￥<del id="preBasePrice">1298</del></span>
+            <p class="p_price">价格:<strong id="basePrice">￥</strong><span >原价：￥<del id="preBasePrice"></del></span>
             </p>
             <%--<div class="yjShare" id="mapTag">
                 <a href="javascript:void(0);"><i></i>地图标注</a>
             </div>--%>
             <input type="hidden" id="circle_id"/>
         </div>
-        <jsp:include page="MapSelect.jsp"/>
+        <%--<jsp:include page="MapSelect.jsp"/>--%>
         <div class="proInfo">
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="proTable">
                 <tr>

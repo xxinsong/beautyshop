@@ -2782,12 +2782,14 @@ body a.sn_btnB:hover span {
 .star_b_half{ background:url(../images/star_b_half.png) no-repeat; width:48px; height:48px; display:inline-block; vertical-align:middle; cursor:pointer;}
 
 /*购物车样式*/
-.cart_title{ background:url(../images/cart_title.jpg) no-repeat; width:125px; height:37px; position:absolute; left:0px; top:0px;}
+.cart_title{ background:url(../images/cart_title.jpg) no-repeat; width:125px; height:37px; position:absolute; left:0px; top:0px;/*border:1px solid #e21482;*/}
 .cart_now{ margin-left:140px; height:37px; line-height:37px;}
 .cart_now a{ color: #ff72a0;}
-.cart_logo{width:230px; height:110px; background:url(../images/tebuy_logo.jpg) no-repeat; float:left;}
+.cart_logo1{width:230px; height:110px;padding-left: 0px; background:url(../images/tebuy_logo.jpg) no-repeat; float:left;cursor: pointer;}
+.cart_logo{position:absolute; left:0px; top:0px; width:230px; height:110px; background:url(../images/tebuy_logo.jpg) no-repeat;}
 .progress {
     padding-top: 40px;
+    padding-bottom: 25px;
 	float:right;
 }
 .progress .progress-1 {

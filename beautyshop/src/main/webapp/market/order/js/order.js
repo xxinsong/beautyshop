@@ -1,8 +1,9 @@
 var goodsInstList;
 var orderId;
 var total=0;
-var totalPrice = 0;
-var cashBack = 0.00;
+var totalPrice = 0.00;
+var totalPay = 0.00;
+var freight = 0.00;
 var state = "OK";
 $(function(){
     $.cxSelect.defaults.url=commonJs.getWebPath()+"/public/jquery/city.min.js";
@@ -85,7 +86,7 @@ function goodsInstRowRender(data,context){
 function loadTotalPrice(){
     var url = '';
     if(mode == "CREATE"){
-        url = commonJs.getWebPath()+"/mycart/calc/";
+        url = commonJs.getWebPath()+"/mycart/calcbuying/";
     }else{
         url = commonJs.getWebPath()+"/order/"+orderId+"/calc";
     }
@@ -94,11 +95,14 @@ function loadTotalPrice(){
         method:'GET',
         success:function(data){
             totalPrice =  data.totalPrice;
+            totalPay =  data.totalPay;
             total = data.totalCount;
+            freight = data.freight;
             $("#total").text(total);
             $("#totalPrice").text("￥"+totalPrice);
-            $("#disp_amount").text("￥"+totalPrice);
-            $("#payPriceId").text("￥"+totalPrice);
+            $("#disp_amount").text("￥"+totalPay);
+            $("#payPriceId").text("￥"+totalPay);
+            $("#freight").text("￥"+freight);
         }
     })
 }
@@ -193,7 +197,9 @@ function submitOrder(){
         $("#btnSaveInvoice").focus();
         return;
     }
-    $("#amount").val(totalPrice);
+    $("#amount").val(totalPay);
+    var paymentType = $("input[name='payment']:checked").val();
+    $("#paymentType").val(paymentType);
     var contactInfo = $("input[name='address']:checked").val();
     if(contactInfo && contactInfo!=''){
         $("#contactInfo").val(contactInfo);

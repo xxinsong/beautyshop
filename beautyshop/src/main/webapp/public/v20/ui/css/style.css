@@ -64,7 +64,7 @@ body{ min-width:1003px; font-family:Arial, Helvetica, sans-serif;}
 
 /*表格样式*/
 .grid{ margin-top:5px;}
-.grid table{ border-collapse:collapse; border-top:1px solid #cdcdcd;border-right:1px solid #cdcdcd; font-family:Arial, Helvetica, sans-serif;}
+.grid table{ border-collapse:collapse; border-top:1px solid #cdcdcd;border-left:1px solid #cdcdcd;border-right:1px solid #cdcdcd; font-family:Arial, Helvetica, sans-serif;}
 .grid table th{ background:#fff; height:30px; line-height:30px; border-bottom:1px solid #64b3e9; border-top:1px solid #cdcdcd; text-align:center; font-weight:bold; color:#434343;}
 .grid table td{ border-bottom:1px dashed #e3e3e3; height:30px; vertical-align:middle; color:#666; text-align:center;}
 .grid table td a{ color:#0081cc; text-decoration:none;}

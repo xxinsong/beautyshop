@@ -61,6 +61,8 @@ public interface DmGoodsMapper {
     List<DmGoods> findAllGoods(Page<DmGoods> page);
     
     void unattachCatalog(Integer catalogId);
-    
+
+    DmGoods selectGoodsById(Integer goodsId);
+
 //    List<DmGoods> findGoodsByPackageId(Integer packageId);
 }

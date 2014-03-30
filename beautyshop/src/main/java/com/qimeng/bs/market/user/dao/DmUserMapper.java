@@ -2,6 +2,9 @@ package com.qimeng.bs.market.user.dao;
 
 import java.util.List;
 import java.util.Map;
+
+import com.qimeng.bs.market.point.bean.DmPoints;
+import com.qimeng.common.Page;
 import org.springframework.stereotype.Repository;
 import com.qimeng.bs.market.user.bean.DmUser;
 
@@ -27,4 +30,8 @@ public interface DmUserMapper {
 	List<DmUser> searchUser(Map params);
 
     DmUser selectByLogonName(String logonName);
+
+    List<Map> queryAllUsers(Page page);
+
+    List<Map> queryUsersByReferrer(Page page);
 }

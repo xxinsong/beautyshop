@@ -1,8 +1,14 @@
 package com.qimeng.bs.market.order.service;
 
+import com.qimeng.bs.admin.merchant.bean.DmMerchant;
+import com.qimeng.bs.admin.merchant.dao.DmMerchantMapper;
 import com.qimeng.bs.login.bean.AdminLoginInfo;
 import com.qimeng.bs.market.goods.bean.DmGoodsInst;
 import com.qimeng.bs.market.goods.dao.DmGoodsInstMapper;
+import com.qimeng.bs.market.point.bean.DmPointsDetail;
+import com.qimeng.bs.market.point.dao.DmPointsDetailMapper;
+import com.qimeng.bs.market.point.service.DmPointService;
+import com.qimeng.bs.market.user.service.ReferrerInfoService;
 import com.qimeng.common.Page;
 import com.qimeng.common.tools.PKUtils;
 import com.qimeng.bs.market.goods.dao.DmShoppingCartMapper;
@@ -32,6 +38,14 @@ public class DmCustOrderService {
     private DmShoppingCartMapper dmShoppingCartMapper;
     @Autowired
     private DmGoodsInstMapper dmGoodsInstMapper;
+    @Autowired
+    private ReferrerInfoService referrerInfoService;
+    @Autowired
+    private DmPointsDetailMapper dmPointsDetailMapper;
+    @Autowired
+    private DmPointService dmPointService;
+    @Autowired
+    private DmMerchantMapper dmMerchantMapper;
 
     @Transactional
     public void insertOrder(DmCustOrder dmCustOrder) {
@@ -120,8 +134,9 @@ public class DmCustOrderService {
                 goodsIds.add(subCustOrder.getGoodsId());
             }
         }
-
-        dmShoppingCartMapper.batchRemoveGoodsInCart(goodsIds);
+        if(!goodsIds.isEmpty()){
+            dmShoppingCartMapper.batchRemoveGoodsInCart(goodsIds);
+        }
 
     }
 
@@ -149,6 +164,7 @@ public class DmCustOrderService {
                 itemNo = itemNo + subOrder.getItemNo();
             }
             order.setItemNo(itemNo);
+            order.setFreight(itemNo>1?0.0f:10.0f);
         }
         return order;
     }
@@ -201,5 +217,38 @@ public class DmCustOrderService {
         List<DmSubCustOrder > list = dmSubCustOrderMapper.selectSubOrderByOrderIdPage(page);
         page.setRows(list);
         return page;
+    }
+
+    public boolean deleteOrder(Integer orderId) {
+        int ret = dmCustOrderMapper.deleteByPrimaryKey(orderId);
+        dmSubCustOrderMapper.deleteSubOrderByOrderId(orderId);
+        return ret > 0 ;
+    }
+
+    public boolean confirmReceiveMoney(Integer orderId) {
+        DmCustOrder dmCustOrder = dmCustOrderMapper.selectByPrimaryKey(orderId);
+        dmCustOrder.setOperDate(new Date());
+        dmCustOrder.setState("10B");
+        dmCustOrderMapper.updateByPrimaryKeySelective(dmCustOrder);
+
+        DmMerchant dmMerchant = dmMerchantMapper.selectByPrimaryKey(dmCustOrder.getMerchantId());
+        Integer userId = dmMerchant.getUserId();
+        List<Integer> upReferrers = referrerInfoService.getUp5LevelsReferrers(userId);
+        for (Integer referrer : upReferrers) {
+
+            dmPointService.increaseTotalPoint(referrer);
+
+            DmPointsDetail dmPointsDetail = new DmPointsDetail();
+            dmPointsDetail.setOrderNo(dmCustOrder.getOrderNo());
+            dmPointsDetail.setUserId(referrer);
+            dmPointsDetail.setPresenteeId(Integer.valueOf(userId));
+            dmPointsDetail.setPoint(1);
+            dmPointsDetail.setGainTime(new Date());
+            dmPointsDetail.setState("00A");
+
+            dmPointsDetailMapper.insert(dmPointsDetail);
+        }
+
+        return true;
     }
 }

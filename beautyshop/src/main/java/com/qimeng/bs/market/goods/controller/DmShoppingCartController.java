@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +100,10 @@ public class DmShoppingCartController extends GenericController {
     public boolean removeGoodsFromCart(Integer[] instIds) {
         ShoppingCart cart = getShoppingCart();
         cart.removeGoods(instIds);
-        dmShoppingCartService.removeGoodsInCart(instIds);
+        LoginInfo currUser = getCurrentLoginUser();
+        if (currUser != null) {
+            dmShoppingCartService.removeGoodsInCart(instIds);
+        }
         return true;
     }
 
@@ -108,7 +112,9 @@ public class DmShoppingCartController extends GenericController {
         ShoppingCart cart = getShoppingCart();
         cart.removeAllGoods();
         LoginInfo currUser = getCurrentLoginUser();
-        dmShoppingCartService.removeAllGoods(currUser.getMerchantId());
+        if (currUser != null) {
+            dmShoppingCartService.removeAllGoods(currUser.getMerchantId());
+        }
         return true;
     }
 
@@ -224,10 +230,39 @@ public class DmShoppingCartController extends GenericController {
     @Path("calc")
     public String calcOrderAmount() throws JSONException {
         ShoppingCart cart = getShoppingCart();
-        cart.getBuyingAmount();
+//        cart.getBuyingAmount();
         JSONObject result = new JSONObject();
-        result.put("totalPrice", String.valueOf(cart.getTotalAmount()));
-        result.put("totalCount", cart.getTotalCount());
+        Float totalPrice = cart.getTotalAmount();
+        int totalCount = cart.getTotalCount();
+        float freight = cart.getFreight();
+        float totalPay = new BigDecimal(totalPrice).add(new BigDecimal(freight)).floatValue();
+        result.put("totalPrice", String.valueOf(totalPrice));
+        result.put("totalCount", totalCount);
+        result.put("freight", String.valueOf(freight));
+        result.put("totalPay", String.valueOf(totalPay));
+        return result.toString();
+        /*LoginInfo currUser = getCurrentLoginUser();
+        if(currUser!=null){
+            dmShoppingCartService.saveShoppingCart(item);
+        }
+        return String.valueOf(true);*/
+    }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("calcbuying")
+    public String calcBuyingAmount() throws JSONException {
+        ShoppingCart cart = getShoppingCart();
+//        cart.getBuyingAmount();
+        JSONObject result = new JSONObject();
+        Float totalPrice = cart.getBuyingAmount();
+        int buyingCount = cart.getBuyingCount();
+        float freight = cart.getFreight();
+        float totalPay = new BigDecimal(totalPrice).add(new BigDecimal(freight)).floatValue();
+        result.put("totalPrice", String.valueOf(totalPrice));
+        result.put("totalCount", buyingCount);
+        result.put("freight", String.valueOf(freight));
+        result.put("totalPay", String.valueOf(totalPay));
         return result.toString();
         /*LoginInfo currUser = getCurrentLoginUser();
         if(currUser!=null){

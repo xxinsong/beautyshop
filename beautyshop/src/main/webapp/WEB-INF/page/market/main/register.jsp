@@ -20,7 +20,7 @@
 <div class="header">
     <jsp:include page="topnav.jsp" flush="true"/>
     <div class="wrap" style="z-index:1000;">
-        <div class="cart_logo"></div>
+        <div class="cart_logo1"></div>
         <div class="clear"></div>
     </div>
     <div class="register_bar">
@@ -44,7 +44,7 @@
                         </td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <%--<tr>
                         <th>昵称：</th>
                         <td style="width:310px;">
                             <div class="register_ipt">
@@ -54,7 +54,7 @@
                             </div>
                         </td>
                         <td></td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <th>请设置密码：</th>
                         <td>

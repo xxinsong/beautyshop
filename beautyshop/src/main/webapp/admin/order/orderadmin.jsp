@@ -122,6 +122,11 @@
     <a id="deliver" style="display: none;" href="javascript: deliverGoods();"
        class="ui_blue_btn"><span><em>发货</em></span></a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a id="btnDel" style="display: none;" href="javascript: deleteOrder();"
+       class="ui_blue_btn"><span><em>删除</em></span></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a id="receiveMoney" style="display: none;" href="javascript: confirmReceiveMoney();"
+       class="ui_blue_btn"><span><em>确认付款</em></span></a>
 </div>
 
 <div id="loading"

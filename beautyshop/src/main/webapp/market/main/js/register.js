@@ -125,7 +125,7 @@ function register_tip($jq, msg, type) {
 function register_validate() {
 	var flag = true;
 	var $logon_name = $("[name='logon_name']", ".register_table");
-	var $user_name = $("[name='user_name']", ".register_table");
+//	var $user_name = $("[name='user_name']", ".register_table");
 	if ($logon_name.data("wrong")) {
 		flag = false;
 	}
@@ -133,10 +133,10 @@ function register_validate() {
         register_tip($logon_name, "请输入登录名", 1);
         flag = false;
     }
-    if ($.trim($user_name.val()) == "" || $.trim($user_name.val()) == "昵称") {
-        register_tip($user_name, "请输入昵称", 1);
-        flag = false;
-    }
+//    if ($.trim($user_name.val()) == "" || $.trim($user_name.val()) == "昵称") {
+//        register_tip($user_name, "请输入昵称", 1);
+//        flag = false;
+//    }
 	var $passwd = $("[name='passwd']", ".register_table");
 	if ($passwd.data("wrong")) {
 		flag = false;

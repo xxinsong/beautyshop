@@ -20,7 +20,7 @@
 <div class="header">
     <jsp:include page="../main/topnav.jsp" flush="true"/>
     <div class="wrap" style="z-index:1000;">
-        <div class="cart_logo" style="cursor: pointer;"></div>
+        <div class="cart_logo"></div>
         <div class="progress">
             <ul class="progress-2">
                 <li class="step-1"><b></b>1.我的购物车</li>
@@ -88,12 +88,22 @@
                     <!-- 在线支付 -->
                     <div class="item">
                         <div class="label">
-                            <%--<input type="radio" value="4" class="hookbox" id="pay-method-4" payid="4" payname="在线支付"
-                                   name="payment" checked="checked">--%>
-                            <label >在线支付</label>
+                            <input type="radio" value="1" class="hookbox" id="pay-method-4" payid="1" payname="在线支付"
+                                   name="payment" checked="checked">
+                            <label for="pay-method-4">在线支付</label>
                         </div>
                         <div class="field">
                             <span class="tip">由第三方担保交易。</span>
+                        </div>
+                        <span class="clr"></span>
+                    </div>
+                    <div class="item">
+                        <div class="label">
+                            <input type="radio" value="2" class="hookbox" id="pay-method-5" payid="2" payname="货到付款"
+                                   name="payment"><label for="pay-method-5">货到付款</label>
+                        </div>
+                        <div class="field">
+                            <span class="tip">送货上门之后，验货付款。</span>
                         </div>
                         <span class="clr"></span>
                     </div>
@@ -278,8 +288,8 @@
                                     <em v="59.90" id="totalPrice" class="price">￥0.00</em>
                                 </div>
                                 <div class="list">
-                                    <span>返现：</span>
-                                    <em v="0.00" id="cashBack" class="price"> -￥0.00</em>
+                                    <span>运费：</span>
+                                    <em v="0.00" id="freight" class="price"> ￥0.00</em>
                                 </div>
                                 <div class="list"><span>应付：</span><em id="disp_amount" class="price"> ￥0.00</em></div>
                             </div>
@@ -295,7 +305,7 @@
             <input type="hidden" name="orderId" value="${orderId}"/>
             <input type="hidden" name="orderNo" value="${orderNo}"/>
             <input type="hidden" id="amount" name="amount" value="${amount}"/>
-            <input type="hidden" name="paymentType" value="1"/>
+            <input type="hidden" id="paymentType" name="paymentType" value="${paymentType}"/>
             <input type="hidden" name="invoiceType" value="${invoiceType}"/>
             <input type="hidden" name="invoiceNotes" value="${invoiceNotes}"/>
             <input type="hidden" name="invoiceDetail" value="${invoiceDetail}"/>

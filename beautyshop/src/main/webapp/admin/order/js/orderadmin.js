@@ -9,12 +9,22 @@ $(function() {
 		pageIndex : 1,
 		pageSize : 10,
 		onClickRow : function(data) {
+
             if(data.state!="10B"){
                 $("#deliver").hide();
             }else{
                 $("#deliver").show();
             }
-
+            if(data.state!="10C" && data.state!="10A"){
+                $("#btnDel").hide();
+            }else{
+                $("#btnDel").show();
+            }
+            if(data.state!="10E"){
+                $("#receiveMoney").hide();
+            }else{
+                $("#receiveMoney").show();
+            }
             loadOrderDetail(data);
 		},
 		onClickCell : function(field, value) {
@@ -74,14 +84,6 @@ function deliverGoods(){
         messager.alert('请先选择记录！');
         return;
     }
-    /*var state = testgrid.getSelected().state;
-    if(state == "10D"){
-        messager.alter("提示","该订单已经发货！");
-        return;
-    }else if(state == "10A"){
-        messager.alter("提示","该订单已经发货！");
-        return;
-    }*/
     messager.confirm("确认","确定要对该订单发货吗？",function(result){
         if(result){
             var orderId = testgrid.getSelected().orderId;
@@ -99,6 +101,50 @@ function deliverGoods(){
 
 
 }
+
+function confirmReceiveMoney(){
+    if (!testgrid.getSelected()) {
+        messager.alert('请先选择记录！');
+        return;
+    }
+    messager.confirm("确认","确定已经收到该订单的款项了吗？",function(result){
+        if(result){
+            var orderId = testgrid.getSelected().orderId;
+            Ajax.getAsy().remoteCall("DmCustOrderController", "confirmReceiveMoney", [orderId], function(reply) {
+                if (reply.getResult()) {
+//                    messager.alert("提示", "发货成功！");
+                    $("#receiveMoney").hide();
+                    queryData();
+                } else {
+                    messager.alert("提示", "操作失败！");
+                }
+            });
+        }
+    })
+}
+
+function deleteOrder(){
+    if (!testgrid.getSelected()) {
+        messager.alert('请先选择记录！');
+        return;
+    }
+    messager.confirm("确认","确定要删除该订单吗？",function(result){
+        if(result){
+            var orderId = testgrid.getSelected().orderId;
+            Ajax.getAsy().remoteCall("DmCustOrderController", "deleteOrder", [orderId], function(reply) {
+                if (reply.getResult()) {
+                    messager.alert("提示", "删除成功！");
+                    $("#btnDel").hide();
+                    queryData();
+                } else {
+                    messager.alert("提示", "操作失败！");
+                }
+            });
+        }
+    })
+
+}
+
 function issueInvoice() {
     if (!testgrid.getSelected()) {
     	messager.alert('请先选择记录！');

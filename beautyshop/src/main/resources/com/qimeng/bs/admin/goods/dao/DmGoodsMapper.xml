@@ -27,6 +27,9 @@
         <result column="GOODS_PROPS" jdbcType="VARCHAR" property="goodsProps"/>
         <result column="VIEW_COUNT" jdbcType="INTEGER" property="viewCount"/>
         <result column="HINTS" jdbcType="VARCHAR" property="hints"/>
+        <result column="plan_price" jdbcType="VARCHAR" property="planPrice"/>
+        <result column="inst_num" jdbcType="VARCHAR" property="inst_num"/>
+        <result column="comment_num" jdbcType="VARCHAR" property="comment_num"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--
@@ -356,6 +359,20 @@
                 WHERE  GOODS_ID = good.GOODS_ID)
             </if>
         </trim>
+    </select>
+    <sql id="dm_goods_column_list">
+		goods_id, catalog_id, goods_no, goods_name, alias, type, image_uri, sale_way, price,
+		ori_price, state, create_staff, create_date, eff_date, exp_date,
+		date_format(putaway_time, '%Y-%m-%d %T') putaway_time, goods_desc, goods_props, view_count, hints
+    </sql>
+    <select id="selectGoodsById"  resultMap="BaseResultMap">
+        select <include refid="dm_goods_column_list" />
+        , plan_price, inst_num, comment_num
+        from (select a.*, round(a.price, 2) plan_price,
+        (select count(*) from dm_goods_inst b where b.goods_id = a.goods_id) inst_num,
+        (select count(*) from dm_cust_comment c where c.goods_id = a.goods_id) comment_num
+        from dm_goods a  where a.STATE = "00A") tt
+        where goods_id = #{goodsId}
     </select>
 
 </mapper>

@@ -3,11 +3,14 @@ package com.qimeng.bs.market.user.controller;
 import com.qimeng.bs.common.controller.GenericController;
 import com.qimeng.bs.login.bean.LoginInfo;
 import com.qimeng.bs.login.service.UserLoginService;
+import com.qimeng.bs.market.point.bean.DmPoints;
 import com.qimeng.bs.market.user.bean.DmUser;
 import com.qimeng.bs.market.user.bean.RegisterInfo;
 import com.qimeng.bs.market.user.service.DmUserService;
 import com.qimeng.common.Constants;
+import com.qimeng.common.Page;
 import com.qimeng.common.tools.Const;
+import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.jboss.resteasy.annotations.Form;
 import org.json.JSONException;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +46,7 @@ public class DmUserController extends GenericController {
 	 *      flag=1：用户已存在<br>
 	 *      flag=2：验证码不正确<br>
 	 */
+    @RemoteMethod
 	public Map insertUser(Map params) {
 //		params.put("s_verificCode", getSessionAttribute("s_verificCode"));
 		Map result = dmUserService.insertUser(params);
@@ -87,10 +92,11 @@ public class DmUserController extends GenericController {
 	/**
 	 * 基本信息修改
 	 */
+    @RemoteMethod
 	public boolean modifyBaseInfo(Map params) {
 		LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
-		params.put("userId", loginInfo.getUserId());
-		params.put("merchantId", loginInfo.getMerchantId());
+		params.put("userId", 18/*loginInfo.getUserId()*/);
+		params.put("merchantId", 11/*loginInfo.getMerchantId()*/);
 		boolean result = dmUserService.modifyBaseInfo(params);
 
 		// 修改成功刷新登录信息
@@ -104,22 +110,24 @@ public class DmUserController extends GenericController {
     public String modifyMerchant(@FormParam("realName")String realName,@FormParam("cardType")String cardType,@FormParam("cardNo")String cardNo) throws JSONException {
         JSONObject result = new JSONObject();
         LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
-        if(loginInfo!=null){
+//        if(loginInfo!=null){
             Map param = new HashMap();
+            param.put("userId", 18/*loginInfo.getUserId()*/);
+            param.put("merchantId", 11/*loginInfo.getMerchantId()*/);
             param.put("merchantName",realName);
             param.put("cardType",cardType);
             param.put("cardNo", cardNo);
 
-            boolean ret = modifyBaseInfo(param);
+            boolean ret = dmUserService.modifyCardInfo(param);
             if (ret) {
                 result.put("success", true);
             }else{
                 result.put("success", false);
             }
-        }else{
+        /*}else{
             result.put("success", false);
             result.put("reason", "未登录！");
-        }
+        }*/
 
         return result.toString();
     }
@@ -141,6 +149,7 @@ public class DmUserController extends GenericController {
 
         return result.toString();
     }
+    @RemoteMethod
 	public Map modifyLogonName(Map params) {
 		Map result = new HashMap();
 		LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
@@ -156,7 +165,7 @@ public class DmUserController extends GenericController {
 		userLoginService.refreshLoginInfo(loginInfo.getUserId());
 		return result;
 	}
-
+    @RemoteMethod
 	public Map modifyEmail(Map params) {
 		Map result = new HashMap();
 		LoginInfo loginInfo = (LoginInfo) getSessionAttribute(Constants.LOGIN_INFO);
@@ -175,6 +184,7 @@ public class DmUserController extends GenericController {
     /**
      * 用户有效积分
      */
+    @RemoteMethod
     public int queryUserPoint() {
         LoginInfo loginInfo = getCurrentLoginUser();
         if (loginInfo == null)
@@ -198,6 +208,7 @@ public class DmUserController extends GenericController {
     /**
      * 用户待支付
      */
+    @RemoteMethod
     public int queryUserBePaid() {
         LoginInfo loginInfo = getCurrentLoginUser();
         if (loginInfo == null) {
@@ -209,6 +220,7 @@ public class DmUserController extends GenericController {
     /**
      * 已发货
      */
+    @RemoteMethod
     public int queryDeliver() {
         LoginInfo loginInfo = getCurrentLoginUser();
         if (loginInfo == null) {
@@ -236,6 +248,7 @@ public class DmUserController extends GenericController {
     }
 
     @SuppressWarnings("rawtypes")
+    @RemoteMethod
     public List getUserSecurity() {
         LoginInfo currUser = getCurrentLoginUser();
         Map param=new HashMap();
@@ -245,6 +258,7 @@ public class DmUserController extends GenericController {
 
 
     @SuppressWarnings("rawtypes")
+    @RemoteMethod
     public Map updateUserReg(Map param) {
         /*if (!(param.get("type").equals("ques_yz"))) {
             param.put("s_yzCode", getSessionAttribute("s_verificCode"));
@@ -280,5 +294,15 @@ public class DmUserController extends GenericController {
             }
         }
         return result.toString();
+    }
+
+
+    @RemoteMethod
+    public Page queryAllUsers(Map params, int pageIndex, int pageSize){
+        return dmUserService.queryAllUsers(params,pageIndex,pageSize);
+    }
+    @RemoteMethod
+    public Page queryUsersByReferrer(Map params, int pageIndex, int pageSize){
+        return dmUserService.queryUsersByReferrer(params,pageIndex,pageSize);
     }
 }

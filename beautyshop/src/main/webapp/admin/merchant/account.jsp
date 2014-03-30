@@ -14,7 +14,7 @@ String path = request.getContextPath();
 		<script type="text/javascript">
 	       $(function() {
 	           $("#auditPhotos").click(function() {
-		           if (!testgrid.getSelected()) {
+		           if (!memberGrid.getSelected()) {
 		        	   messager.alert('请先选择记录！');
 						return;
 		           }
@@ -25,7 +25,7 @@ String path = request.getContextPath();
 	                   $(".ui_dialog").hide();
 	                   $("#loading").hide();
 	               });
-	               $("#photosIframe").attr("src", "photos.jsp?merchantId=" + testgrid.getSelected().merchantId);
+	               $("#photosIframe").attr("src", "photos.jsp?merchantId=" + memberGrid.getSelected().merchantId);
 	               $("#popDiv").show();
 	           });
 

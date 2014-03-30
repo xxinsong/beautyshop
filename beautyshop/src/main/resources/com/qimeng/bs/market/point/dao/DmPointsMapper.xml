@@ -57,7 +57,7 @@
         select
               a.user_id userId,
               a.logon_name logonName,
-              a.user_name userName,
+              c.merchant_name userName,
               a.level level,
               b.total_points totalPoints,
               b.last_exchange_points lastExchange,

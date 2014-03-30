@@ -3,7 +3,9 @@ package com.qimeng.bs.admin.msg.dao;
 import java.util.Map;
 
 import com.qimeng.bs.admin.msg.bean.DmMsgReceiver;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DmMsgReceiverMapper {
     int deleteByPrimaryKey(Integer id);
 

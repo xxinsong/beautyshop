@@ -13,6 +13,7 @@ import com.qimeng.bs.market.user.bean.ReferrerInfo;
 import com.qimeng.bs.market.user.dao.DmUserMapper;
 import com.qimeng.bs.market.user.dao.ReferrerInfoMapper;
 import com.qimeng.common.Constants;
+import com.qimeng.common.Page;
 import com.qimeng.common.tools.Const;
 import com.qimeng.common.tools.DateFormatUtils;
 import com.qimeng.common.tools.PKUtils;
@@ -234,7 +235,16 @@ public class DmUserService {
 
 		return true;
 	}
-	
+    @Transactional
+    public boolean modifyCardInfo(Map params) {
+        DmMerchant dmMerchant = new DmMerchant();
+        dmMerchant.setMerchantId(MapUtils.getInteger(params, "merchantId"));
+        dmMerchant.setMerchantName(MapUtils.getString(params, "merchantName"));
+        dmMerchant.setLegalCertType(MapUtils.getString(params,"cardType"));
+        dmMerchant.setLegalCertNo(MapUtils.getString(params, "cardNo"));
+        dmMerchantMapper.updateByPrimaryKeySelective(dmMerchant);
+        return true;
+    }
 	@Transactional
 	public Map modifyLogonName(Map params) {
 		Map result = checkPasswd(params);
@@ -355,4 +365,22 @@ public class DmUserService {
             return result;
         }
     }
+
+    public Page queryAllUsers(Map params, int pageIndex, int pageSize) {
+        Page page = new Page(pageIndex, pageSize);
+        page.setParams(params);
+        List<Map> list = dmUserMapper.queryAllUsers(page);
+        page.setRows(list);
+        return page;
+    }
+
+    public Page queryUsersByReferrer(Map params, int pageIndex, int pageSize) {
+        Page page = new Page(pageIndex, pageSize);
+        page.setParams(params);
+        List<Map> list = dmUserMapper.queryUsersByReferrer(page);
+        page.setRows(list);
+        return page;
+    }
+
+
 }

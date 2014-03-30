@@ -5,18 +5,6 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-    <filter>
-        <filter-name>SignOnFilter</filter-name>
-        <filter-class>
-            com.qimeng.common.signon.SignOnFilter
-        </filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>SignOnFilter</filter-name>
-        <url-pattern>/admin/*</url-pattern>
-    </filter-mapping>
-
     <!--字符过滤-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
@@ -34,7 +22,17 @@
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>SignOnFilter</filter-name>
+        <filter-class>
+            com.qimeng.common.signon.SignOnFilter
+        </filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>SignOnFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <!--web权限配置-->
     <!--<filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -153,10 +151,10 @@
         <welcome-file>/welcome</welcome-file>
     </welcome-file-list>
 
-    <error-page>
+    <!--<error-page>
         <exception-type>java.lang.Exception</exception-type>
         <location>/WEB-INF/error.jsp</location>
-    </error-page>
+    </error-page>-->
     <error-page>
         <error-code>404</error-code>
         <location>/welcome</location>

@@ -280,8 +280,27 @@
         from dm_user
         where LOGON_NAME = #{logonName,jdbcType=VARCHAR}
     </select>
+    <select id="queryAllUsers" parameterType="page" resultType="java.util.Map">
+        select a.user_id,a.logon_name,b.referrer_id,c.logon_name referrer,a.level,a.state
+          from dm_user a
+            left join referrer_info b on a.USER_ID = b.presentee_id
+            left join dm_user c on b.referrer_id = c.USER_ID
+          where 1=1
+          <if test="params.level != null and params.level != ''">
+            and a.level = #{level,jdbcType=VARCHAR}
+          </if>
+            <if test="params.logon_name != null and params.logon_name != ''">
+                and a.logon_name = #{logon_name,jdbcType=VARCHAR}
+            </if>
+        order by level,user_id
+    </select>
+    <select id="queryUsersByReferrer" parameterType="page" resultType="java.util.Map">
+        select a.user_id,a.logon_name,a.level,a.state from dm_user a
+            JOIN referrer_info b on a.user_id = b.presentee_id
+        and b.referrer_id = #{referrer_id,jdbcType=VARCHAR}
+    </select>
 
-  <insert id="insertUser" keyProperty="userId" parameterType="java.util.Map" useGeneratedKeys="true">
+    <insert id="insertUser" keyProperty="userId" parameterType="java.util.Map" useGeneratedKeys="true">
     insert into dm_user (LOGON_NAME,USER_NAME, PASSWD, STATE, CREATE_TIME,
      LOGON_FAILED_COUNT, LAST_LOGIN_TIME,LEVEL)
     values (#{logonName,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR},

@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.qimeng.common.Page;
 import com.qimeng.bs.admin.msg.bean.DmSiteMsg;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DmSiteMsgMapper {
 	
     int deleteByPrimaryKey(Integer msgId);

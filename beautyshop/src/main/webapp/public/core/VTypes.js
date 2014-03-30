@@ -108,6 +108,7 @@ EasyuiZX.VTypes = function() {
 		'numOnly': function(v) {
 			return numOnly.test(v);
 		},
+        'numOnlyText' : '只能包含数字',
 		'alphaText' : '只能包含字母或 _',
 		'alphaMask' : /[a-z_]/i,
 		'alphanum' : function(v) {

@@ -40,18 +40,18 @@
                     	<div class="fore3"><a href="javascript:void(0)" id="updUserPass">修改</a></div>
                         <div class="clear"></div>
                   	</div>
-               	  	<div class="m" id="email">
+               	  	<%--<div class="m" id="email">
                    		<div class="fore1"><i class="saveico-2" id="email_ioc"></i><span>邮箱验证</span></div>
                	  		<div class="fore2" id="email_msg"><span  style="color:#f16f15;">您尚未验证个人邮箱，建议验证您的个人邮箱，以提高您的账户安全。</span></div>
                     	<div class="fore3"><a href="javascript:void(0)" id="email_oper">验证</a></div>
                         <div class="clear"></div>
-                  	</div>
-                  	<div class="m" id="pasQues">
+                  	</div>--%>
+                  	<%--<div class="m" id="pasQues">
                    		<div class="fore1"><i class="saveico-2" id="pasQues_ioc"></i><span>密保问题</span></div>
                	  		<div class="fore2" id="pasQues_msg"><span style="color:#f16f15;">您尚未验证密保问题，建议您验证你的密保问题，以提高您的账户安全。</span></div>
                     	<div class="fore3"><a href="#" id="pasQues_oper" id="pasQues_oper">验证</a></div>
                         <div class="clear"></div>
-                  	</div>
+                  	</div>--%>
                 </div>   
             	<div class="saveKey">
                 	<div class="keyImg"><img src="<%=path%>/market/main/images/save_key.png" width="90" height="90" /></div>

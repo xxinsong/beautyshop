@@ -98,7 +98,7 @@ function searchHotGoods() {
                 html.push("    </a>");
                 html.push("    <a target='_blank' title='" + (goods.goods_name || "") + "' href='" + (commonJs.getWebPath() + "/product?id=" + goods.goods_id) + "' class='pro_name'>" + (goods.goods_name || "") + "</a>");
                 html.push("    <p class='starCon'><span class='star fivestar'></span></p>");
-                html.push("    <p class='tl'>价格：<strong>¥" + (goods.price || "未知") + "</strong></p>");
+                html.push("    <p class='tl'>价格：<strong>¥" + (goods.price || "未知") + "</strong>&nbsp;&nbsp;<span ><del>(￥"+goods.ori_price+")</del></span></p>");
                 html.push("    <p class='buyOn'><span>售出（" + (goods.inst_num || "0") + "）</span><span>评论（" + (goods.comment_num || "0") + "）</span></p>");
                 html.push("</li>");
             }

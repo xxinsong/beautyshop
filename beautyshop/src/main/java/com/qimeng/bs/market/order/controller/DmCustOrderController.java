@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -105,11 +106,17 @@ public class DmCustOrderController extends GenericController{
         request.setAttribute("orderId",order.getOrderId());
         request.setAttribute("orderNo",order.getOrderNo());
         request.setAttribute("amount",order.getAmount());
+        String paymentType = order.getPaymentType();
+        request.setAttribute("paymentType", paymentType);
         request.setAttribute("contactPerson",order.getRelaMan());
         request.setAttribute("mobilePhone",order.getRelaTel());
         request.setAttribute("address",order.getRelaProvince()+order.getRelaCity()+order.getRelaDistrict()+order.getRelaAddr());
         request.setAttribute("zipCode",order.getZipCode());
-        return "forward:/payment";
+        if ("1".equals(paymentType)) {
+            return "forward:/payment";
+        }else {
+            return "redirect:/order";
+        }
     }
 
     private DmCustOrder saveOrder(HttpServletRequest request) {
@@ -133,7 +140,7 @@ public class DmCustOrderController extends GenericController{
         if(StringUtils.equals(mode, "CREATE")){
             order = new DmCustOrder();
             order.setMerchantId(currUser.getMerchantId());
-            order.setAmount(cart.getBuyingAmount());
+            order.setAmount(cart.getPayAmount());
             order.setRelaMan(address.getContactPerson());
             order.setRelaTel(address.getMobilePhone());
             order.setRelaProvince(address.getProvince());
@@ -155,7 +162,11 @@ public class DmCustOrderController extends GenericController{
                 subOrder.setPrice(item.getPrice());
                 subOrder.setCreateDate(new Date());
                 subOrder.setCommentated("0");
-                subOrder.setState("10A");
+                if("1".equals(paymentType)){
+                    subOrder.setState("10A");//待确认
+                }else {
+                    subOrder.setState("10E");
+                }
 
                 order.getSubCustOrderList().add(subOrder);
             }
@@ -172,8 +183,11 @@ public class DmCustOrderController extends GenericController{
         order.setInvoiceDetail(invoiceDetail);
         order.setOrderId(StringUtils.isEmpty(orderId)?null:Integer.valueOf(orderId));
         order.setOrderNo(orderNo);
-
-        order.setState("10A");//待确认
+        if("1".equals(paymentType)){
+            order.setState("10A");//待确认
+        }else {
+            order.setState("10E");
+        }
 
 
         dmCustOrderService.submitOrder(order,mode);
@@ -193,6 +207,7 @@ public class DmCustOrderController extends GenericController{
             request.setAttribute("orderId",orderId);
             request.setAttribute("orderNo",order.getOrderNo());
             request.setAttribute("amount",order.getAmount());
+            request.setAttribute("paymentType",order.getPaymentType());
             request.setAttribute("invoiceType",order.getInvoiceType());
             request.setAttribute("invoiceNotes",order.getInvoiceNotes());
             request.setAttribute("invoiceDetail",order.getInvoiceDetail());
@@ -218,6 +233,7 @@ public class DmCustOrderController extends GenericController{
         LoginInfo currUser = getCurrentLoginUser();
         String orderNo = orderNoGenerator.genCode(OrderNoGenerator.OrderType.NORMAL,currUser.getMerchantId());
         request.setAttribute("orderNo",orderNo);
+        request.setAttribute("paymentType","1");
         request.setAttribute("invoiceType","1");
         request.setAttribute("invoiceNotes","个人");
         request.setAttribute("invoiceDetail","明细");
@@ -256,8 +272,13 @@ public class DmCustOrderController extends GenericController{
         params.put("orderId",orderId);
         DmCustOrder order = dmCustOrderService.selectCustOrder(params);
         JSONObject result = new JSONObject();
-        result.put("totalPrice",order.getAmount());
+        Float totalPay = order.getAmount();
+        float freight = order.getFreight();
+        float totalPrice = new BigDecimal(totalPay).subtract(new BigDecimal(freight)).floatValue();
+        result.put("totalPrice", String.valueOf(totalPrice));
         result.put("totalCount", order.getItemNo());
+        result.put("freight", String.valueOf(freight));
+        result.put("totalPay", String.valueOf(totalPay));
         return result.toString();
     }
     @GET
@@ -320,8 +341,18 @@ public class DmCustOrderController extends GenericController{
         return dmCustOrderService.deliverGoods(orderId);
     }
     @RemoteMethod
+    public boolean confirmReceiveMoney(Integer orderId) {
+        return dmCustOrderService.confirmReceiveMoney(orderId);
+    }
+    @RemoteMethod
     public Page<DmSubCustOrder> querySubOrder(Map params, int pageIndex, int pageSize) {
         Page<DmSubCustOrder> orderList = dmCustOrderService.querySubOrder(params, pageIndex, pageSize);
         return orderList;
     }
+    @RemoteMethod
+    public boolean deleteOrder(Integer orderId) {
+        return dmCustOrderService.deleteOrder(orderId);
+    }
+
+
 }

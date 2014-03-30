@@ -66,4 +66,5 @@ public interface DmSubCustOrderMapper {
     DmSubCustOrder selectCommentOrder(Map params);
 
 
+    void deleteSubOrderByOrderId(Integer orderId);
 }

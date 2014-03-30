@@ -132,6 +132,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <update id="updateReferrerByPresenteeId" parameterType="java.util.Map">
+        update referrer_info
+        set referrer_id = #{referrerId,jdbcType=INTEGER}
+        where presentee_id = #{presenteeId,jdbcType=INTEGER}
+    </update>
     <select id="findPresentee" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
@@ -140,7 +145,7 @@
     </select>
     <select id="queryMyReferrers" parameterType="Page" resultMap="ReferrerInfoMap">
         select
-        a.id, a.referrer_id, a.presentee_id, a.create_time,b.user_name as presentee_name
+        a.id, a.referrer_id, a.presentee_id, a.create_time,b.logon_name as presentee_name
         from referrer_info a inner join dm_user b on a.presentee_id = b.user_id
         where a.referrer_id = #{referrerId,jdbcType=INTEGER}
     </select>

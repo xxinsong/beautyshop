@@ -14,6 +14,7 @@ public class ShoppingCart {
     private List<DmShoppingCartItem> items = new ArrayList<DmShoppingCartItem>();
     //  购物车中将购买的商品清单（将要生成订单的商品列表）
     private List<DmShoppingCartItem> buying = new ArrayList<DmShoppingCartItem>();
+    private float freight = 10.0f;
 
 
     /**
@@ -55,7 +56,14 @@ public class ShoppingCart {
             float itemAmount = item.getAmount();
             BigDecimal price = new BigDecimal(String.valueOf(itemAmount));
             amount = amount.add(price);
+            /*if(item.getItemNo()>1){
+                freight = 0.0f;
+            }*/
         }
+        /*if(items.size()>1){
+            freight = 0.0f;
+        }*/
+//        amount = amount.add(new BigDecimal(freight));
         return amount.floatValue();
     }
 
@@ -81,8 +89,18 @@ public class ShoppingCart {
             float itemAmount = item.getAmount();
             BigDecimal price = new BigDecimal(String.valueOf(itemAmount));
             buyingAmount = buyingAmount.add(price);
+
         }
         return buyingAmount.floatValue();
+    }
+    /**
+     * 订单总额=商品金额+运费
+     * @return
+     */
+    public float getPayAmount() {
+        Float buyingAmount = getBuyingAmount();
+        float payAmount = new BigDecimal(buyingAmount).add(new BigDecimal(freight)).floatValue();
+        return payAmount;
     }
 
     /**
@@ -95,6 +113,7 @@ public class ShoppingCart {
             int itemNo = item.getItemNo();
             count = count + itemNo;
         }
+
         return count;
     }
 
@@ -265,4 +284,13 @@ public class ShoppingCart {
     }
 
 
+    public float getFreight() {
+        int count = getBuyingCount();
+        if(count>1){
+            freight = 0.0f;
+        }else{
+            freight = 10.0f;
+        }
+        return freight;
+    }
 }

@@ -118,7 +118,7 @@ function orderRowRender(data,context){
             }
         });
         $("[name='price']",$clone).text("￥"+subOrder.price);
-        $("[name='payment_type']",$clone).text(data.paymentType=='1'?'在线支付':data.paymentType);
+        $("[name='payment_type']",$clone).text(data.paymentType=='1'?'在线支付':"货到付款");
         $("[name='create_time']",$clone).text($.format.date(data.createTime,'yyyy-MM-dd HH:mm:ss'));
         var state = data.state;
         var $state = $("[name='state']", $clone);

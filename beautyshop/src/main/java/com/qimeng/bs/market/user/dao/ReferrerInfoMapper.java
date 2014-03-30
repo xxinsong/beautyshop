@@ -5,6 +5,7 @@ import com.qimeng.common.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ReferrerInfoMapper {
@@ -63,4 +64,6 @@ public interface ReferrerInfoMapper {
     List<ReferrerInfo> getNextLevel(Integer userId);
 
     ReferrerInfo queryUpLevel(Integer userId);
+
+    void updateReferrerByPresenteeId(Map param);
 }

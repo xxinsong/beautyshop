@@ -1,14 +1,17 @@
 package com.qimeng.bs.market.user.service;
 
+import com.qimeng.bs.market.order.dao.DmCustOrderMapper;
 import com.qimeng.bs.market.user.bean.DmUser;
 import com.qimeng.bs.market.user.bean.ReferrerInfo;
 import com.qimeng.bs.market.user.dao.DmUserMapper;
 import com.qimeng.bs.market.user.dao.ReferrerInfoMapper;
 import com.qimeng.common.Page;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +25,9 @@ public class ReferrerInfoService {
     private ReferrerInfoMapper referrerInfoMapper;
     @Autowired
     private DmUserMapper dmUserMapper;
+    @Autowired
+    private DmCustOrderMapper dmCustOrderMapper;
+
     public Page<ReferrerInfo> queryMyReferrers(Map params, int pageIndex, int pageSize) {
         Page page = new Page(pageIndex, pageSize);
         page.setParams(params);
@@ -30,10 +36,10 @@ public class ReferrerInfoService {
         return page;
     }
 
-    public List<Integer> getUp5LevelsReferrers(String userId) {
+    public List<Integer> getUp5LevelsReferrers(Integer userId) {
         List<Integer> allList = new ArrayList<Integer>();
 //        DmUser dmUser = dmUserMapper.selectByPrimaryKey(Integer.valueOf(userId));
-        ReferrerInfo up1 = referrerInfoMapper.queryUpLevel(Integer.valueOf(userId));
+        ReferrerInfo up1 = referrerInfoMapper.queryUpLevel(userId);
         ReferrerInfo up2 = null;
         ReferrerInfo up3 = null;
         ReferrerInfo up4 = null;
@@ -95,5 +101,34 @@ public class ReferrerInfoService {
         }
 
         return allList;
+    }
+
+    public Map modifyReferrer(Map params) {
+        Map result = new HashMap();
+        Integer userId = MapUtils.getInteger(params, "userId");
+        String referrerNo = MapUtils.getString(params, "referrerNo");
+
+        DmUser user = dmUserMapper.selectByLogonName(referrerNo);
+        if (user == null) {
+            result.put("success", false);
+            result.put("reason", "推荐人号码不存在！");
+            return result;
+        }else if(user.getUserId()!=-1){
+            int count = dmCustOrderMapper.countDealOrderByUserId(user.getUserId());
+            if (count <= 0) {
+                result.put("success",false);
+                result.put("reason", "推荐人没有支付过订单，不符合推荐人资格！");
+                return result;
+            }
+        }
+
+        Map param = new HashMap();
+        param.put("presenteeId", userId);
+        param.put("referrerId", user.getUserId());
+        referrerInfoMapper.updateReferrerByPresenteeId(param);
+        result.put("success", true);
+
+        return result;
+
     }
 }
