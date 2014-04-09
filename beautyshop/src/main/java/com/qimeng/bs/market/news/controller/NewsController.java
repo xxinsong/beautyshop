@@ -100,4 +100,24 @@ public class NewsController extends GenericController {
         newsService.delteNews(news);
         return ret;
     }
+    
+    //add by xinxs
+    @RequestMapping("/ad")
+    public String advertis(HttpServletRequest request) {
+    	String adId = request.getParameter("id");
+    	String url = "";
+    	if("9".equals(adId)){
+    		url = "/market/help/ad1.jsp";
+    	}else if("10".equals(adId)){
+    		url = "/market/help/ad2.jsp";
+    	}else if("17".equals(adId)){
+    		url = "/market/help/ad3.jsp";
+    	}else if("11".equals(adId)){
+    		url = "/market/help/ad4.jsp";
+    	}else if("12".equals(adId)){
+    		url = "/market/help/ad2.jsp";
+    	}
+    	
+        return url;
+    }
 }

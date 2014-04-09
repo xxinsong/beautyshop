@@ -99,7 +99,13 @@ public class ShoppingCart {
      */
     public float getPayAmount() {
         Float buyingAmount = getBuyingAmount();
-        float payAmount = new BigDecimal(buyingAmount).add(new BigDecimal(freight)).floatValue();
+        //modify by xinxs 两盒免邮费
+        float payAmount = 0.0f;
+        if(buyingAmount < 150){
+        	payAmount = new BigDecimal(buyingAmount).add(new BigDecimal(freight)).floatValue();        	
+        }else{
+        	payAmount = buyingAmount;
+        }
         return payAmount;
     }
 

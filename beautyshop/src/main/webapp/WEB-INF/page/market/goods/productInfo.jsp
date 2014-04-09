@@ -116,7 +116,7 @@
                 <td name="goodsNo"></td>
             </tr>
             <tr>
-                <td class="td_title">商品类型</td>
+                <td class="td_title">使用方法</td>
                 <td name="type"></td>
             </tr>
             <tr>

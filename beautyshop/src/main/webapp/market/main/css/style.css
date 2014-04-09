@@ -791,10 +791,10 @@ span.close_sort {
 .promo_show ul {
     height: 25px;
     position: absolute;
-    right: 10px;
+    right: 5px;
     text-align: right;
-    bottom: 115px;
-    width: 560px;
+    bottom: -1px;
+    width: 120px;
 }
 .promo_show ul li {
     color: #b3b3b3;

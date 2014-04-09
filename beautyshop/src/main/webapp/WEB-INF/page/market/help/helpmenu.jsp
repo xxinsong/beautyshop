@@ -16,6 +16,7 @@
                             <li id="mnu_problems"><a href="<%=request.getContextPath()%>/help/problems">常见问题</a></li>
                             <%--<li id="mnu_update"><a href="<%=request.getContextPath()%>/help/update">获取更新</a></li>--%>
                             <li id="mnu_agreement"><a href="<%=request.getContextPath()%>/help/agreement">用户协议</a></li>
+                            <li id="mnu_mobile"><a href="<%=request.getContextPath()%>/ad?id=17">手机安装</a></li>
                         </ul>
                     </div>
                     <div class="uesr_title">

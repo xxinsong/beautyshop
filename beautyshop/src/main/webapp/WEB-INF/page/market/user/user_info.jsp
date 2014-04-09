@@ -123,6 +123,7 @@
                           <td><input type="text" name="contactName" value="" class="ui_ipt bold" max_length="40"/></td>
                           <td></td>
                         </tr>--%>
+                        <!-- 
                         <tr>
                             <th>所在地：</th>
                             <td id="selectaddress">
@@ -143,6 +144,7 @@
                                        max_length="400"/></td>
                             <td></td>
                         </tr>
+                         -->
                         <tr>
                             <td colspan="2" style="text-align: center;">
                                 <a href="javascript: void(0)" class="orangebtn_m" id="submit_btn"><span>提&nbsp;交</span></a>

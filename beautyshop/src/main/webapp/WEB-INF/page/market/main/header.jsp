@@ -20,7 +20,7 @@
     	<div class="header_logo" style="cursor: pointer;"></div>
         <div class="header_search">
             <div>
-                <span style="font-weight: bold;font-family: 楷体;font-size: 24px;color: #ff4200;">分享美丽   实现财富百万年薪梦想！</span>
+                <span style="font-weight: bold;font-family: 楷体;font-size: 24px;color: #ff4200;">分享美丽   实现财富梦想！</span>
             </div>
    	    	<div class="searchBox" style="display:none; ">
             	<div class="searchIpt">

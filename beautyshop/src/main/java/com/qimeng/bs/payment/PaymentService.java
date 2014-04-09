@@ -1,5 +1,6 @@
 package com.qimeng.bs.payment;
 
+import com.qimeng.bs.market.order.bean.DmCustOrder;
 import com.qimeng.bs.market.order.bean.DmTradeLog;
 import com.qimeng.bs.market.order.service.DmCustOrderService;
 import com.qimeng.bs.market.order.service.DmTradeLogService;
@@ -40,17 +41,22 @@ public class PaymentService {
     @Transactional
     public void paymentOK(String userId,String orderNo, DmTradeLog log) {
         dmCustOrderService.updateOrderStateByOrderNo(orderNo, "10B");
+        DmCustOrder dmCustOrder = dmCustOrderService.selectByOrderNo(orderNo);
+        //modify by xinxs 一盒送1个积分，几盒送几个积分
+        int point = 0;
+        Float amount = dmCustOrder.getAmount();
+        point = (int) (amount/75);
 
         List<Integer> upReferrers = referrerInfoService.getUp5LevelsReferrers(Integer.valueOf(userId));
         for (Integer referrer : upReferrers) {
 
-            dmPointService.increaseTotalPoint(referrer);
+            dmPointService.increaseTotalPoint(referrer,point);
 
             DmPointsDetail dmPointsDetail = new DmPointsDetail();
             dmPointsDetail.setOrderNo(orderNo);
             dmPointsDetail.setUserId(referrer);
             dmPointsDetail.setPresenteeId(Integer.valueOf(userId));
-            dmPointsDetail.setPoint(1);
+            dmPointsDetail.setPoint(point);
             dmPointsDetail.setGainTime(new Date());
             dmPointsDetail.setState("00A");
 

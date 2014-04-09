@@ -13,7 +13,7 @@ $(function() {
     /*$("#waitForComment").on('click',function(){
         window.location.href=commonJs.getWebPath()+"/order?state=done";
     });*/
-})
+});
 
 var delay = {
 	queue : [],
@@ -24,25 +24,25 @@ var delay = {
 	clear : function() {
 		clearTimeout(this.queue.pop());
 	}
-}
+};
 function searchAdGoods(){
     var mainParams = {"num":5,"adLevel":"1"};
     Ajax.getAsy().remoteCall("GoodsController", "searchAdGoods", [mainParams ], function(reply) {
         var adgoodsList = reply.getResult();
         var html = [];
         if (adgoodsList && adgoodsList.length > 0) {
-            for ( var i = 0; i < adgoodsList.length; i++) {
+            for ( var i = adgoodsList.length-1; i >= 0; i--) {
                 var adgood = adgoodsList[i];
-                html.push("<a href='"+commonJs.getWebPath() + "/product?id=" + adgood.goods_id+"' target='_blank'><img src='"+commonJs.getWebPath()+adgood.adimageurl+"' alt='"+adgood.addesc+"' width='1000' height='362' /></a>");
+                html.push("<a href='"+commonJs.getWebPath() + "/ad?id=" + adgood.goods_id+"' target='_blank'><img src='"+commonJs.getWebPath()+adgood.adimageurl+"' alt='' width='1000' height='362' /></a>");
             }
             var $html = $(html.join(""));
             $("#KinSlideshow").append($html);
         }
         $("#KinSlideshow").KinSlideshow({
             moveStyle:"right",
-            titleBar:{titleBar_height:30,titleBar_bgColor:"#6a6a6a",titleBar_alpha:0.5},
+            titleBar:{titleBar_height:30,titleBar_bgColor:"#6a6a6a",titleBar_alpha:0.1},
             titleFont:{TitleFont_size:12,TitleFont_color:"#FFFFFF",TitleFont_weight:"normal"},
-            isHasBtn:false,
+            isHasBtn:true,
             btn:{btn_bgColor:"#FFFFFF",btn_bgHoverColor:"#ff72a0",btn_fontColor:"#000000",
                 btn_fontHoverColor:"#FFFFFF",btn_borderColor:"#e21482",
                 btn_borderHoverColor:"#1188c0",btn_borderWidth:1}

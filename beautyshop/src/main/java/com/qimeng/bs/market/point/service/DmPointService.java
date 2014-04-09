@@ -47,18 +47,18 @@ public class DmPointService {
     }
 
     @Transactional
-    public void increaseTotalPoint(Integer userId) {
+    public void increaseTotalPoint(Integer userId,int point) {
         DmPoints points = selectPointsByUserId(userId);
         if (points != null) {
             int total = points.getTotalPoints();
             int remainder = points.getRemainderPoints();
-            points.setTotalPoints(total + 1);
-            points.setRemainderPoints(remainder + 1);
+            points.setTotalPoints(total + point);
+            points.setRemainderPoints(remainder + point);
             dmPointsMapper.updateByPrimaryKeySelective(points);
         }else{
             points = new DmPoints();
             points.setMerchantId(userId);
-            points.setTotalPoints(1);
+            points.setTotalPoints(point);
             points.setRemainderPoints(1);
             dmPointsMapper.insert(points);
         }
