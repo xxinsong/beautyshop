@@ -112,7 +112,7 @@
         </div>
     </div>
 </div>
-<div id="invoice_div" class="steps step_complete">
+<div id="invoice_div" class="steps step_complete" style="display: none;">
     <div class="step_title">
         <div class="step_right"></div>
         <strong>发票信息</strong>

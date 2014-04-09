@@ -33,7 +33,6 @@
                 <div class="pers_cen_con">
                     <div class="announce_content" align="center">
                         <li align="center"><img src="<%=path%>/market/main/images/empModel.jpg"/></li>
-                        
                     </div>
                     <div class="clear"></div>
                 </div>
