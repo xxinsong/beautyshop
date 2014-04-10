@@ -93,7 +93,7 @@
                             <label for="pay-method-4">在线支付</label>
                         </div>
                         <div class="field">
-                            <span class="tip">由第三方担保交易。</span>
+                            <span class="tip">网银支付</span>
                         </div>
                         <span class="clr"></span>
                     </div>

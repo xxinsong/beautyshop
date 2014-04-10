@@ -57,6 +57,8 @@
     <p class="copyright">
         Copyright© 2008-2014 ，版权所有 ：深圳市韩塑美生物医学科技有限公司 粤ICP备14007064号-1 使用本站即表示接受韩塑美会员用户协议。
     </p>
+    <p><script language="javascript" type="text/javascript" src="http://js.users.51.la/16924819.js"></script>
+    <noscript><a href="http://www.51.la/?16924819" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/16924819.asp" style="border:none" /></a></noscript></p>
     <%--<p class="copyright">联系方式：深圳市南山区南海大道海王大厦A座23B韩塑美科技公司   电话：0755-22675837</p>--%>
     <p class="kexin"><img src="<%=request.getContextPath()%>/market/main/images/kexinimg01.jpg" width="112" height="35" /><img src="<%=request.getContextPath()%>/market/main/images/kexinimg02.jpg" width="112" height="35" /><img src="<%=request.getContextPath()%>/market/main/images/kexinimg03.jpg" width="112" height="35" /></p>
 </div>
